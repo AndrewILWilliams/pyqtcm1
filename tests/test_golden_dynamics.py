@@ -214,3 +214,119 @@ def test_sflux_golden(fn):
                      atol_scale=3e-5)
     assert_field(out['tauy'][:-1], f2py_to_grid('tauy', post['tauy'])[:-1],
                  'tauy', atol_scale=3e-5)
+
+
+# ---------------------------------------------------------------------------
+# Land, baroclinic and barotropic mode updates
+# ---------------------------------------------------------------------------
+from qtcm1.physics.land import sland1                    # noqa: E402
+from qtcm1.dynamics.baroclinic import barcl              # noqa: E402
+from qtcm1.dynamics.barotropic import bartr, gradphis    # noqa: E402
+from qtcm1.dynamics.elliptic import PoissonDirichlet     # noqa: E402
+
+POISSON = PoissonDirichlet(GRID)
+
+
+def _g64(stage_dict, key):
+    return f2py_to_grid(key, stage_dict[key]).astype(np.float64)
+
+
+@pytest.mark.parametrize('fn', FILES, ids=[os.path.basename(f) for f in FILES])
+def test_sland1_golden(fn):
+    pre = load(fn, 'wsflux')
+    post = load(fn, 'wsland1')
+    out = sland1(_g64(pre, 'Ts'), _g64(pre, 'WD'),
+                 f2py_to_grid('STYPE', pre['STYPE']),
+                 _g64(pre, 'Qc'), _g64(pre, 'Evap'), _g64(pre, 'FTs'),
+                 _g64(pre, 'FSWds'), _g64(pre, 'FSWus'),
+                 _g64(pre, 'FLWds'), _g64(pre, 'FLWus'),
+                 _g64(pre, 'CV'), float(pre['dt']))
+    land = f2py_to_grid('STYPE', pre['STYPE']) != 0
+    for key in ['Ts', 'WD', 'Evap', 'Evapi', 'wet', 'Runs', 'Runf']:
+        exp = _g64(post, key)
+        act = out[key]
+        assert_field(np.where(land, act, exp), exp, key)
+    # ocean untouched
+    np.testing.assert_array_equal(out['Ts'][~land],
+                                  _g64(pre, 'Ts')[~land])
+
+
+@pytest.mark.parametrize('fn', FILES, ids=[os.path.basename(f) for f in FILES])
+def test_barcl_golden(fn):
+    pre = load(fn, 'wdffus')
+    post = load(fn, 'wbarcl')
+    out = barcl(_g64(pre, 'u1'), _g64(pre, 'v1'), _g64(pre, 'T1'),
+                _g64(pre, 'q1'),
+                taux=_g64(pre, 'taux'), tauy=_g64(pre, 'tauy'),
+                advu1=_g64(pre, 'advu1'), advv1=_g64(pre, 'advv1'),
+                advT1=_g64(pre, 'advT1'), advq1=_g64(pre, 'advq1'),
+                dfsu1=_g64(pre, 'dfsu1'), dfsv1=_g64(pre, 'dfsv1'),
+                dfsT1=_g64(pre, 'dfsT1'), dfsq1=_g64(pre, 'dfsq1'),
+                Qc=_g64(pre, 'Qc'), FSW=_g64(pre, 'FSW'),
+                FLW=_g64(pre, 'FLW'), FTs=_g64(pre, 'FTs'),
+                Evap=_g64(pre, 'Evap'),
+                grid=GRID, polar_filter=PFILT, dt=float(pre['dt']))
+    for key in ['u1', 'v1', 'T1', 'q1', 'div1', 'GMs1', 'GMq1']:
+        assert_field(out[key], _g64(post, key), key)
+
+
+def _identify_ab3(pre_r, post_r):
+    """Return (rhs_written, [prev1, prev2] candidates) from AB3 slices."""
+    delta = [np.abs(post_r[..., s] - pre_r[..., s]).max() for s in range(3)]
+    w = int(np.argmax(delta))
+    others = [s for s in range(3) if s != w]
+    return w, others
+
+
+@pytest.mark.parametrize('fn', FILES, ids=[os.path.basename(f) for f in FILES])
+def test_bartr_golden(fn):
+    pre = load(fn, 'wsavebartr')
+    post = load(fn, 'wbartr')
+    pre_r, post_r = pre['rhsvort0'], post['rhsvort0']    # (nx, ny, 3)
+    w, others = _identify_ab3(pre_r, post_r)
+
+    common = dict(taux=_g64(pre, 'taux'), tauy=_g64(pre, 'tauy'),
+                  advu0=_g64(pre, 'advu0'), advv0=_g64(pre, 'advv0'),
+                  dfsu0=_g64(pre, 'dfsu0'), dfsv0=_g64(pre, 'dfsv0'),
+                  grid=GRID, polar_filter=PFILT, poisson=POISSON,
+                  dt=float(pre['dt']), mt0=1)
+    exp_vort = _g64(post, 'vort0')
+    best = None
+    for o1, o2 in (others, others[::-1]):
+        hist = [pre_r[..., o1].T.astype(np.float64)[: GRID.ny - 1],
+                pre_r[..., o2].T.astype(np.float64)[: GRID.ny - 1]]
+        bhist = [float(pre['rhsu0bar'][o1]), float(pre['rhsu0bar'][o2])]
+        out = bartr(_g64(pre, 'vort0'), float(pre['u0bar']),
+                    _g64(pre, 'v0'), hist, bhist, **common)
+        err = np.abs(out['vort0'] - exp_vort).max()
+        if best is None or err < best[0]:
+            best = (err, out)
+    err, out = best
+    # my new rhs must match the slice the Fortran wrote
+    assert_field(out['rhs_hist'][0][: GRID.ny - 1],
+                 post_r[..., w].T.astype(np.float64)[: GRID.ny - 1],
+                 'rhsvort0[new]')
+    # tolerance note: psi0 is O(1e8) in float32, and u0/v0 differentiate
+    # it - cancellation amplifies the f32 storage/solver roundoff to a few
+    # 1e-5 relative. Logic errors show up orders of magnitude above this.
+    for key in ['vort0', 'psi0', 'u0', 'v0']:
+        assert_field(out[key], _g64(post, key), key, atol_scale=5e-5)
+    assert abs(out['u0bar'] - float(post['u0bar'])) <= \
+        max(1e-5 * abs(float(post['u0bar'])), 1e-8)
+
+
+@pytest.mark.parametrize('fn', FILES, ids=[os.path.basename(f) for f in FILES])
+def test_gradphis_golden(fn):
+    sav = load(fn, 'wsavebartr')               # winds entering bartr
+    pre = load(fn, 'wbartr')                   # state entering gradphis
+    post = load(fn, 'wgradphis')
+    out = gradphis(_g64(pre, 'u0'), _g64(pre, 'v0'),
+                   _g64(sav, 'u0'), _g64(sav, 'v0')[1:],
+                   _g64(pre, 'T1'),
+                   taux=_g64(pre, 'taux'), tauy=_g64(pre, 'tauy'),
+                   advu0=_g64(pre, 'advu0'), advv0=_g64(pre, 'advv0'),
+                   dfsu0=_g64(pre, 'dfsu0'), dfsv0=_g64(pre, 'dfsv0'),
+                   grid=GRID, dt=float(pre['dt']), mt0=1)
+    for key in ['dphisdx', 'dphisdy']:
+        assert_field(out[key], _g64(post, key), key)
+    assert_field(out['ps'], _g64(post, 'ps'), 'ps', atol_scale=3e-5)
