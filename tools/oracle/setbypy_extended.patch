@@ -1,0 +1,172 @@
+--- /root/work/qtcm-master/src/setbypy.F90	2012-03-03 05:56:33.000000000 +0000
++++ /root/work/src_ext/setbypy.F90	2026-08-03 01:30:28.660219785 +0000
+@@ -25,13 +25,16 @@
+ 
+ Module SetbyPy
+ Use AuxVars
++Use Baroclinic
+ Use Barotropic
+ Use Calendar
+ Use Input
+ Use Prognostic
+ Use Qtcmpar
+-Use Land, only : WD, WD0
+-Use Surface, only : Ts, STYPE
++Use Land, only : WD, WD0, Evapi, Runf, Runs, wet
++Use Surface, only : Ts, STYPE, Ts0, us, vs, CV, CDN, ALBDs, ps, &
++                    dphisdx, dphisdy
++Use Clrad, only : cl1
+ Use Fluxes
+ 
+ 
+@@ -228,6 +231,150 @@
+     allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
+     real_rank2_array = FSW 
+ 
++  elseif (key=='advu1') then
++    shape_array_2d = shape(advu1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advu1
++  elseif (key=='advv1') then
++    shape_array_2d = shape(advv1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advv1
++  elseif (key=='advT1') then
++    shape_array_2d = shape(advT1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advT1
++  elseif (key=='advq1') then
++    shape_array_2d = shape(advq1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advq1
++  elseif (key=='advwu1') then
++    shape_array_2d = shape(advwu1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advwu1
++  elseif (key=='advwv1') then
++    shape_array_2d = shape(advwv1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advwv1
++  elseif (key=='dfsu1') then
++    shape_array_2d = shape(dfsu1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = dfsu1
++  elseif (key=='dfsv1') then
++    shape_array_2d = shape(dfsv1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = dfsv1
++  elseif (key=='dfsT1') then
++    shape_array_2d = shape(dfsT1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = dfsT1
++  elseif (key=='dfsq1') then
++    shape_array_2d = shape(dfsq1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = dfsq1
++  elseif (key=='div1') then
++    shape_array_2d = shape(div1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = div1
++  elseif (key=='chi1') then
++    shape_array_2d = shape(chi1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = chi1
++  elseif (key=='GMq1') then
++    shape_array_2d = shape(GMq1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = GMq1
++  elseif (key=='GMs1') then
++    shape_array_2d = shape(GMs1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = GMs1
++  elseif (key=='advu0') then
++    shape_array_2d = shape(advu0)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advu0
++  elseif (key=='advv0') then
++    shape_array_2d = shape(advv0)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advv0
++  elseif (key=='advwu0') then
++    shape_array_2d = shape(advwu0)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advwu0
++  elseif (key=='advwv0') then
++    shape_array_2d = shape(advwv0)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = advwv0
++  elseif (key=='dfsu0') then
++    shape_array_2d = shape(dfsu0)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = dfsu0
++  elseif (key=='dfsv0') then
++    shape_array_2d = shape(dfsv0)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = dfsv0
++  elseif (key=='div0') then
++    shape_array_2d = shape(div0)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = div0
++  elseif (key=='chi0') then
++    shape_array_2d = shape(chi0)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = chi0
++  elseif (key=='us') then
++    shape_array_2d = shape(us)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = us
++  elseif (key=='vs') then
++    shape_array_2d = shape(vs)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = vs
++  elseif (key=='cl1') then
++    shape_array_2d = shape(cl1)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = cl1
++  elseif (key=='CV') then
++    shape_array_2d = shape(CV)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = CV
++  elseif (key=='CDN') then
++    shape_array_2d = shape(CDN)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = CDN
++  elseif (key=='ALBDs') then
++    shape_array_2d = shape(ALBDs)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = ALBDs
++  elseif (key=='Ts0') then
++    shape_array_2d = shape(Ts0)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = Ts0
++  elseif (key=='ps') then
++    shape_array_2d = shape(ps)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = ps
++  elseif (key=='dphisdx') then
++    shape_array_2d = shape(dphisdx)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = dphisdx
++  elseif (key=='dphisdy') then
++    shape_array_2d = shape(dphisdy)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = dphisdy
++  elseif (key=='Evapi') then
++    shape_array_2d = shape(Evapi)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = Evapi
++  elseif (key=='Runf') then
++    shape_array_2d = shape(Runf)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = Runf
++  elseif (key=='Runs') then
++    shape_array_2d = shape(Runs)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = Runs
++  elseif (key=='wet') then
++    shape_array_2d = shape(wet)
++    allocate( real_rank2_array(shape_array_2d(1), shape_array_2d(2)) )
++    real_rank2_array = wet
+   elseif (key=='u1') then
+     if (associated(u1)) then
+        shape_array_2d = shape(u1)
