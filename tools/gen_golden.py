@@ -72,7 +72,7 @@ def make_capture(ext):
     def capture():
         state = {k: get_array(k) for k in ARRAY_KEYS}
         for k in SCALAR_REAL_KEYS:
-            state[k] = np.float32(sp.getitem_real(k))
+            state[k] = np.float64(sp.getitem_real(k))
         return state
 
     return capture

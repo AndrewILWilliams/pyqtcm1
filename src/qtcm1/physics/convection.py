@@ -19,8 +19,15 @@ Qc = eps_c * max(CAPE1, 0) * Cpg  [W m-2], applies the polar filter, and
 clips negatives introduced by the filter. The ``LINEAR_T1C`` compile option
 is the ``linear_closure`` flag.
 
-Tables are built in float32 to track the single-precision Fortran tables;
-interpolation is float64.
+Table precision
+---------------
+The stored table entries carry the ``Real`` kind of the Fortran build being
+mirrored: :class:`ConvectionTables` built with ``dtype=float32`` matches the
+standard single-precision build, ``float64`` (default) a double-precision
+build and production. The distinction is measurable: a 1-ulp float32 table
+difference (~3e-5 K in T1c) is amplified by ``eps_c*Cpg`` (~1.2e3 W m-2 K-1)
+into ~0.04 W m-2 of coherent Qc offset. Query arithmetic is float64 in both
+cases and replicates the Fortran indexing (``w = 1 + (T-hTmin)*hdTi``).
 """
 
 from __future__ import annotations
@@ -30,7 +37,6 @@ import numpy as np
 from ..constants import (A1HAT, B1HAT, BB1HAT, CP, CPG, HLATENT,
                          QCREFHAT, QREFHAT, T1C_TABLE, TCREFHAT, TREFHAT)
 
-# ------------------------------------------------------------- humtable
 _HTMIN, _HTMAX, _HDT = 200.0, 400.0, 0.1
 _NT = int((_HTMAX - _HTMIN) / _HDT) + 1            # 2001 entries
 
@@ -42,69 +48,101 @@ def _hsat0(T):
     return 0.622 * esat * 0.01
 
 
-_HUMS = _hsat0(np.float32(_HTMIN)
-               + np.float32(_HDT) * np.arange(_NT, dtype=np.float32)
-               ).astype(np.float32)
-
-
-def hsat(T):
-    """Table-interpolated saturation humidity (port of ``hsat``).
-
-    Clamps below 200 K and above 400 K exactly as the Fortran (which uses
-    the [400-dT, 400] segment for high T).
-    """
-    T = np.asarray(T, dtype=np.float64)
-    T = np.clip(T, _HTMIN, _HTMAX - _HDT * 1e-6)
-    w = (T - _HTMIN) / _HDT
-    k = np.floor(w).astype(int)
-    k = np.minimum(k, _NT - 2)
-    w = w - k
-    hums = _HUMS.astype(np.float64)
-    return (1.0 - w) * hums[k] + w * hums[k + 1]
-
-
-# ------------------------------------------------------------- t1ctable
-def _build_t1c_table():
-    T1cs = -300.0 + np.arange(601, dtype=np.float64)
-    prs = T1C_TABLE[:, 0]
-    alpha = T1C_TABLE[:, 1]
-    Tcref = T1C_TABLE[:, 2]
-    a1 = T1C_TABLE[:, 3]
-    # qcp: (601, np) evaluated through the hsat table
-    qcp = (alpha[None, :] * hsat(Tcref[None, :] + a1[None, :] * T1cs[:, None])
-           * HLATENT / CP * 1.0e3 / prs[None, :])
-    dp = prs[:-1] - prs[1:]
-    qcphat = 0.5 * ((qcp[:, :-1] + qcp[:, 1:]) * dp).sum(axis=1)
-    qcphat /= prs[0] - prs[-1]
-    rhsx = A1HAT * T1cs + qcphat
-    return T1cs, rhsx
-
-
-_T1CS, _RHSX = _build_t1c_table()
-
-
 class ConvectionBlowup(RuntimeError):
     """T1c left the [-300, 300] K table range (the Fortran stops here)."""
 
 
-def nlt1c(x):
-    """Invert the nonlinear closure: T1c(x) (port of ``nlt1c``)."""
-    x = np.asarray(x, dtype=np.float64)
-    if (x < _RHSX[0]).any() or (x > _RHSX[-1]).any():
-        raise ConvectionBlowup(
-            f'T1c out of table range: x in [{x.min():.2f}, {x.max():.2f}], '
-            f'table rhs in [{_RHSX[0]:.2f}, {_RHSX[-1]:.2f}]')
-    return np.interp(x, _RHSX, _T1CS)
+class ConvectionTables:
+    """hsat + T1c lookup tables at a given build precision (see module doc)."""
+
+    def __init__(self, dtype=np.float64):
+        self.dtype = np.dtype(dtype)
+        ft = self.dtype.type
+        # humtable: T = hTmin + hdT*(k-1) and hsat0 evaluated at the build's
+        # kind; stored float64 for the (always-float64) query arithmetic.
+        T = ft(_HTMIN) + ft(_HDT) * np.arange(_NT, dtype=ft)
+        self.hums = _hsat0(T).astype(ft).astype(np.float64)
+        self.t1cs, self.rhsx = self._build_t1c_table()
+
+    # -- hsat --------------------------------------------------------------
+    def hsat(self, T):
+        """Table-interpolated saturation humidity (port of ``hsat``).
+
+        Replicates the Fortran clamps (T<200 -> 200; T>400 -> 400-hdT) and
+        index arithmetic ``w = 1 + (T-hTmin)*hdTi`` with ``hdTi = 1/hdT``.
+        """
+        hdti = 1.0 / np.float64(_HDT)              # exactly 10.0
+        T = np.asarray(T, dtype=np.float64)
+        T = np.where(T < _HTMIN, _HTMIN, T)
+        T = np.where(T > _HTMAX, _HTMAX - _HDT, T)
+        w = 1.0 + (T - _HTMIN) * hdti
+        k = w.astype(np.int64)                     # Fortran k=w truncation
+        k = np.minimum(k, _NT - 1)                 # safety at T ~ hTmax
+        w = w - k
+        return (1.0 - w) * self.hums[k - 1] + w * self.hums[k]
+
+    # -- t1ctable ----------------------------------------------------------
+    def _build_t1c_table(self):
+        T1cs = -300.0 + np.arange(601, dtype=np.float64)
+        prs = T1C_TABLE[:, 0]
+        alpha = T1C_TABLE[:, 1]
+        Tcref = T1C_TABLE[:, 2]
+        a1 = T1C_TABLE[:, 3]
+        cpi = 1.0 / CP                             # Fortran Cpi=1./Cp
+        # qcp: (601, np) through the hsat table, Fortran operand order
+        qcp = (alpha[None, :]
+               * self.hsat(Tcref[None, :] + a1[None, :] * T1cs[:, None])
+               * HLATENT * cpi * 1.0e3 / prs[None, :])
+        # trapezoid accumulated in the Fortran's sequential k order
+        qcphat = np.zeros(601, dtype=np.float64)
+        for k in range(len(prs) - 1):
+            qcphat = qcphat + (qcp[:, k] + qcp[:, k + 1]) * 0.5 * (prs[k]
+                                                                   - prs[k + 1])
+        qcphat = qcphat / (prs[0] - prs[-1])
+        return T1cs, A1HAT * T1cs + qcphat
+
+    def nlt1c(self, x):
+        """Invert the nonlinear closure: T1c(x) (port of ``nlt1c``)."""
+        x = np.asarray(x, dtype=np.float64)
+        if (x < self.rhsx[0]).any() or (x > self.rhsx[-1]).any():
+            raise ConvectionBlowup(
+                f'T1c out of table range: x in [{x.min():.2f}, {x.max():.2f}]'
+                f', table rhs in [{self.rhsx[0]:.2f}, {self.rhsx[-1]:.2f}]')
+        return np.interp(x, self.rhsx, self.t1cs)
+
+
+_TABLES: dict = {}
+
+
+def get_tables(dtype=np.float64) -> ConvectionTables:
+    """Shared :class:`ConvectionTables` instance for ``dtype`` (cached)."""
+    key = np.dtype(dtype)
+    if key not in _TABLES:
+        _TABLES[key] = ConvectionTables(key)
+    return _TABLES[key]
+
+
+def hsat(T, tables: ConvectionTables | None = None):
+    """Module-level convenience wrapper (float64 tables by default)."""
+    return (tables or get_tables()).hsat(T)
+
+
+def nlt1c(x, tables: ConvectionTables | None = None):
+    """Module-level convenience wrapper (float64 tables by default)."""
+    return (tables or get_tables()).nlt1c(x)
 
 
 # -------------------------------------------------------------- mconvct
-def mconvct(T1, q1, eps_c, polar_filter, *, linear_closure: bool = False):
+def mconvct(T1, q1, eps_c, polar_filter, *, linear_closure: bool = False,
+            tables: ConvectionTables | None = None):
     """Convective heating / precipitation Qc [W m-2] (port of ``mconvct``).
 
     Parameters: T1, q1 on T rows (ny, nx); ``eps_c`` = 1/tau_c [s-1];
-    ``polar_filter`` a :class:`~qtcm1.dynamics.filters.PolarFilter`.
+    ``polar_filter`` a :class:`~qtcm1.dynamics.filters.PolarFilter`;
+    ``tables`` a :class:`ConvectionTables` (float64 build if omitted).
     Returns dict with Qc and the diagnostic T1c.
     """
+    tables = tables or get_tables()
     dTrefhat = TCREFHAT - TREFHAT
     dqrefhat = QCREFHAT - QREFHAT
 
@@ -113,7 +151,7 @@ def mconvct(T1, q1, eps_c, polar_filter, *, linear_closure: bool = False):
                / (A1HAT + BB1HAT))
     else:                                   # default nonlinear closure
         x = TREFHAT - TCREFHAT + A1HAT * T1 + QREFHAT + B1HAT * q1
-        T1c = nlt1c(x)
+        T1c = tables.nlt1c(x)
 
     CAPE1 = np.maximum(A1HAT * (T1c - T1) + dTrefhat, 0.0)
     Qc = eps_c * CAPE1 * CPG

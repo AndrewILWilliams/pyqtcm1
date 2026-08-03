@@ -33,7 +33,7 @@ import numpy as np
 
 from ..constants import (CP, HLATENT, QREFS, RHOAIR, TREFS, V1Z_TABLE,
                          A1S, B1S, V1S)
-from .convection import hsat
+from .convection import ConvectionTables, get_tables
 
 
 def v1interpol(zi: float) -> float:
@@ -117,13 +117,16 @@ def sfcwind_noabl(u1, v1, u0, v0, *, eta=0.6, vvse_min=5.0, vvs_min=4.0,
     return dict(us=us, vs=vs, VVs=VVs, VVsE=VVsE)
 
 
-def sflux(T1, q1, Ts, stype, cdn, wind) -> dict:
+def sflux(T1, q1, Ts, stype, cdn, wind,
+          tables: ConvectionTables | None = None) -> dict:
     """Bulk surface fluxes (port of the flux section of ``Sflux``).
 
     ``wind`` is the dict from :func:`sfcwind_abl` (or ``sfcwind_noabl``;
     for NO_ABL pass its VVsE via ``wind['VVsE']`` and stress uses VVs).
-    Returns CV, taux, tauy, Evap, FTs (tauy row ny-1 is zero/unused).
+    ``tables`` selects the hsat table build for evaporation (float64 if
+    omitted). Returns CV, taux, tauy, Evap, FTs (tauy row ny-1 is unused).
     """
+    tables = tables or get_tables()
     us, vs, VVs = wind['us'], wind['vs'], wind['VVs']
     CV = cdn * VVs
 
@@ -133,7 +136,8 @@ def sflux(T1, q1, Ts, stype, cdn, wind) -> dict:
 
     CVE = cdn * wind['VVsE'] if 'VVsE' in wind else CV
     rhoCp = RHOAIR * CP
-    Evap = rhoCp * CVE * (hsat(Ts) * (HLATENT / CP) - QREFS - B1S * q1)
+    Evap = rhoCp * CVE * (tables.hsat(Ts) * (HLATENT / CP)
+                          - QREFS - B1S * q1)
     FTs = rhoCp * CVE * (Ts - TREFS - A1S * T1)
     FTs = np.where(stype == 0, np.maximum(FTs, -5.0), FTs)
     return dict(CV=CVE, taux=taux, tauy=tauy, Evap=Evap, FTs=FTs)
