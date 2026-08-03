@@ -34,9 +34,12 @@ from .physics.land import WD0, sland1
 from .physics.radiation import radlw, radsw
 from .physics.sfcflux import sfcwind_abl, sflux, v1interpol
 
-#: default runtime parameters (defaults.py of the wrapped model / Input mod)
+#: default runtime parameters (defaults.py of the wrapped model / Input mod).
+#: eps_c is the package's decimal literal (nominal 1/7200 s-1 = 2-h tau_c);
+#: writing 1.0/7200.0 instead differs by 8e-9 relative and shows up as a
+#: coherent 1e-9 offset in cold-start races against the oracle.
 DEFAULT_PARAMS = dict(
-    dt=1200.0, mt0=1, eps_c=1.0 / 7200.0,
+    dt=1200.0, mt0=1, eps_c=0.00013888889,
     viscxu0=7.0e5, viscyu0=7.0e5, viscxu1=7.0e5, viscyu1=7.0e5,
     visc4x=7.0e5, visc4y=7.0e5, viscxT=12.0e5, viscyT=12.0e5,
     viscxq=12.0e5, viscyq=12.0e5,
@@ -79,7 +82,8 @@ class Model:
     """QTCM1 stepping engine (standard configuration)."""
 
     def __init__(self, stype, cdn, grid: Grid | None = None, params=None,
-                 quantize32: bool = False, init_dtype=np.float64):
+                 quantize32: bool = False, init_dtype=np.float64,
+                 first_gradphis_skip: bool = False):
         #: quantize32 emulates the Fortran's float32 state storage: the
         #: state is rounded to float32 after every step (arithmetic stays
         #: float64). Used for Tier-2 trajectory comparisons against the
@@ -101,6 +105,11 @@ class Model:
         self.poisson = PoissonDirichlet(self.grid)
         self.v1b = v1interpol(self.params['ziml'])
         self.fu = np.asarray(self.grid.fu, dtype=np.float64)
+        #: Fortran gradphis returns early on its very first call (its
+        #: firstcall block only sets constants), so a cold-started run
+        #: keeps dphisdx/dphisdy = 0 through the first barotropic group.
+        #: Leave False when warm-starting from a captured oracle state.
+        self._skip_gradphis = bool(first_gradphis_skip)
 
     # ------------------------------------------------------------------
     def cold_start(self) -> ModelState:
@@ -187,17 +196,22 @@ class Model:
                        dfsu0=df['dfsu0'], dfsv0=df['dfsv0'],
                        grid=self.grid, polar_filter=self.pfilter,
                        poisson=self.poisson, dt=dt, mt0=p['mt0'])
-            gp = gradphis(bt['u0'], bt['v0'], sav['u0sav'], sav['v0sav'],
-                          bc['T1'], taux=fx['taux'], tauy=fx['tauy'],
-                          advu0=adv['advu0'], advv0=adv['advv0'],
-                          dfsu0=df['dfsu0'], dfsv0=df['dfsv0'],
-                          grid=self.grid, dt=dt, mt0=p['mt0'])
             new = replace(new, u0=bt['u0'], v0=bt['v0'], vort0=bt['vort0'],
                           u0bar=bt['u0bar'], psi0=bt['psi0'],
                           rhs_hist=bt['rhs_hist'],
-                          rhsbar_hist=bt['rhsbar_hist'],
-                          dphisdx=gp['dphisdx'], dphisdy=gp['dphisdy'])
-            diags['ps'] = gp['ps']
+                          rhsbar_hist=bt['rhsbar_hist'])
+            if self._skip_gradphis:                # Fortran first-call return
+                self._skip_gradphis = False
+            else:
+                gp = gradphis(bt['u0'], bt['v0'], sav['u0sav'],
+                              sav['v0sav'], bc['T1'],
+                              taux=fx['taux'], tauy=fx['tauy'],
+                              advu0=adv['advu0'], advv0=adv['advv0'],
+                              dfsu0=df['dfsu0'], dfsv0=df['dfsv0'],
+                              grid=self.grid, dt=dt, mt0=p['mt0'])
+                new = replace(new, dphisdx=gp['dphisdx'],
+                              dphisdy=gp['dphisdy'])
+                diags['ps'] = gp['ps']
         if self.quantize32:
             new = _quantize_state(new)
         return new, diags
