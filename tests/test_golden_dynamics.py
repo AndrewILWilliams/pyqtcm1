@@ -109,3 +109,33 @@ def test_prognostics_unchanged_by_tendency_routines(fn):
     b = load(fn, 'wdffus')
     for key in ['u1', 'v1', 'T1', 'q1', 'u0', 'v0']:
         np.testing.assert_array_equal(a[key], b[key], err_msg=key)
+
+
+# ---------------------------------------------------------------------------
+# Convection (physics/convection.py) -- first physics golden
+# ---------------------------------------------------------------------------
+from qtcm1.dynamics.filters import PolarFilter          # noqa: E402
+from qtcm1.physics.convection import mconvct            # noqa: E402
+
+PFILT = PolarFilter(GRID)
+
+
+@pytest.mark.parametrize('fn', FILES, ids=[os.path.basename(f) for f in FILES])
+def test_mconvct_golden(fn):
+    pre = load(fn, 'pre')                      # mconvct is first in atm_step
+    post = load(fn, 'wmconvct')
+    out = mconvct(f2py_to_grid('T1', pre['T1']).astype(np.float64),
+                  f2py_to_grid('q1', pre['q1']).astype(np.float64),
+                  float(pre['eps_c']), PFILT)
+    # tolerance note: a 1-ulp float32 difference in the T1c lookup tables
+    # (~3e-5 K) is amplified by eps_c*Cpg (~1.2e3 W m-2 K-1) into ~0.04 W/m2
+    # of Qc noise; atol_scale=1e-4 of the field max covers that floor while
+    # still failing loudly (by 3+ orders) on any logic error.
+    assert_field(out['Qc'], f2py_to_grid('Qc', post['Qc']), 'Qc',
+                 atol_scale=1e-4)
+
+
+def test_polar_filter_row_extent():
+    """js from the Fortran single-precision expression; symmetric rows."""
+    assert PFILT.js in (4, 5)                  # document the f32 truncation
+    assert PFILT.jn0 == GRID.ny - PFILT.js
