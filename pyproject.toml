@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyqtcm1"
+version = "0.0.1"
+description = "Pure-Python reimplementation of the Neelin-Zeng Quasi-Equilibrium Tropical Circulation Model (QTCM1 v2.3)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "LGPL-2.1-or-later" }
+dependencies = ["numpy>=1.26", "netCDF4>=1.6"]
+
+[project.optional-dependencies]
+numba = ["numba>=0.59"]
+test = ["pytest>=8", "pytest-benchmark"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
