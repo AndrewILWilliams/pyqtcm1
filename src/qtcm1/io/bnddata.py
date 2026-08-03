@@ -7,11 +7,17 @@ scheme: monthly snapshots valid at mid-month anchors (``midmonth`` table in
 calendar.F90, including the previous-December ``-16`` and next-January
 ``380`` wrap anchors), linearly interpolated with ``TimeInterp``.
 
-Verified against the compiled oracle: STYPE matches bit-for-bit and
-interpolated ocean Ts matches to <= 0.06 K (sub-day interpolation
-convention; the exact day-fraction bookkeeping is pinned by Tier-1 golden
-tests). Note the Fortran cold-start quirk (``getbnd`` skips the first SST
-update) is *driver* behavior, reproduced in the model loop, not here.
+The interpolation instant is the coupling-interval midpoint,
+``thistime = dayofmodel + ndays/2`` (readsst; bndry1 hardwires ndays=1),
+so daily forcing is valid at ``dayofyear + 0.5``. With the registry stored
+at float64 (ASCII decimals parse identically in Python and Fortran) the
+daily fields are bitwise-equal to the double-precision oracle's
+(tests/test_boundary.py pins 30 days including a mid-month bracket
+advance). Note two Fortran driver quirks live OUTSIDE this module:
+``getbnd`` skips the SST update on its very first call (cold start), and
+the boundary update must run exactly ONCE per model day (a same-day
+second call in the Fortran corrupts the brackets on mid-month days -
+bndry1's guard restores time1/time2 but var_next has already advanced).
 """
 
 from __future__ import annotations
@@ -41,6 +47,15 @@ class BoundaryData:
     def __init__(self, path: str, calendar: ModelCalendar | None = None):
         self.path = path
         self.calendar = calendar or ModelCalendar()
+        # Interpolation anchors are julian(yyyy mm 15), i.e. cumulative
+        # month lengths + 15 -- NOT calendar.F90's ``midmonth`` table.
+        # The Fortran carries both conventions and they disagree for
+        # February (midmonth says 45, julian(0215) = 31+15 = 46); the
+        # boundary readers (readsst/bndry1) use julian(), so we must too.
+        cum = np.concatenate([[0], np.cumsum(self.calendar.monlen)])
+        mid = cum[:12] + 15                       # Jan..Dec mid-month julian
+        self._anchors = np.concatenate([[mid[11] - cum[12]], mid,
+                                        [mid[0] + cum[12]]])   # 0..13
 
         def _load(fname, varname):
             with netCDF4.Dataset(os.path.join(path, fname)) as ds:
@@ -80,15 +95,16 @@ class BoundaryData:
 
     # ------------------------------------------------------------------
     def bracket(self, dayofyear: int) -> tuple[int, int, int, int]:
-        """Mid-month anchors surrounding ``dayofyear``.
+        """Mid-month julian anchors surrounding ``dayofyear``.
 
         Returns ``(m1, m2, t1, t2)`` where ``m1``/``m2`` are anchor month
-        slots in the Fortran ``midmonth`` numbering 0..13 (0 = December of
-        the previous year, 13 = January of the next) and ``t1``/``t2`` their
-        day-of-year anchor times (t1 may be negative, t2 may exceed the year
-        length, exactly as in calendar.F90).
+        slots 0..13 (0 = December of the previous year, 13 = January of
+        the next) and ``t1``/``t2`` their julian anchor times (t1 may be
+        negative, t2 may exceed the year length). ``side='right'``
+        reproduces the Fortran advance rule ``dateofmodel >= date2``: on a
+        mid-month day the bracket starting at that day is active.
         """
-        mid = self.calendar.midmonth                   # index 0..13
+        mid = self._anchors                            # index 0..13
         m1 = int(np.searchsorted(mid, dayofyear, side='right') - 1)
         return m1, m1 + 1, int(mid[m1]), int(mid[m1 + 1])
 
@@ -102,26 +118,30 @@ class BoundaryData:
         return m, 0
 
     # ------------------------------------------------------------------
-    def _interp_monthly(self, clim: np.ndarray, dayofyear: int) -> np.ndarray:
+    def _interp_monthly(self, clim: np.ndarray, dayofyear: int,
+                        half_interval: float = 0.5) -> np.ndarray:
         m1, m2, t1, t2 = self.bracket(dayofyear)
         mo1, _ = self._slot_to_month(m1)
         mo2, _ = self._slot_to_month(m2)
-        return time_interp(clim[mo1 - 1], clim[mo2 - 1], t1, t2, dayofyear)
+        return time_interp(clim[mo1 - 1], clim[mo2 - 1], t1, t2,
+                           dayofyear + half_interval)
 
-    def sst(self, year: int, dayofyear: int,
-            mode: str = 'seasonal') -> np.ndarray:
-        """SST [K] at (year, dayofyear) for the given ``SSTmode``.
+    def sst(self, year: int, dayofyear: int, mode: str = 'seasonal',
+            interval_days: int = 1) -> np.ndarray:
+        """SST [K] for the day, valid at ``dayofyear + interval_days/2``.
 
         ``seasonal``: climatological monthly files; ``real_time``: dated
         observed series (adjacent-year wrap at anchors); ``perpetual``:
-        the fixed 00000000.sst field.
+        the fixed 00000000.sst field. ``interval_days`` is the ocean
+        coupling interval (``ndays`` of readsst; standard runs use 1).
         """
+        half = interval_days / 2.0
         if mode == 'perpetual':
             if self.sst_perpetual is None:
                 raise FileNotFoundError('sst_perpetual.nc not in registry')
             return self.sst_perpetual.copy()
         if mode == 'seasonal':
-            return self._interp_monthly(self.sst_clim, dayofyear)
+            return self._interp_monthly(self.sst_clim, dayofyear, half)
         if mode == 'real_time':
             if self.sst_dated is None:
                 raise FileNotFoundError(
@@ -131,9 +151,9 @@ class BoundaryData:
             mo2, dy2 = self._slot_to_month(m2)
             f1 = self.sst_dated[self._dated_index[(year + dy1, mo1)]]
             f2 = self.sst_dated[self._dated_index[(year + dy2, mo2)]]
-            return time_interp(f1, f2, t1, t2, dayofyear)
+            return time_interp(f1, f2, t1, t2, dayofyear + half)
         raise ValueError(f'unknown SSTmode: {mode!r}')
 
     def albedo(self, dayofyear: int) -> np.ndarray:
-        """Surface albedo [-], mid-month interpolated (getbnd/bndry1)."""
-        return self._interp_monthly(self.albedo_clim, dayofyear)
+        """Surface albedo [-] for the day (getbnd/bndry1; ndays=1)."""
+        return self._interp_monthly(self.albedo_clim, dayofyear, 0.5)

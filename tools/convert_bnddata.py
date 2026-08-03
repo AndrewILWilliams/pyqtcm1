@@ -74,7 +74,7 @@ def convert_sst_clim(bnd, out, manifest):
                    'Reynolds SST, monthly climatology (mid-month)',
                    {'month': 12})
     add_month_coord(ds)
-    v = ds.createVariable('sst', 'f4', ('month', 'lat', 'lon'))
+    v = ds.createVariable('sst', 'f8', ('month', 'lat', 'lon'))
     v[:] = data; v.units = 'K'
     v.long_name = ('sea surface temperature, monthly climatology; ocean-'
                    'interpolated over land (Reynolds); mid-month values')
@@ -99,7 +99,7 @@ def convert_sst_dated(bnd, out, manifest):
     t = ds.createVariable('time', 'f8', ('time',))
     t.units = 'days since 1949-01-01'; t.calendar = '365_day'
     t[:] = [(y - 1949) * 365 + MONTH_DAYS15[m - 1] for y, m in zip(yy, mm)]
-    v = ds.createVariable('sst', 'f4', ('time', 'lat', 'lon'))
+    v = ds.createVariable('sst', 'f8', ('time', 'lat', 'lon'))
     v[:] = data; v.units = 'K'
     v.long_name = 'sea surface temperature, observed monthly (mid-month values)'
     ds.close()
@@ -109,7 +109,7 @@ def convert_sst_dated(bnd, out, manifest):
 def convert_sst_perpetual(bnd, out, manifest):
     f = f'{bnd}/00000000.sst'
     ds = nc_create(f'{out}/sst_perpetual.nc', 'Perpetual SST (SSTmode=perpetual)')
-    v = ds.createVariable('sst', 'f4', ('lat', 'lon'))
+    v = ds.createVariable('sst', 'f8', ('lat', 'lon'))
     v[:] = read_ascii_field(f); v.units = 'K'
     ds.close()
     manifest['sources'].append({'file': f, 'sha256': sha256(f)})
@@ -123,10 +123,10 @@ def convert_albedo(bnd, out, manifest):
                    'Darnell surface albedo, monthly climatology + annual mean',
                    {'month': 12})
     add_month_coord(ds)
-    v = ds.createVariable('albedo', 'f4', ('month', 'lat', 'lon'))
+    v = ds.createVariable('albedo', 'f8', ('month', 'lat', 'lon'))
     v[:] = data; v.units = '1'
     v.long_name = 'surface albedo, monthly climatology (mid-month values)'
-    va = ds.createVariable('albedo_annual', 'f4', ('lat', 'lon'))
+    va = ds.createVariable('albedo_annual', 'f8', ('lat', 'lon'))
     va[:] = read_ascii_field(ann); va.units = '1'
     va.long_name = 'annual-mean surface albedo (Fortran file 00001315.alb)'
     va.comment = 'used by bndinit for initialization'
@@ -144,7 +144,7 @@ def convert_surface(bnd, out, manifest):
     v.flag_values = np.array([0, 1, 2, 3], np.int16)
     v.flag_meanings = 'ocean forest grass desert'
     top = read_ascii_field(f'{bnd}/TOP')
-    vt = ds.createVariable('top', 'f4', ('lat', 'lon'))
+    vt = ds.createVariable('top', 'f8', ('lat', 'lon'))
     vt[:] = top; vt.units = '10 km'
     vt.long_name = 'relative topography height/10km (used by TOPO option)'
     ds.close()
@@ -182,7 +182,7 @@ def convert_clouds(bnd, out, manifest, sub='CLOUD_ISCCP'):
     js = (NY - nyobs) // 2
     lo[:] = LAT[js:js + nyobs]; lo.units = 'degrees_north'
     lo.long_name = f'observed-cloud latitudes (rows {js+1}..{js+nyobs} of model grid)'
-    v = ds.createVariable('cloud_cover', 'f4',
+    v = ds.createVariable('cloud_cover', 'f8',
                           ('month', 'cloud_type', 'lat_obs', 'lon'))
     v[:] = data; v.units = '1'
     v.long_name = 'cloud cover fraction by type'
@@ -195,7 +195,7 @@ def convert_clouds(bnd, out, manifest, sub='CLOUD_ISCCP'):
 def convert_masks(bnd, out, manifest):
     f = f'{bnd}/ensopac.mask'
     ds = nc_create(f'{out}/masks.nc', 'QTCM1 region masks')
-    v = ds.createVariable('ensopac', 'f4', ('lat', 'lon'))
+    v = ds.createVariable('ensopac', 'f8', ('lat', 'lon'))
     v[:] = read_ascii_field(f); v.units = '1'
     v.long_name = ('ENSO Pacific mask: 1 = prescribed SST, '
                    '0 = mixed-layer ocean (BLEND_SST option)')
