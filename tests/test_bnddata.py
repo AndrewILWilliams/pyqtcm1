@@ -27,22 +27,26 @@ def bnd():
 
 def test_bracket_and_jan2_weight(bnd):
     # Jan 2 sits between mid-December (t=-16) and mid-January (t=15):
-    # slots (0, 1), fraction 18/31 -- the convention verified against the
-    # compiled oracle (ocean Ts matched to <= 0.06 K with this weight).
+    # slots (0, 1); the Fortran interpolates at day+0.5, so the weight is
+    # 18.5/31 (pinned bitwise vs the r8 oracle in test_boundary.py).
     m1, m2, t1, t2 = bnd.bracket(2)
     assert (m1, m2, t1, t2) == (0, 1, -16, 15)
-    assert (2 - t1) / (t2 - t1) == pytest.approx(18 / 31)
+    assert (2.5 - t1) / (t2 - t1) == pytest.approx(18.5 / 31)
 
 
-def test_seasonal_sst_at_anchors_is_exact(bnd):
+def test_seasonal_sst_on_anchor_day_starts_new_bracket(bnd):
+    # On an anchor day the >= advance rule makes the NEW bracket active,
+    # and the field is valid at day+0.5 - never exactly the monthly file.
+    jan, feb = bnd.sst_clim[0], bnd.sst_clim[1]
     np.testing.assert_array_equal(bnd.sst(1, 15, 'seasonal'),
-                                  bnd.sst_clim[0])       # mid-January
+                                  jan + 0.5 / 31 * (feb - jan))
+    dec, njan = bnd.sst_clim[11], bnd.sst_clim[0]        # slot 13 = next Jan
     np.testing.assert_array_equal(bnd.sst(1, 349, 'seasonal'),
-                                  bnd.sst_clim[11])      # mid-December
+                                  dec + 0.5 / 31 * (njan - dec))
 
 
 def test_seasonal_sst_midpoint_is_average(bnd):
-    mid = bnd.sst(1, 30, 'seasonal')                     # (30-15)/(45-15)=0.5
+    mid = bnd.sst(1, 30, 'seasonal')                # (30.5-15)/(46-15) = 0.5
     np.testing.assert_allclose(mid, 0.5 * (bnd.sst_clim[0] + bnd.sst_clim[1]),
                                rtol=0, atol=1e-6)
 
@@ -57,7 +61,10 @@ def test_realtime_sst_uses_dated_files(bnd):
     if bnd.sst_dated is None:
         pytest.skip('dated SST not in registry')
     jan1980 = bnd.sst_dated[bnd._dated_index[(1980, 1)]]
-    np.testing.assert_array_equal(bnd.sst(1980, 15, 'real_time'), jan1980)
+    feb1980 = bnd.sst_dated[bnd._dated_index[(1980, 2)]]
+    np.testing.assert_array_equal(
+        bnd.sst(1980, 15, 'real_time'),
+        jan1980 + 0.5 / 31 * (feb1980 - jan1980))
     # December wrap reaches into the previous year's file
     m1, _, t1, t2 = bnd.bracket(360)
     assert m1 == 12
@@ -79,4 +86,6 @@ def test_stype_flags(bnd):
 def test_albedo_range_and_interp(bnd):
     alb = bnd.albedo(200)
     assert 0.0 < alb.min() and alb.max() <= 0.95
-    np.testing.assert_array_equal(bnd.albedo(15), bnd.albedo_clim[0])
+    jan, feb = bnd.albedo_clim[0], bnd.albedo_clim[1]
+    np.testing.assert_array_equal(bnd.albedo(15),
+                                  jan + 0.5 / 31 * (feb - jan))
