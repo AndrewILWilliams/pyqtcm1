@@ -18,6 +18,15 @@ from __future__ import annotations
 
 import numpy as np
 
+try:                                       # optional speedup; bit-identical
+    from numba import njit
+    _NUMBA = True
+except ImportError:                        # pragma: no cover
+    _NUMBA = False
+
+    def njit(*a, **k):                     # no-op decorator
+        return a[0] if a and callable(a[0]) else (lambda f: f)
+
 
 def _roll_e(f):
     """f at east neighbor (Fortran ip1)."""
@@ -29,6 +38,66 @@ def _roll_w(f):
     return np.roll(f, 1, axis=1)
 
 
+@njit(cache=True)
+def _nabla2_sph(viscx, viscy, fld, dxi, w2, dyi):
+    """Loop form of the spherical nabla2; per-element ops in the exact
+    order of the vectorized expressions (bit-identical, no fastmath)."""
+    n, nx = fld.shape
+    out = np.empty_like(fld)
+    vydy2i = viscy * dyi ** 2
+    for p in range(n):
+        vx = viscx * dxi[p] ** 2
+        for i in range(nx):
+            e = fld[p, (i + 1) % nx]
+            w = fld[p, (i - 1) % nx]
+            d2x = vx * (e - 2.0 * fld[p, i] + w)
+            if p == 0:
+                out[p, i] = d2x + vydy2i * (fld[1, i] - fld[0, i])
+            elif p == n - 1:
+                out[p, i] = d2x + vydy2i * (-fld[n - 1, i] + fld[n - 2, i])
+            else:
+                out[p, i] = d2x + vydy2i * (
+                    fld[p + 1, i] * w2[p, 0] + fld[p, i] * w2[p, 1]
+                    + fld[p - 1, i] * w2[p, 2])
+    return out
+
+
+@njit(cache=True)
+def _nabla4_sph(viscx, viscy, fld, dxi, w4, dyi):
+    """Loop form of the spherical nabla4mm5 (bit-identical op order)."""
+    n, nx = fld.shape
+    out = np.empty_like(fld)
+    vydy2i = viscy * dyi ** 2
+    for p in range(n):
+        vx = viscx * dxi[p] ** 2
+        for i in range(nx):
+            e = fld[p, (i + 1) % nx]
+            w = fld[p, (i - 1) % nx]
+            if 2 <= p <= n - 3:
+                ee = fld[p, (i + 2) % nx]
+                ww = fld[p, (i - 2) % nx]
+                d4x = -vx * (ee + ww - 4.0 * (e + w) + 6.0 * fld[p, i])
+                d4y = -vydy2i * (
+                    fld[p + 2, i] * w4[p, 0] + fld[p + 1, i] * w4[p, 1]
+                    + fld[p, i] * w4[p, 2] + fld[p - 1, i] * w4[p, 3]
+                    + fld[p - 2, i] * w4[p, 4])
+                out[p, i] = d4x + d4y
+            else:
+                lap = vx * (e - 2.0 * fld[p, i] + w)
+                if p == 0:
+                    out[p, i] = lap + vydy2i * (fld[1, i] - fld[0, i])
+                elif p == 1:
+                    out[p, i] = lap + vydy2i * (fld[2, i] + fld[0, i]
+                                                - 2.0 * fld[1, i])
+                elif p == n - 2:
+                    out[p, i] = lap + vydy2i * (fld[n - 1, i] + fld[n - 3, i]
+                                                - 2.0 * fld[n - 2, i])
+                else:
+                    out[p, i] = lap + vydy2i * (-fld[n - 1, i]
+                                                + fld[n - 2, i])
+    return out
+
+
 def nabla2(viscx: float, viscy: float, fld: np.ndarray, dxi: np.ndarray,
            weight2: np.ndarray, dyi: float,
            spherical: bool = True) -> np.ndarray:
@@ -38,6 +107,11 @@ def nabla2(viscx: float, viscy: float, fld: np.ndarray, dxi: np.ndarray,
     ``weight2`` row-aligned with ``fld``. Boundary rows use one-sided,
     flux-zero forms exactly as the Fortran.
     """
+    if spherical and _NUMBA:
+        return _nabla2_sph(float(viscx), float(viscy),
+                           np.ascontiguousarray(fld),
+                           np.ascontiguousarray(dxi),
+                           np.ascontiguousarray(weight2), float(dyi))
     vydy2i = viscy * dyi ** 2
     vx = (viscx * dxi ** 2)[:, None]
     d2x = vx * (_roll_e(fld) - 2.0 * fld + _roll_w(fld))
@@ -64,6 +138,11 @@ def nabla4mm5(viscx: float, viscy: float, fld: np.ndarray, dxi: np.ndarray,
     rows at each wall fall back to the one-sided Laplacian forms coded in
     the Fortran.
     """
+    if spherical and _NUMBA:
+        return _nabla4_sph(float(viscx), float(viscy),
+                           np.ascontiguousarray(fld),
+                           np.ascontiguousarray(dxi),
+                           np.ascontiguousarray(weight4), float(dyi))
     vydy2i = viscy * dyi ** 2
     vx = (viscx * dxi ** 2)[:, None]
     fE, fW = _roll_e(fld), _roll_w(fld)

@@ -35,6 +35,75 @@ from ..constants import (CP, HLATENT, QREFS, RHOAIR, TREFS, V1Z_TABLE,
                          A1S, B1S, V1S)
 from .convection import ConvectionTables, get_tables
 
+try:                                       # optional speedup; bit-identical
+    from numba import njit
+    _NUMBA = True
+except ImportError:                        # pragma: no cover
+    _NUMBA = False
+
+    def njit(*a, **k):
+        return a[0] if a and callable(a[0]) else (lambda f: f)
+
+
+@njit(cache=True)
+def _abl_newton_k(u1, v1, u0, v0, us_prev, vs_prev, dphisdx, dphisdy,
+                  cdn, fu, v1b, wezi, zii, vvsminsq, n_iter, tol):
+    """Per-point Newton iteration of SfcWindABL.
+
+    Each point's iteration path is independent of the others, so the
+    sequential per-point loop with early exit is bit-identical to the
+    vectorized lockstep-with-masks form (same op order per element).
+    """
+    ny, nx = u1.shape
+    us = np.empty_like(u1)
+    vs = np.empty_like(u1)
+    vvs = np.empty_like(u1)
+    ub = np.empty_like(u1)
+    vb = np.empty_like(u1)
+    for p in range(ny):
+        fuj = fu[p]
+        for i in range(nx):
+            iw = (i - 1) % nx
+            ubi = 0.5 * ((u1[p, i] + u1[p, iw]) * v1b
+                         + u0[p, i] + u0[p, iw])
+            vbi = 0.5 * ((v1[p + 1, i] + v1[p, i]) * v1b
+                         + v0[p + 1, i] + v0[p, i])
+            dphx = 0.5 * (dphisdx[p, i] + dphisdx[p, iw])
+            dphy = 0.5 * (dphisdy[p + 1, i] + dphisdy[p, i])
+            cdzi = cdn[p, i] * zii
+            u = us_prev[p, i]
+            v = vs_prev[p, i]
+            sv = np.sqrt(vvsminsq + u * u + v * v)
+            usav, vsav, svsav = u, v, sv
+            accepted = False
+            for _k in range(1, n_iter):
+                cdziwind = cdzi * sv
+                cdziwindi = cdzi / sv
+                f = ubi * wezi + fuj * v - dphx - u * (cdziwind + wezi)
+                g = vbi * wezi - fuj * u - dphy - v * (cdziwind + wezi)
+                if abs(f) + abs(g) < tol:
+                    accepted = True
+                    break
+                dfdu = -wezi - cdziwind - u * u * cdziwindi
+                dfdv = fuj - u * v * cdziwindi
+                dgdv = -wezi - cdziwind - v * v * cdziwindi
+                dgdu = -fuj - u * v * cdziwindi
+                det = dfdu * dgdv - dfdv * dgdu
+                if det != 0.0:
+                    du = (dgdv * f - dfdv * g) / det
+                    dv = (dfdu * g - dgdu * f) / det
+                    u = u - du
+                    v = v - dv
+                    sv = np.sqrt(vvsminsq + u * u + v * v)
+            if not accepted:
+                u, v, sv = usav, vsav, svsav
+            us[p, i] = u
+            vs[p, i] = v
+            vvs[p, i] = sv
+            ub[p, i] = ubi
+            vb[p, i] = vbi
+    return us, vs, vvs, ub, vb
+
 
 def v1interpol(zi: float) -> float:
     """Mode-1 velocity projection at height zi [m] (port of ``V1interpol``)."""
@@ -63,6 +132,17 @@ def sfcwind_abl(u1, v1, u0, v0, us_prev, vs_prev, dphisdx, dphisdy,
     wezi = weml / ziml
     zii = 1.0 / ziml
     vvsminsq = vvsmin ** 2
+
+    if _NUMBA:
+        us, vs, vvs, ub, vb = _abl_newton_k(
+            np.ascontiguousarray(u1), np.ascontiguousarray(v1),
+            np.ascontiguousarray(u0), np.ascontiguousarray(v0),
+            np.ascontiguousarray(us_prev), np.ascontiguousarray(vs_prev),
+            np.ascontiguousarray(dphisdx), np.ascontiguousarray(dphisdy),
+            np.ascontiguousarray(cdn), np.ascontiguousarray(fu),
+            float(v1b), float(wezi), float(zii), float(vvsminsq),
+            int(n_iter), float(tol))
+        return dict(us=us, vs=vs, VVs=vvs, ub=ub, vb=vb)
 
     ub, vb = _to_T_grid(u1, v1, u0, v0, v1b)
 
