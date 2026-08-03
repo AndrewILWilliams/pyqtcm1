@@ -1,0 +1,9 @@
+numpy>=1.26
+netCDF4>=1.6
+
+[numba]
+numba>=0.59
+
+[test]
+pytest>=8
+pytest-benchmark
