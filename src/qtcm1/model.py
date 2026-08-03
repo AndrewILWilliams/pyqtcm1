@@ -60,6 +60,10 @@ class ModelState:
     us: np.ndarray; vs: np.ndarray       # ABL warm start
     dphisdx: np.ndarray; dphisdy: np.ndarray
     psi0: np.ndarray | None = None
+    #: Fortran gradphis returns early on its very first call (its firstcall
+    #: block only sets constants), so a cold-started run keeps dphisdx/y = 0
+    #: through the first barotropic group. True only on cold-start states.
+    gradphis_virgin: bool = False
 
 
 def _q32(a):
@@ -82,8 +86,7 @@ class Model:
     """QTCM1 stepping engine (standard configuration)."""
 
     def __init__(self, stype, cdn, grid: Grid | None = None, params=None,
-                 quantize32: bool = False, init_dtype=np.float64,
-                 first_gradphis_skip: bool = False):
+                 quantize32: bool = False, init_dtype=np.float64):
         #: quantize32 emulates the Fortran's float32 state storage: the
         #: state is rounded to float32 after every step (arithmetic stays
         #: float64). Used for Tier-2 trajectory comparisons against the
@@ -105,11 +108,6 @@ class Model:
         self.poisson = PoissonDirichlet(self.grid)
         self.v1b = v1interpol(self.params['ziml'])
         self.fu = np.asarray(self.grid.fu, dtype=np.float64)
-        #: Fortran gradphis returns early on its very first call (its
-        #: firstcall block only sets constants), so a cold-started run
-        #: keeps dphisdx/dphisdy = 0 through the first barotropic group.
-        #: Leave False when warm-starting from a captured oracle state.
-        self._skip_gradphis = bool(first_gradphis_skip)
 
     # ------------------------------------------------------------------
     def cold_start(self) -> ModelState:
@@ -125,13 +123,18 @@ class Model:
             rhsbar_hist=[0.0, 0.0],
             Ts=np.full((g.ny, g.nx), 295.0),
             WD=0.7 * WD0[self.stype.astype(int)],
-            us=z(), vs=z(), dphisdx=z(), dphisdy=zv())
+            us=z(), vs=z(), dphisdx=z(), dphisdy=zv(),
+            gradphis_virgin=True)
 
-    def apply_boundary(self, state: ModelState, sst, albedo) -> np.ndarray:
-        """``getbnd``: prescribed SST onto ocean points; returns albedo."""
+    def apply_boundary(self, state: ModelState, sst,
+                       albedo) -> tuple[ModelState, np.ndarray]:
+        """``getbnd``: prescribed SST onto ocean points (pure).
+
+        Returns the updated state and the albedo as float64.
+        """
         ocean = self.stype == 0
-        state.Ts = np.where(ocean, sst, state.Ts)
-        return np.asarray(albedo, dtype=np.float64)
+        state = replace(state, Ts=np.where(ocean, sst, state.Ts))
+        return state, np.asarray(albedo, dtype=np.float64)
 
     # ------------------------------------------------------------------
     def step(self, s: ModelState, albedo, dayofyear: int,
@@ -200,8 +203,8 @@ class Model:
                           u0bar=bt['u0bar'], psi0=bt['psi0'],
                           rhs_hist=bt['rhs_hist'],
                           rhsbar_hist=bt['rhsbar_hist'])
-            if self._skip_gradphis:                # Fortran first-call return
-                self._skip_gradphis = False
+            if s.gradphis_virgin:                  # Fortran first-call return
+                new = replace(new, gradphis_virgin=False)
             else:
                 gp = gradphis(bt['u0'], bt['v0'], sav['u0sav'],
                               sav['v0sav'], bc['T1'],
@@ -219,7 +222,7 @@ class Model:
     def step_day(self, s: ModelState, sst, albedo,
                  dayofyear: int) -> tuple[ModelState, dict]:
         """One coupling day: boundary update + 86400/dt atmospheric steps."""
-        alb = self.apply_boundary(s, sst, albedo)
+        s, alb = self.apply_boundary(s, sst, albedo)
         nastep = int(round(86400.0 / self.params['dt']))
         for it in range(1, nastep + 1):
             s, diags = self.step(s, alb, dayofyear, it)

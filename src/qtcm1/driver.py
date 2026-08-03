@@ -15,7 +15,8 @@ Replicates the standard Fortran run sequence exactly:
   first getbnd of a cold start skips the SST application (the Fortran
   ``ncall`` guard: day 1 integrates with the varinit 295-K ocean).
 * the first barotropic group skips ``gradphis`` (Fortran first-call
-  early return), handled by ``Model(first_gradphis_skip=True)``.
+  early return), carried as ``ModelState.gradphis_virgin`` (set by
+  ``cold_start``; warm starts from captured oracle states leave it off).
 
 Monthly means are accumulated every time step (``varmean`` semantics),
 not from daily snapshots.
@@ -62,8 +63,8 @@ class ControlRun:
         self.sst_mode = sst_mode
         stype = self.bd.stype.astype(np.float64)
         self.model = Model(stype, bndinit_cdn(stype), params=params,
-                           init_dtype=init_dtype, first_gradphis_skip=True)
-        self.state = self.model.cold_start()
+                           init_dtype=init_dtype)
+        self.state = self.model.cold_start()      # carries gradphis_virgin
         self.dayofmodel = 0
         self._getbnd_virgin = True
         # monthly accumulators
@@ -106,8 +107,7 @@ class ControlRun:
             self._getbnd_virgin = False
         else:
             sst = self.bd.sst(date.yearofmodel, doy, self.sst_mode)
-            ocean = self.model.stype == 0
-            self.state.Ts = np.where(ocean, sst, self.state.Ts)
+            self.state, _ = self.model.apply_boundary(self.state, sst, alb)
         nastep = int(round(86400.0 / self.model.params['dt']))
         for it in range(1, nastep + 1):
             self.state, diags = self.model.step(self.state, alb, doy, it)
