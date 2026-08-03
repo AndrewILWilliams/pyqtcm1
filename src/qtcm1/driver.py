@@ -27,7 +27,9 @@ from __future__ import annotations
 import numpy as np
 
 from .calendar import ModelCalendar
+from .config import RunConfig, provenance
 from .io.bnddata import BoundaryData
+from .io.restart import load_restart, save_restart
 from .model import Model
 from .physics.land import Z0
 
@@ -55,9 +57,21 @@ def bndinit_cdn(stype) -> np.ndarray:
 class ControlRun:
     """Cold-started free-running control integration."""
 
-    def __init__(self, data_path: str, year0: int = 1, month0: int = 1,
-                 day0: int = 1, sst_mode: str = 'seasonal', params=None,
-                 init_dtype=np.float64):
+    def __init__(self, data_path: str | None = None, year0: int = 1,
+                 month0: int = 1, day0: int = 1, sst_mode: str = 'seasonal',
+                 params=None, init_dtype=np.float64,
+                 config: RunConfig | None = None):
+        if config is None:
+            config = RunConfig(
+                data_path=data_path,
+                build='f32' if np.dtype(init_dtype) == np.float32 else 'f64',
+                year0=year0, month0=month0, day0=day0, sst_mode=sst_mode,
+                params=dict(params or {}))
+        self.config = config
+        data_path = config.data_path
+        year0, month0, day0 = config.year0, config.month0, config.day0
+        sst_mode, params = config.sst_mode, (config.params or None)
+        init_dtype = config.init_dtype
         self.bd = BoundaryData(data_path)
         self.calendar = ModelCalendar(year0=year0, month0=month0, day0=day0)
         self.sst_mode = sst_mode
@@ -125,10 +139,38 @@ class ControlRun:
 
     # ------------------------------------------------------------------
     def save_monthly(self, path: str):
+        import json
         out = {}
         for i, (year, month, mean) in enumerate(self.monthly):
             for k, v in mean.items():
                 out[f'm{i:04d}/{k}'] = v.astype(np.float32)
         out['years'] = np.array([y for y, _, _ in self.monthly])
         out['months'] = np.array([m for _, m, _ in self.monthly])
+        out['provenance'] = np.frombuffer(
+            json.dumps(provenance(self.config)).encode(), dtype=np.uint8)
         np.savez_compressed(path, **out)
+
+    # ------------------------------------------------------------------
+    def save_restart(self, path: str):
+        """Bit-exact restart: complete ModelState + driver position.
+
+        Monthly-mean accumulators are NOT included -- a resumed run
+        restarts its diagnostics accumulation fresh; the model trajectory
+        itself continues bit-identically (tests/test_restart.py).
+        """
+        save_restart(path, self.state, dayofmodel=self.dayofmodel,
+                     getbnd_virgin=self._getbnd_virgin,
+                     header=provenance(self.config))
+
+    @classmethod
+    def from_restart(cls, path: str,
+                     config: RunConfig | None = None) -> 'ControlRun':
+        """Resume a run from a restart file (config from its header if
+        not supplied)."""
+        state, dayofmodel, virgin, header = load_restart(path)
+        cfg = config or RunConfig.from_dict(header['config'])
+        run = cls(config=cfg)
+        run.state = state
+        run.dayofmodel = dayofmodel
+        run._getbnd_virgin = virgin
+        return run
