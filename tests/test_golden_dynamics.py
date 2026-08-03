@@ -139,3 +139,78 @@ def test_polar_filter_row_extent():
     """js from the Fortran single-precision expression; symmetric rows."""
     assert PFILT.js in (4, 5)                  # document the f32 truncation
     assert PFILT.jn0 == GRID.ny - PFILT.js
+
+
+# ---------------------------------------------------------------------------
+# Cloud, radiation, surface fluxes
+# ---------------------------------------------------------------------------
+from qtcm1.physics.clouds import cloud                   # noqa: E402
+from qtcm1.physics.radiation import radlw, radsw         # noqa: E402
+from qtcm1.physics.sfcflux import sfcwind_abl, sflux     # noqa: E402
+
+
+def _dayofyear(fn):
+    return int(os.path.basename(fn)[8:12])       # step_dayNNNN, year 1
+
+
+@pytest.mark.parametrize('fn', FILES, ids=[os.path.basename(f) for f in FILES])
+def test_cloud_golden(fn):
+    pre = load(fn, 'wmconvct')
+    post = load(fn, 'wcloud')
+    out = cloud(f2py_to_grid('Qc', pre['Qc']).astype(np.float64))
+    assert_field(out['cl1'], f2py_to_grid('cl1', post['cl1']), 'cl1')
+
+
+@pytest.mark.parametrize('fn', FILES, ids=[os.path.basename(f) for f in FILES])
+def test_radsw_golden(fn):
+    pre = load(fn, 'wcloud')
+    post = load(fn, 'wradsw')
+    cld = cloud(f2py_to_grid('Qc', pre['Qc']).astype(np.float64))['cld']
+    out = radsw(cld, f2py_to_grid('ALBDs', pre['ALBDs']).astype(np.float64),
+                _dayofyear(fn), GRID)
+    for key in ['S0', 'FSWds', 'FSWus', 'FSWut', 'FSW']:
+        assert_field(out[key], f2py_to_grid(key, post[key]), key)
+
+
+@pytest.mark.parametrize('fn', FILES, ids=[os.path.basename(f) for f in FILES])
+def test_radlw_golden(fn):
+    pre = load(fn, 'wradsw')
+    post = load(fn, 'wradlw')
+    cld = cloud(f2py_to_grid('Qc', pre['Qc']).astype(np.float64))['cld']
+    out = radlw(f2py_to_grid('T1', pre['T1']).astype(np.float64),
+                f2py_to_grid('q1', pre['q1']).astype(np.float64),
+                f2py_to_grid('Ts', pre['Ts']).astype(np.float64), cld)
+    for key in ['FLWds', 'FLWus', 'FLWut', 'FLW']:
+        assert_field(out[key], f2py_to_grid(key, post[key]), key)
+
+
+@pytest.mark.parametrize('fn', FILES, ids=[os.path.basename(f) for f in FILES])
+def test_sflux_golden(fn):
+    pre = load(fn, 'wradlw')                   # state entering Sflux
+    post = load(fn, 'wsflux')
+    wind = sfcwind_abl(
+        f2py_to_grid('u1', pre['u1']).astype(np.float64),
+        f2py_to_grid('v1', pre['v1']).astype(np.float64),
+        f2py_to_grid('u0', pre['u0']).astype(np.float64),
+        f2py_to_grid('v0', pre['v0']).astype(np.float64),
+        f2py_to_grid('us', pre['us']).astype(np.float64),
+        f2py_to_grid('vs', pre['vs']).astype(np.float64),
+        f2py_to_grid('dphisdx', pre['dphisdx']).astype(np.float64),
+        f2py_to_grid('dphisdy', pre['dphisdy']).astype(np.float64),
+        f2py_to_grid('CDN', pre['CDN']).astype(np.float64),
+        np.asarray(GRID.fu, dtype=np.float64),
+        weml=float(pre['weml']), ziml=float(pre['ziml']),
+        vvsmin=float(pre['VVsmin']))
+    for key in ['us', 'vs']:
+        assert_field(wind[key], f2py_to_grid(key, post[key]), key,
+                     atol_scale=3e-5)          # Newton fixed point, f32 floor
+    out = sflux(f2py_to_grid('T1', pre['T1']).astype(np.float64),
+                f2py_to_grid('q1', pre['q1']).astype(np.float64),
+                f2py_to_grid('Ts', pre['Ts']).astype(np.float64),
+                f2py_to_grid('STYPE', pre['STYPE']),
+                f2py_to_grid('CDN', pre['CDN']).astype(np.float64), wind)
+    for key in ['CV', 'taux', 'Evap', 'FTs']:
+        assert_field(out[key], f2py_to_grid(key, post[key]), key,
+                     atol_scale=3e-5)
+    assert_field(out['tauy'][:-1], f2py_to_grid('tauy', post['tauy'])[:-1],
+                 'tauy', atol_scale=3e-5)
