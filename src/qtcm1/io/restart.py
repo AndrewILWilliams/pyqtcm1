@@ -26,9 +26,16 @@ _ARRAYS = ['u1', 'v1', 'T1', 'q1', 'u0', 'v0', 'vort0', 'Ts', 'WD',
 
 
 def save_restart(path: str, state: ModelState, *, dayofmodel: int = 0,
-                 getbnd_virgin: bool = False, header: dict | None = None):
-    """Write a complete, bit-exact restart file."""
+                 getbnd_virgin: bool = False, header: dict | None = None,
+                 extra: dict | None = None):
+    """Write a complete, bit-exact restart file.
+
+    ``extra`` holds additional component state (e.g. the slab ocean's
+    Tnow and flux accumulators), stored under ``extra/<key>``.
+    """
     payload = {k: getattr(state, k) for k in _ARRAYS}
+    for k, v in (extra or {}).items():
+        payload[f'extra/{k}'] = np.asarray(v)
     payload['rhs_hist0'] = state.rhs_hist[0]
     payload['rhs_hist1'] = state.rhs_hist[1]
     payload['rhsbar_hist'] = np.array(state.rhsbar_hist, dtype=np.float64)
@@ -45,9 +52,11 @@ def save_restart(path: str, state: ModelState, *, dayofmodel: int = 0,
 def load_restart(path: str):
     """Read a restart file.
 
-    Returns ``(state, dayofmodel, getbnd_virgin, header)``.
+    Returns ``(state, dayofmodel, getbnd_virgin, header, extra)``.
     """
     z = np.load(path)
+    extra = {k[len('extra/'):]: z[k] for k in z.files
+             if k.startswith('extra/')}
     psi0 = z['psi0']
     state = ModelState(
         u1=z['u1'], v1=z['v1'], T1=z['T1'], q1=z['q1'],
@@ -60,4 +69,4 @@ def load_restart(path: str):
         psi0=None if psi0.size == 0 else psi0,
         gradphis_virgin=bool(z['flags'][0]))
     header = json.loads(bytes(z['header']).decode() or '{}')
-    return state, int(z['flags'][2]), bool(z['flags'][1]), header
+    return state, int(z['flags'][2]), bool(z['flags'][1]), header, extra

@@ -189,7 +189,8 @@ class Model:
                       us=wind['us'], vs=wind['vs'])
         diags = dict(Qc=Qc, cl1=cl['cl1'], Evap=land['Evap'], FTs=fx['FTs'],
                      taux=fx['taux'], tauy=fx['tauy'], div1=bc['div1'],
-                     S0=sw['S0'], FSWds=sw['FSWds'], OLR=lw['FLWut'],
+                     S0=sw['S0'], FSWds=sw['FSWds'], FSWus=sw['FSWus'],
+                     FLWds=lw['FLWds'], FLWus=lw['FLWus'], OLR=lw['FLWut'],
                      Runf=land['Runf'], wet=land['wet'])
         if it % p['mt0'] == 0:
             sav = savebartr(s.u0, s.v0)

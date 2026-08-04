@@ -24,6 +24,8 @@ not from daily snapshots.
 
 from __future__ import annotations
 
+import os
+
 import numpy as np
 
 from .calendar import ModelCalendar
@@ -75,6 +77,23 @@ class ControlRun:
         self.bd = BoundaryData(data_path)
         self.calendar = ModelCalendar(year0=year0, month0=month0, day0=day0)
         self.sst_mode = sst_mode
+        self.ocean = None
+        if sst_mode in ('mixed_layer', 'blend'):
+            from .physics.ocean import MixedLayerOcean, QFlux
+            qf = QFlux.from_netcdf(os.path.join(data_path, 'qflux.nc'),
+                                   self.bd._anchors)
+            mask = None
+            if sst_mode == 'blend':
+                import netCDF4
+                with netCDF4.Dataset(os.path.join(data_path,
+                                                  'masks.nc')) as dsm:
+                    mask = np.array(dsm['ensopac'][:])
+            self.ocean = MixedLayerOcean(qf, self.bd.stype, mask=mask)
+            # OceanInit: Tnow starts as the bracket-left monthly SST field
+            doy0 = self.calendar.timemanager(1).dayofyear
+            m1 = int(np.searchsorted(self.bd._anchors, doy0, 'right') - 1)
+            mo1 = 12 if m1 == 0 else (1 if m1 == 13 else m1)
+            self.ocean.Tnow = self.bd.sst_clim[mo1 - 1].copy()
         stype = self.bd.stype.astype(np.float64)
         self.model = Model(stype, bndinit_cdn(stype), params=params,
                            init_dtype=init_dtype)
@@ -117,14 +136,22 @@ class ControlRun:
         date = self.calendar.timemanager(self.dayofmodel)
         doy = date.dayofyear
         alb = self.bd.albedo(doy)
+        if self.ocean is not None:               # slab: ocean before getbnd
+            data_sst = (self.bd.sst(date.yearofmodel, doy)
+                        if self.ocean.mask is not None else None)
+            sst = self.ocean.step_day(doy, date.monthofyear,
+                                      date.dayofmonth, data_sst)
         if self._getbnd_virgin:                  # getbnd ncall==0: skip SST
             self._getbnd_virgin = False
         else:
-            sst = self.bd.sst(date.yearofmodel, doy, self.sst_mode)
+            if self.ocean is None:
+                sst = self.bd.sst(date.yearofmodel, doy, self.sst_mode)
             self.state, _ = self.model.apply_boundary(self.state, sst, alb)
         nastep = int(round(86400.0 / self.model.params['dt']))
         for it in range(1, nastep + 1):
             self.state, diags = self.model.step(self.state, alb, doy, it)
+            if self.ocean is not None:           # cplmean accumulation
+                self.ocean.accumulate(diags)
             self._accumulate(self.state, diags,
                              (date.yearofmodel, date.monthofyear))
         return date
@@ -158,19 +185,32 @@ class ControlRun:
         restarts its diagnostics accumulation fresh; the model trajectory
         itself continues bit-identically (tests/test_restart.py).
         """
+        extra = {}
+        if self.ocean is not None:               # slab state + pending means
+            extra['ocean_Tnow'] = self.ocean.Tnow
+            extra['ocean_n'] = np.int64(self.ocean._n)
+            if self.ocean._acc is not None:
+                for k, v in self.ocean._acc.items():
+                    extra[f'ocean_acc_{k}'] = v
         save_restart(path, self.state, dayofmodel=self.dayofmodel,
                      getbnd_virgin=self._getbnd_virgin,
-                     header=provenance(self.config))
+                     header=provenance(self.config), extra=extra)
 
     @classmethod
     def from_restart(cls, path: str,
                      config: RunConfig | None = None) -> 'ControlRun':
         """Resume a run from a restart file (config from its header if
         not supplied)."""
-        state, dayofmodel, virgin, header = load_restart(path)
+        state, dayofmodel, virgin, header, extra = load_restart(path)
         cfg = config or RunConfig.from_dict(header['config'])
         run = cls(config=cfg)
         run.state = state
         run.dayofmodel = dayofmodel
         run._getbnd_virgin = virgin
+        if run.ocean is not None and 'ocean_Tnow' in extra:
+            run.ocean.Tnow = extra['ocean_Tnow']
+            run.ocean._n = int(extra['ocean_n'])
+            acc = {k[len('ocean_acc_'):]: v for k, v in extra.items()
+                   if k.startswith('ocean_acc_')}
+            run.ocean._acc = acc or None
         return run
