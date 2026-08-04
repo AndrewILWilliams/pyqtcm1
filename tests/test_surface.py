@@ -104,6 +104,28 @@ def test_new_ocean_warns_and_slab_refuses():
                    surface=surf)
 
 
+def test_zonal_sst_mode():
+    bd = BoundaryData(_DATA)
+    sst_z = bd.sst(1, 100, 'zonal')
+    sst_s = bd.sst(1, 100, 'seasonal')
+    # constant along longitude, warm at the equator, plausible range
+    assert np.ptp(sst_z, axis=1).max() == 0.0
+    jeq = np.abs(bd.lat).argmin()
+    assert sst_z[jeq, 0] > sst_z[0, 0] and sst_z[jeq, 0] > sst_z[-1, 0]
+    assert 260.0 < sst_z.min() and sst_z.max() < 305.0
+    # each latitude equals the ocean-masked mean of the seasonal field
+    ocean = bd.stype_ref == 0
+    for j in [0, jeq, bd.lat.size - 1]:
+        ref = (sst_s[j, ocean[j]].mean() if ocean[j].any()
+               else sst_s[j].mean())
+        assert sst_z[j, 0] == ref
+    # aquaplanet + zonal SST: the under-land warning does not apply
+    surf = surface.aquaplanet(_DATA)
+    with warnings.catch_warnings():
+        warnings.simplefilter('error')               # any warning -> failure
+        BoundaryData(_DATA, surface=surf, sst_mode='zonal')
+
+
 def test_coerce_roundtrip(tmp_path):
     surf = surface.real_earth(_DATA)
     st, top = surface.coerce(surf)

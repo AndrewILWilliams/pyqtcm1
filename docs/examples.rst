@@ -119,6 +119,32 @@ run — the ITCZ reorganizes over the new landmass:
          rainfall organizes over the new landmass in the otherwise dry
          central Pacific.
 
+Aquaplanet + one continent
+--------------------------
+
+The reverse construction — start from water and *add* land — isolates
+a single landmass completely. ``surface.aquaplanet()`` gives all-ocean,
+flat geography; painting one continent onto it, together with
+``sst_mode='zonal'`` (the seasonal SST climatology zonally averaged
+over the registry's ocean points, so no warm pool, no under-land fill,
+observed meridional/seasonal structure retained), makes the continent
+the *only* zonally asymmetric element of the run. Whatever deviates
+from zonal symmetry is the continent's doing:
+
+.. literalinclude:: ../examples/08_aquaplanet_continent.py
+   :language: python
+
+.. image:: _static/aquaplanet_continent_precip.png
+   :alt: Aquaplanet with one equatorial continent, December-mean
+         precipitation and its zonal anomaly - the ITCZ is a symmetric
+         band except over the lone landmass, where rainfall is enhanced
+         by several mm/day.
+
+The ITCZ sits just south of the equator in December everywhere except
+the continent, where land-surface heating pulls convection onto the
+landmass (~+6 mm/day locally) with weak compensating dry flanks along
+the same latitude band.
+
 Topography (TOPO)
 -----------------
 

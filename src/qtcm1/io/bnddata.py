@@ -45,10 +45,12 @@ class BoundaryData:
     """
 
     def __init__(self, path: str, calendar: ModelCalendar | None = None,
-                 surface=None, albedo_mode: str = 'auto'):
+                 surface=None, albedo_mode: str = 'auto',
+                 sst_mode: str | None = None):
         self.path = path
         self.calendar = calendar or ModelCalendar()
         self.albedo_mode = albedo_mode
+        self.sst_mode = sst_mode
         # Interpolation anchors are julian(yyyy mm 15), i.e. cumulative
         # month lengths + 15 -- NOT calendar.F90's ``midmonth`` table.
         # The Fortran carries both conventions and they disagree for
@@ -84,12 +86,13 @@ class BoundaryData:
             self.surface_sha256 = _surf.sha256(stype_new, top_new)
             self._changed = stype_new != self.stype_ref
             new_ocean = (stype_new == 0) & (self.stype_ref != 0)
-            if new_ocean.any():
+            if new_ocean.any() and sst_mode != 'zonal':
                 import warnings
                 warnings.warn(
                     f'{int(new_ocean.sum())} ocean points created where the '
                     'registry has land: prescribed SST there is the '
-                    "dataset's under-land fill, not observations",
+                    "dataset's under-land fill, not observations "
+                    "(sst_mode='zonal' avoids this)",
                     stacklevel=3)
             self.stype = stype_new
             self.top = top_new
@@ -163,10 +166,24 @@ class BoundaryData:
 
         ``seasonal``: climatological monthly files; ``real_time``: dated
         observed series (adjacent-year wrap at anchors); ``perpetual``:
-        the fixed 00000000.sst field. ``interval_days`` is the ocean
-        coupling interval (``ndays`` of readsst; standard runs use 1).
+        the fixed 00000000.sst field; ``zonal``: the seasonal
+        climatology zonally averaged over the *registry's* ocean points
+        per latitude (under-land fill values never enter; a latitude
+        with no registry ocean falls back to the full-longitude mean) —
+        a zonally symmetric ocean with the observed meridional and
+        seasonal structure, for idealized-geography runs.
+        ``interval_days`` is the ocean coupling interval (``ndays`` of
+        readsst; standard runs use 1).
         """
         half = interval_days / 2.0
+        if mode == 'zonal':
+            field = self._interp_monthly(self.sst_clim, dayofyear, half)
+            ocean = self.stype_ref == 0
+            out = np.empty_like(field)
+            for j in range(field.shape[0]):
+                sel = ocean[j]
+                out[j] = field[j, sel].mean() if sel.any() else field[j].mean()
+            return out
         if mode == 'perpetual':
             if self.sst_perpetual is None:
                 raise FileNotFoundError('sst_perpetual.nc not in registry')

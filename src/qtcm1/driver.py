@@ -84,7 +84,8 @@ class ControlRun:
                 'diagnose with tools/make_qflux.py, and point data_path at '
                 'a registry containing that qflux.nc')
         self.bd = BoundaryData(data_path, surface=surface,
-                               albedo_mode=config.albedo_mode)
+                               albedo_mode=config.albedo_mode,
+                               sst_mode=sst_mode)
         self.calendar = ModelCalendar(year0=year0, month0=month0, day0=day0)
         self.sst_mode = sst_mode
         self.ocean = None
