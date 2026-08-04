@@ -1,12 +1,14 @@
 # pyqtcm1
 
 [![Documentation Status](https://readthedocs.org/projects/pyqtcm1/badge/?version=latest)](https://pyqtcm1.readthedocs.io/en/latest/)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AndrewILWilliams/pyqtcm1/blob/main/notebooks/quickstart_colab.ipynb)
 
 Pure-Python reimplementation of the Neelin–Zeng Quasi-Equilibrium Tropical
 Circulation Model, version 1 (QTCM1 v2.3), migrated from the Fortran core of
 J. W.-B. Lin's `qtcm` 0.1.2 package.
 
-**Documentation: [pyqtcm1.readthedocs.io](https://pyqtcm1.readthedocs.io)** —
+**Documentation: [pyqtcm1.readthedocs.io](https://pyqtcm1.readthedocs.io)** — or
+[**run the model in your browser**](https://colab.research.google.com/github/AndrewILWilliams/pyqtcm1/blob/main/notebooks/quickstart_colab.ipynb) —
 quickstart, example gallery (fixed-SST control, SST anomalies, idealized
 greenhouse forcing, restarts/twins), the validation methodology, and the API
 reference.
