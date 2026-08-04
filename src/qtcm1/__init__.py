@@ -5,6 +5,15 @@ the netCDF boundary-data reader. See the project scope document for the
 migration plan and validation tiers.
 """
 
+# Register the matplotlib converter for cftime axes (model output uses a
+# noleap calendar).  xarray's .plot() imports nc_time_axis itself when the
+# package is installed, but raw matplotlib calls (plt.plot(ds.time, ...))
+# only work if the converter has been registered by an explicit import.
+try:
+    import nc_time_axis  # noqa: F401
+except ImportError:      # minimal installs without the plotting extra
+    pass
+
 from . import constants
 from .calendar import CalendarState, ModelCalendar, time_interp
 from .grid import Grid

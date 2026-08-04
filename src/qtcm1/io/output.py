@@ -192,15 +192,11 @@ class OutputManager:
     def to_datasets(self) -> dict:
         """One :class:`xarray.Dataset` per requested frequency.
 
-        Importing ``nc_time_axis`` (a package dependency) registers the
-        matplotlib converter for the cftime noleap time axis, so
-        ``.plot()`` works on these datasets out of the box.
+        The ``nc_time_axis`` converter is registered when :mod:`qtcm1` is
+        imported, so both ``.plot()`` and raw matplotlib calls work on the
+        cftime noleap time axis out of the box.
         """
         import xarray as xr
-        try:                                   # register cftime plotting
-            import nc_time_axis                # noqa: F401
-        except ImportError:                    # headless installs: fine
-            pass
         by_freq = {}
         for name, r in self.requests.items():
             by_freq.setdefault(r['freq'], []).append(name)
