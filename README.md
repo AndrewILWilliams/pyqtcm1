@@ -35,7 +35,7 @@ Conventions: arrays are C-ordered `(lat, lon)` = Fortran `(ny, nx)`
 transposed; scientific field names keep the paper notation (`u1, T1, q1`, …);
 every ported function's docstring names its Fortran origin and the Neelin &
 Zeng (2000) equations it implements. Boundary inputs are netCDF only,
-produced by `tools/convert_bnddata.py` from the original ASCII `bnddir`.
+shipped in `data/r64x42` (the repo is self-contained; `tools/convert_bnddata.py` regenerates it from the original ASCII `bnddir`).
 
 Not yet ported from the original option set: the mixed-layer/slab ocean,
 topography, and the ISCCP cloud option — see the roadmap in the docs.

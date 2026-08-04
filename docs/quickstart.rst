@@ -16,17 +16,18 @@ path that produces **bit-identical** results.
 Boundary data
 -------------
 
-The model reads its boundary conditions (climatological Reynolds SST,
-Darnell albedo, surface types) from a small netCDF registry converted
-from the original QTCM1 ASCII files:
+The netCDF boundary registry for the standard r64x42 grid — SST
+(climatological, dated 1949-2001, perpetual), Darnell albedo, surface
+types, cloud climatologies, masks and the diagnosed slab-ocean Q-flux —
+**ships with the repository** in ``data/r64x42`` (~17 MB, full float64,
+with a sha256 manifest of the original ASCII sources). A checkout is
+self-contained: ``RunConfig()`` finds it automatically. To regenerate
+it, or to build a registry for another grid:
 
 .. code-block:: bash
 
    python tools/convert_bnddata.py --bnddir <qtcm1>/bnddir/r64x42 \
-                                   --out ~/qtcm1_data/r64x42
-
-The conversion stores full float64 precision and writes a sha256
-manifest of its inputs, which ends up stamped into every model output.
+                                   --out data/r64x42
 
 A first run
 -----------
@@ -39,7 +40,7 @@ lines:
    from qtcm1.config import RunConfig
    from qtcm1.driver import ControlRun
 
-   cfg = RunConfig(data_path='~/qtcm1_data/r64x42')   # build='f64' default
+   cfg = RunConfig()          # packaged data, build='f64' default
    run = ControlRun(config=cfg)
 
    run.run_years(2)                       # ~1 minute per simulated year
@@ -97,7 +98,7 @@ gradients). ``Model.step`` is a pure function of ``(state, forcing)``:
    import numpy as np
    from qtcm1.driver import ControlRun
 
-   run = ControlRun(data_path='~/qtcm1_data/r64x42')
+   run = ControlRun(config=RunConfig())
    model, state = run.model, run.state
 
    sst = run.bd.sst(year=1, dayofyear=100)     # boundary fields, any day

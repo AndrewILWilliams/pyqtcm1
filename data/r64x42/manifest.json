@@ -1,0 +1,2755 @@
+{
+ "grid": "r64x42",
+ "sources": [
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00000115.sst",
+   "sha256": "a090dd049d170759acec15047627d3ea490d7726af3b1a24acc8f94413f6f682"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00000215.sst",
+   "sha256": "ed79e2af2d87239f8ca8086fe50bbc83de7257365d1d1fc3603052d76768a4f5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00000315.sst",
+   "sha256": "addf808fa686a66958d897d197bead63e90c5f8e4454165973d4be105ec093c6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00000415.sst",
+   "sha256": "29d51bb9a04bf445abcfe44343a093f40b28133f15a0412fafc26fc31ba092d4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00000515.sst",
+   "sha256": "8bedca5f0b563b9dabb7dfdd75a111d433ff283259f9da9bbbed83b529a0e0a2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00000615.sst",
+   "sha256": "72c2d23935f1aa2f8aed4f8efa4928f501d701ad84733293eea05af62287c283"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00000715.sst",
+   "sha256": "3a77127eadcb5e9249f17a704ac31b4ab52a09002d345b4a6df105e73fa8bcb5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00000815.sst",
+   "sha256": "eebc125e8a01a644475e4009b1996151c6ee8e921b82b0841341664647a9511d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00000915.sst",
+   "sha256": "957288e558d688884dd8770a04e8a8cc6d7658b92cc5fc726643251a642b7975"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00001015.sst",
+   "sha256": "9240e9b7d4031ad4b82367f84d099ce87132994b9063c42416e2ddb54fe44c7e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00001115.sst",
+   "sha256": "b0bdcd6e6a5b332957d7ac7899ad33564a7a405cc18e069403fb3403c595b79b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/00001215.sst",
+   "sha256": "19c911354556158459245d9f1511401c69ef948a96a2888e4892ea7bdefe7eee"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19491015.sst",
+   "sha256": "9240e9b7d4031ad4b82367f84d099ce87132994b9063c42416e2ddb54fe44c7e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19491115.sst",
+   "sha256": "b0bdcd6e6a5b332957d7ac7899ad33564a7a405cc18e069403fb3403c595b79b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19491215.sst",
+   "sha256": "19c911354556158459245d9f1511401c69ef948a96a2888e4892ea7bdefe7eee"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19500115.sst",
+   "sha256": "ab33f8e4c6e6354dc27f4bd92a8bafe10f1b0c3fdd50f1b91fb0c7cbf85afd80"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19500215.sst",
+   "sha256": "d76f9ff5fa2153538d519fae3ef523a24e7fadb8dcca48efe4add81e68af9e50"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19500315.sst",
+   "sha256": "d71fd312227f5377d039fe8c57bcc283fba4f47e34f59ac618525c0ba0b8af65"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19500415.sst",
+   "sha256": "3b29da8fe8d6a1f55b513fb4c92b5867d5746de2691094187c87f9ffe83e4b11"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19500515.sst",
+   "sha256": "3098d25447e796dfb6dbbb23a32a60797625bbea3ef7ae36bd91fc6bc94790d1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19500615.sst",
+   "sha256": "e996874d4376a33e27f0ee6e83d1ebaa12dcea8fe8730f75d5466de0acd46750"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19500715.sst",
+   "sha256": "587405599e598906bbd37c43035a3c23222027bc453a4f85e94309806fd593f4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19500815.sst",
+   "sha256": "adf97878022d732f06ec058c706fbd1bcbcbafa233c68eb1979ec59735bcb7c0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19500915.sst",
+   "sha256": "dc67c086fe53112ce719a67cfc1a975de21b8d8edd3d3b18fcaa185a6b78e3ee"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19501015.sst",
+   "sha256": "d1ca5efea9186c104976114aa510dad80f2bb925885b73fc565127241c2c32d0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19501115.sst",
+   "sha256": "94ab563438d2237457ceab4bfa2bb8f28cd3d6d8adafb7e75e8d5ca50594ce5a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19501215.sst",
+   "sha256": "1b32f71049eae7cff7e07e843d3736b947d3c965601ecb28a2a8476229fc28fa"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19510115.sst",
+   "sha256": "db3f49db388dd1fb3cc03ca2c9e75ff468f5282d5bec0bacfc74fc334e582a70"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19510215.sst",
+   "sha256": "0f2decdf113a1e0801fd7c48c3e6b6623d2798b9388a6e5820e856b2eb4bd89c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19510315.sst",
+   "sha256": "2e1c5651d9f427f4b4afaed53e4fed5af202104763858df632696bbe5294a593"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19510415.sst",
+   "sha256": "ff8b0ae4474f8c94a8386c8aad6f520025bb93abe8960890e36fc63fc2e9916e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19510515.sst",
+   "sha256": "5350c34e29952db35b966d6e83b3422ee7ce57091ab24a677e1977828d2a1ee4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19510615.sst",
+   "sha256": "28f7b4e3eb86496513b82cdb579b5a0acca2a4d4d898614fb0ddfd16f3377a00"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19510715.sst",
+   "sha256": "8234977eea8f1b2fd979070b6f2eef60f57390fd2bed43228ef081c5fc8c3198"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19510815.sst",
+   "sha256": "da8b6ed5ba1184cdb6b5c66f5ac3a22fa32837698327ce93998ca52b9afd6bae"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19510915.sst",
+   "sha256": "d8d6906c0648463967b78bff66b2bf4c52adb5a06b073ad9c144b8d4aa57ac32"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19511015.sst",
+   "sha256": "db99b7a254d22b85808eef39feb247ac5c3f1cc72152c14e2c4d01f5b13b14f6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19511115.sst",
+   "sha256": "241f32c3c8440ce958100aeb95219921441872908166fff527c4cc2176f6a106"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19511215.sst",
+   "sha256": "71e893e77892ba91aa9b80619d155f408a775f7e711d09b55f4c1fc0893dbfa4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19520115.sst",
+   "sha256": "acb02f30afb4369a02ad5c4068586df941f88be088872b6e239e1707d0b06d55"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19520215.sst",
+   "sha256": "38c6470cf8ff20aba2a272db174228001a5257cbf0ea9deac3a1e0e716e6eb9d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19520315.sst",
+   "sha256": "575b7bee0d174808c61d55a49936a141b8378ab8decbbb9aecbd9d5601db83d4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19520415.sst",
+   "sha256": "dd28f3e03b48b63150dd0a2c4a5d63b3543c0888fd635b07af59482938b1642b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19520515.sst",
+   "sha256": "8fe29e1dffba7eb9a6e5fac627000183f148b0852eb63c34c501b90a51994966"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19520615.sst",
+   "sha256": "25ad756ef1eace72fecb9191529dcfac8a7a03d25501724a4e14ba989763e034"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19520715.sst",
+   "sha256": "6aedaa38d5cef96b2cf445c9ee125e6ca13238982930fe637fa302270cca12b2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19520815.sst",
+   "sha256": "dc0df74100d031349a79acbfb856caed031a6d1d8cdf289a8845aeb439d8056b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19520915.sst",
+   "sha256": "5c105e5c4534ac59f42c723cefae3dacdd556909ce8351ac7d5a7b2f9e560eb7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19521015.sst",
+   "sha256": "2fe89c7e2b0602d2bd623a655d6016b31259b41d13ad8cfbed97b91e4c5296fa"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19521115.sst",
+   "sha256": "69051da67a8e53705d20f965bcbd94de163481fa6547026e6cb978a69fcd8ea8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19521215.sst",
+   "sha256": "f085d8d6d860ad70784741719088a4c98bfad9d7ea0acc42c49675e0a145e0c2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19530115.sst",
+   "sha256": "5b7685979dd7feedb81dc61618ccafede1d1dc43bd60318fac52978f3e10c049"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19530215.sst",
+   "sha256": "09d480ebaf256eeb7997193c22e9f43bfb918a8e86ba06c3ecc69f594d5599fa"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19530315.sst",
+   "sha256": "0ad426082840db6ab6eb6e6fd9869509f147549dcac88ce95ea64ec9dd684dc5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19530415.sst",
+   "sha256": "1f8d5aaaf4ecc125c855829c0872bb14a63c38d386f0f00b75966429d6211d00"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19530515.sst",
+   "sha256": "71600e83220868989e5a27bc7f8f2eb4f8a6fdd3b48b5a2de9313bef40342c9b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19530615.sst",
+   "sha256": "8149b0a133489e68d437bf7ab852f8b829a06261fa86d30bdddefecde3e0649d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19530715.sst",
+   "sha256": "4f67471471dbdb33030631a95e8aabb9324a3db97861b7e4f76eb441fdeaf758"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19530815.sst",
+   "sha256": "441958c0bc8111f2ac8ee58f385085e2921a94ab36159840ef252867fac4d6cc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19530915.sst",
+   "sha256": "2c1da82722c8187b9329939495f5981adeeb340c2ac15d16c52dcd7753599784"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19531015.sst",
+   "sha256": "e77da01472daf27ee50b6079bef7aee14f38d70a070e2d20ae98d09087cbd4fb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19531115.sst",
+   "sha256": "5f9baa67fd6e646b9656d7add4753fd7159c89f3f258e96e4c89fbad586d90a7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19531215.sst",
+   "sha256": "18fdb55c1d32e2507e477f853100fa0d3a8b3ca8ae5ee0a2da31d8680af7a48a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19540115.sst",
+   "sha256": "3155dc09f8063addaf724bf1a424389db9621e6a64495f1399fbc9f3a1e38688"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19540215.sst",
+   "sha256": "4778f9d7634b627b41f5fedceb174bd37e944fda8a9bfcc03260cba240de6572"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19540315.sst",
+   "sha256": "0c8b2375f4ddcc99e44485ec9c1492c89923483b3680b5be382c4f3a2e4920a1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19540415.sst",
+   "sha256": "917d3dac84f70771f1732f12005bf8d99b540d7004736c3d1902fb88d06b7b59"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19540515.sst",
+   "sha256": "1d3d6e66aca6063f40d02724070c3a0eb05ed0c29f7eb4212e4563874bc33797"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19540615.sst",
+   "sha256": "52b64ae96f04e3b074c44d3c6e021c3494dc8862da825b9a5605c6fa2b475242"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19540715.sst",
+   "sha256": "a2e32e7c35ef0e5b49c3cd36da6a74f5b18a6babb6bf5fc4600674d52366c5b6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19540815.sst",
+   "sha256": "231ea63094b027347615a7d0cf3877541db766aadbb9504b80657da00571b00c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19540915.sst",
+   "sha256": "1d2a494379a4b55abf5231cc85be6bc1876e16dc15a453bf97191826c85a1480"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19541015.sst",
+   "sha256": "eb47aa732824f34d0ae55aa6ab87b55fe9358ad440f422b286dd2b8548657ef9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19541115.sst",
+   "sha256": "8a3d1dd9401a036180d64dec759fe5d405188c33a422f77ce3db240e3831b35c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19541215.sst",
+   "sha256": "eaa9136d47245b61b60bc485ccc44a595d30d6c4d07af3c6f61c24362110adba"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19550115.sst",
+   "sha256": "ded8eacc5415d4d088f3c7edd85198a8143ee1f5e0ccd32d24c48b0097addb47"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19550215.sst",
+   "sha256": "f2af944591c9b9bca7051a462a0d2f25b1d7a0293440d56dc1b6e85222004aa0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19550315.sst",
+   "sha256": "41508f24bf7bd8ebbba91fba54cff3a5101684a7780024d34984da10a3f74dab"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19550415.sst",
+   "sha256": "06946763d82722b0349100ddcc9dae9ef7cedd7625d8d7a9ed14d64033513d2b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19550515.sst",
+   "sha256": "06b2d81b16582657fcb869919777d19481f1270c0af462f74521c00af972e645"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19550615.sst",
+   "sha256": "028a3309bc848e4b4554b564153f114d67500ce1e7d9de7ffb46b15ccacd7f37"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19550715.sst",
+   "sha256": "26ef28d06052da1edee0c67ec4a501f88067c4ea90c178d7ecc74df7791d295d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19550815.sst",
+   "sha256": "c95f4e14d2e21bc1b7112a3a2195879345c5c1ec0b46bcab3f792401dd4c08cb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19550915.sst",
+   "sha256": "e54e9f8601808571860aea0ecb2979f1013c1d04afb163f45c4a764fba389b8c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19551015.sst",
+   "sha256": "4a30f287278343629c0f224631121a7631794491cdb75246c04b375afa44f670"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19551115.sst",
+   "sha256": "dc8aa4d06a3a51f7aea18c2043618dd35c2d051837c2e275f4044aee44b7e07b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19551215.sst",
+   "sha256": "4e2831449d4e56c486fbebf1046aa31378c598599250d09dfafe87c18f97dd21"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19560115.sst",
+   "sha256": "8accef8b408967a6eb01db65709c02d813a35e8c1cf12bfce3afc4687c54bc8f"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19560215.sst",
+   "sha256": "97de000d3d350e9a58a017ad3739e93f8ee6608204b4ab80dcdd4a493263fac5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19560315.sst",
+   "sha256": "75f51ae43d90216dfd69cf28880be2cfdcdb46255d4d8c8d8a242ec181c448b3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19560415.sst",
+   "sha256": "1a7e3d56471450dadd3cf63bddfaf14cc8cf5bcc21e9f0328f12b716dc7c53fc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19560515.sst",
+   "sha256": "a044cc00f6ad02c68c9c2354432a8efb9d9553de7cbfe9a42128d84c36ee7ee0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19560615.sst",
+   "sha256": "6ce72252210f04df5e563e6df45b7645883cc112291c5739e9b9b2d19e785a90"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19560715.sst",
+   "sha256": "bfa29d6c6c8d86366ecc74d6721bc3c28bd4ef4ddc79f957811fb5dbaea02d04"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19560815.sst",
+   "sha256": "8e2778f8950b5c54c143772d9636f23b21ccb289b6e884a31396b7b68f37a05c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19560915.sst",
+   "sha256": "a1022798bc10c5071b21fc4f306686872ea84b21256b0225651e7e78bb4b4074"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19561015.sst",
+   "sha256": "97a0fef3ef93a4acf0912d11a4cf08c39c53b9a3d79ff26be20d655f3e4719f6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19561115.sst",
+   "sha256": "0c6f4980cb01a824eea265ed487414a1f693fb2b2f27c91893a992d02b71d52a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19561215.sst",
+   "sha256": "a8f14af2566ff0e7e7e565cc62ff16621525b26e80c1c5a6d339f5c1bb683e36"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19570115.sst",
+   "sha256": "7dcf35ed7da4a184acf72e5a1ad07d107872f32990c966b6ea9b65ecc9ef3859"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19570215.sst",
+   "sha256": "39209f2d3a60f602d062f6dfddbca7db786797aad8118bceec65f7eab4d44c1b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19570315.sst",
+   "sha256": "84f97ffc8318b0f8d8d3f85ef2081184a893ee30f7863fd5773b063b139f42fb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19570415.sst",
+   "sha256": "08b767bfcd2b9944c815c82e5b8bc5e764222c3b745e45e130aa8e894bf9bb27"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19570515.sst",
+   "sha256": "c816f6a7afcc8949c4b3546342b8b940bbd3df79027259c21e11cdcf0fe6f603"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19570615.sst",
+   "sha256": "93a155994f126012d84654cba1497af992807a9da134db713f233b932474acd8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19570715.sst",
+   "sha256": "bc6fd39164c084667c07a25c21cffd029b7f9e0a0d5d45191faa9590a65ebb49"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19570815.sst",
+   "sha256": "2d4f13b267039718822c9032d59bf7398a644dee9137f3425e10c0ff2a194d7d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19570915.sst",
+   "sha256": "cd6faeee40c63cd74fd054f876ddee35585bf2f4710bb4a1e0c25d075df883e9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19571015.sst",
+   "sha256": "ec0248034a32962c1098e647fe66e61fe33e17f55c954facbd04a2ba8b329440"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19571115.sst",
+   "sha256": "c64eaeaccefe40fbabd56bc2942d8176677094cef23e480b50ebfb2de1d4be7a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19571215.sst",
+   "sha256": "c87615aa4d8a42df65bb9b3b3f2a3519061940e3643f8f4ce1451e08cb69dc4f"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19580115.sst",
+   "sha256": "81798b5b91f16b32ae4aa0f1913f1561e6f11e48be608e8046d994fde37243ea"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19580215.sst",
+   "sha256": "4e28c2bc304ca59f2b7fdacb4f312305851c1278463123f0ab2530c4eb2792e9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19580315.sst",
+   "sha256": "f4554922b76edefe983c007cb37162284893f3bf889f458eaebef28105689d0c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19580415.sst",
+   "sha256": "3fe1f92000c92a8b8aebfa39a45b7eb92cee92462581d854b88ffc10e4f0389b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19580515.sst",
+   "sha256": "233b74ad661e7334152219bb97d79022a0988e8668a7876e74c56de2c6b0a971"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19580615.sst",
+   "sha256": "85577a63e51dad6c1177d4a239327d898bd19fb07c6b39af6db3df6f24bdb915"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19580715.sst",
+   "sha256": "6070dcfe4dca515c6c1a39ae3723c8495d23161f72be857c0cf6ef169dd76581"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19580815.sst",
+   "sha256": "8a68984986c6c243bbecc9cc32508e8efc9ee166efc7c106aa31be365617ae66"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19580915.sst",
+   "sha256": "ceb38d0ec2e443dd04c425363f324dfb6cdb6560f6af6e6e4337eea1ddaa7fa3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19581015.sst",
+   "sha256": "f3df411ad984d1bad55f2fcea89f2c9f212cdde81b91ce25ea9d07b8400ada55"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19581115.sst",
+   "sha256": "adb1ffedddaf1b3a18c0f7938a4771f08659d6079e854c0380eade2e80dd5388"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19581215.sst",
+   "sha256": "83020e1b93fd040bcf5468be1bd30d9a16c8a45f5f86f707097212e2176a40d9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19590115.sst",
+   "sha256": "6d6ddc3205db572d7fe80135f2fe0fcd35cf493da7c785536cefc13b7dc8b631"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19590215.sst",
+   "sha256": "51ef69e6017592c80346c6cac12060584ca3f6585fb4ccdec5df188f249eb416"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19590315.sst",
+   "sha256": "b1f81679280056307a27c30446d7684d89ddf539f0cb4147cd1a05e4f9d00e44"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19590415.sst",
+   "sha256": "d39e49b935b75c4e64552766e8415a0a3d477d583f82d99bfdbf762982241d8e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19590515.sst",
+   "sha256": "4be55e94027374ef1340d65092687d581c2a6d9dad6a16f1cb2bc5556a557dad"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19590615.sst",
+   "sha256": "3ffdec85acaf2552a90b5c5a3ba6c446d6b9d228c97425fd9aec94390b865f40"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19590715.sst",
+   "sha256": "8ddb3f715228f95693c7ed721b09dd4134299dd7acb86eea7318d4bc081c8c0a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19590815.sst",
+   "sha256": "7354454fd11e6c918d0361cdee073299bda366f3825c52014dca3012911bb5dc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19590915.sst",
+   "sha256": "fcbaa5c01dbaad21a98ca36406ad50bfe87dd7ced352862d2273a79c85be506e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19591015.sst",
+   "sha256": "6a29efaf6be658da6bf219e431264c39a58ca37ec6b0e30abd7e05c4a602cc40"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19591115.sst",
+   "sha256": "e52c2720e02b1912fcbc8fe40cc9b7bc69b9653df3c017de81c735f26fcb11fa"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19591215.sst",
+   "sha256": "2ea3b31cb6170e4a4a50e7bae36ba881716280a2d75b7af5ae0f52fb9b64ea85"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19600115.sst",
+   "sha256": "a76fa79a4e1babbe48f27db698610ae660865be2c9a491d1b3b737725d811b7d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19600215.sst",
+   "sha256": "97febef27c3a5826d599180d1628c488c0d812f029afdbe7e8ac36f3b465c575"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19600315.sst",
+   "sha256": "b79e54379b88ccbfe5b9ae8fc4a840a5f931cfe493cab123c37cf79bd5f0868a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19600415.sst",
+   "sha256": "5806df500339328cff42c62fe887ad29af91958e6ef7b24881d427607a9911d0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19600515.sst",
+   "sha256": "5f76c9ea5443ffc8e492c571631afa4bbe78b508eddceb4a68ea31cd545657e0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19600615.sst",
+   "sha256": "8bcd6842408efad8a746c923051db61772a65ae8e2e1161e9229d8c4115c659d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19600715.sst",
+   "sha256": "c9f7188c5ce6eb777aad9b8d15bed8c82fc8c705296c380d97af6fbb6c4611e8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19600815.sst",
+   "sha256": "91e896273bdbe60b172b468c4745a90b9a8bc4b8c813c080eb2755f1c8e6fa03"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19600915.sst",
+   "sha256": "e7e620a3c656ac0f7d70b6c3c536dc8e9f4858334cebb0319e78b55c3b5c52df"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19601015.sst",
+   "sha256": "5ce1bb13ac2510fc7a24fb912d5befa5f6fe7f5bee177b4922fb123637d541ac"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19601115.sst",
+   "sha256": "bc3578bf0231cf194b8e9f4d290c349085bffd7919852bea1492ef66cba6ce70"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19601215.sst",
+   "sha256": "d6ea7e1c3c95907c72ece0857ae955299c4ac541e359dcec0aed502e6c862bde"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19610115.sst",
+   "sha256": "8075a28a472ff174e9d9cf72ad472fcb7901487d728aa89154723eb998936090"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19610215.sst",
+   "sha256": "db7794f776fa09d6c9edd84f6ba778e2ccbbe89a6aa348f7c694227419f3626a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19610315.sst",
+   "sha256": "7e5575ba2758fcef9545a85b93260b763856e8077f8dd62e20e2d04eb51a3b50"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19610415.sst",
+   "sha256": "48b838754f35d90c53be6163f717a72ec48f1a085d32b7dbf0ec72c9635ceb4b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19610515.sst",
+   "sha256": "337d0f883fbd93edaa61160fc055a4a242365781db0f6526983c30b67d157487"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19610615.sst",
+   "sha256": "0f74123a092a9f1b2fb86f17b3011b558aa75baac0dab2b89325540a2b7fc24c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19610715.sst",
+   "sha256": "1ac014f18dc96504168e290f7292e420e65a9a28adbeb7e450fec1910918ef82"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19610815.sst",
+   "sha256": "bb96f920ef8acef460f5d89888cb2d4c434c289638b4bcb1512d4eab71c42f2f"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19610915.sst",
+   "sha256": "831e23145b86d730188f8d11a37158f2ea99f2ab0859749d75e98ff289d88028"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19611015.sst",
+   "sha256": "2fd95d2815c944b18ae0554f807f03ebf02117fadc61561d375e1fbaa100eea1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19611115.sst",
+   "sha256": "f420428aa3a2b58351482a8d69ab90b34260e3bc4bed3f5d0637da931c539c1f"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19611215.sst",
+   "sha256": "9e10094192c6d50217e9d7b0d779a292192be1592ec541c04fc97f7892374e57"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19620115.sst",
+   "sha256": "58e905874441f43e417afad5ecc796d29bc13d52649dfe0a0c5b6faa3c931957"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19620215.sst",
+   "sha256": "94395bcaaa279022faf47324eed20cbb8cb2bc08b483a93d3d5baba1547b5338"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19620315.sst",
+   "sha256": "256f0134cc8020905380116c5697291635b41b52163865e7de312c007baa417b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19620415.sst",
+   "sha256": "b437b512ba8ee8af9ce32b9de1c0dff1603362c650b263581251305c72554ad7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19620515.sst",
+   "sha256": "b8c6266f6fd6e732594d66a4e7010666a672b7d833804526325945d1bb3f91bc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19620615.sst",
+   "sha256": "2c4019f7447dba327046bf2cf164264ff48068bd3cdbd36d2ea48687376e92de"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19620715.sst",
+   "sha256": "7081065ca1c2356a5fc02b8ae08de53bc75f62a75bd9266fe9c6af86caa622be"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19620815.sst",
+   "sha256": "1ccc91ac6a29cf262af82d40d498930228c2e5d18d03a4939dfd48e3f7961fc5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19620915.sst",
+   "sha256": "cfa78ac44f31dcc98fb305614109729fb6a92cb26d6ab00057e7c6316c49635e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19621015.sst",
+   "sha256": "3bdd36dbc891bc9b8dc3c98926c020011330aa316fa2b43fcc464a849b9de7ce"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19621115.sst",
+   "sha256": "c29e59dc7a3f4cf25e6c2812bedafd37d1aa2522fe30a4d580a2d19d5d7fad24"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19621215.sst",
+   "sha256": "6f0083efd9d6eb8756447d95ab5eaec4f5ec91bb383f62added17b30e48cb078"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19630115.sst",
+   "sha256": "453f6d552fdb616d8f2584bf30d386fc8d23dd5a9992ac897c5fa5ca820e804e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19630215.sst",
+   "sha256": "c2d10127f4557c28b0cf2dd80e31787307e9881c08efde0bab7169cb2e4ca235"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19630315.sst",
+   "sha256": "5d076254f3a8ff6bffdaad75551c38bde149ca969563d6498f6878d0174ed4fb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19630415.sst",
+   "sha256": "54f0cc2fe90615eef95cdb5460655ea2ee688aa72df4ad7a31041241d6f45025"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19630515.sst",
+   "sha256": "0f78cfda7feee9b48d1e60c2b4bfe5dbda3f8d63b8d72df7e7542c023580023b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19630615.sst",
+   "sha256": "0802aa6cf56bc5a4ff56cf360fc53f2162d52f4323ac3e11934917782f61a7b2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19630715.sst",
+   "sha256": "1114f16af4ce87c829ae4445b114af83e2677661558d23973264a768095c6d98"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19630815.sst",
+   "sha256": "d2670687b9d4804f48d81b82a12bc03e24fa4f27b5731698ad601f98e21a04dc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19630915.sst",
+   "sha256": "d8ddce871ce725b6f9fa8da0ad53322d5487a87a12795f9d4c862cd11a2df825"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19631015.sst",
+   "sha256": "02bc93895547b2eb00725a685d4a57ca333dea524311d022acb0dcf54e7da2be"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19631115.sst",
+   "sha256": "da6f878d42361818fb48c0529570c2e6fead4da33f16e88b9f45976aaedd6552"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19631215.sst",
+   "sha256": "9cf77b9abf0bd545dedfe99e56a7c59b0810f614f9a384e3f31e4442c59d468e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19640115.sst",
+   "sha256": "37b0d57860c2e702aa4253cacd3a2bdb26bd55fc076d4e65140468293f0c7548"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19640215.sst",
+   "sha256": "56de4042aa6127b9fbffdc0d8ffbcf019a155ad78ebeebde81d184fe6170f2c6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19640315.sst",
+   "sha256": "42b9f3f1a841fad1e16d0557595e2d1c06ac0d39334cce9065bc0925f982f143"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19640415.sst",
+   "sha256": "f41efd4c2cc76720347e176401a235e45fcc44131d286f256724d6c37411b5e2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19640515.sst",
+   "sha256": "c903232f6c21c93827e1f049e31a40cdf96d89537ef8a3919435bf96bc525ec8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19640615.sst",
+   "sha256": "13bbf576cb54b715a3b8e1f60d37249b771a8c0b759978da212aa22aac214d05"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19640715.sst",
+   "sha256": "49aca7dc253b67d3551a6289df48a0c360697ddab569efb2d3569fe945ae6e00"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19640815.sst",
+   "sha256": "2d5a578616103b4a56c5169836ed7b7f31d704ebb684ee6d3b307c614fb24335"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19640915.sst",
+   "sha256": "5d77e3b6027f3d02ce6749240741d4157d081370417b81871bfbb26206320ef3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19641015.sst",
+   "sha256": "45d3cb872c98ee9be78771f912d7308f8376c5281a768e8a982b72c1791601a5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19641115.sst",
+   "sha256": "dd80fe0737831b498d779a48bb14e931eca84ac29340af821ccd085b7bc26b29"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19641215.sst",
+   "sha256": "d5c3398d0164727b3ccd5380a9df609f942cc0f1eb0384971946aefcf575a0b5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19650115.sst",
+   "sha256": "2b8c194241ab1c2198930c0ce26b580f88daaf0b87ecf8bd16990ca35a9dd0ae"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19650215.sst",
+   "sha256": "95bd3a4d105c893ab1623dc6b9e0f9882c736c61af0843d6e100a79cce1a06e4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19650315.sst",
+   "sha256": "2e45d082f88bc6474b691a07b8ae99bfaade0cfa7239fb6480ec625415355b1f"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19650415.sst",
+   "sha256": "cdcdf1777ab95d35c2d94d02ea97d8a3a54a9d09d347665199907ff71fd4589a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19650515.sst",
+   "sha256": "7289ba0ee4619071ab00bb610126e3fb8bcbf199e17a42e2e7a27ac9e2ae3d1a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19650615.sst",
+   "sha256": "a7c20cf602b59da4afee356eb32a6005786adc42ef7fa1fb1bcc05cd421bf05d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19650715.sst",
+   "sha256": "3e2439df0ae595444d7bf1218e598cf3d626d30d63097d64a13dfc635456a189"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19650815.sst",
+   "sha256": "cdf83aa336d25bcd064ffa66ac2e5003d2aaa0f547f3946c187909d005d39349"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19650915.sst",
+   "sha256": "de6d98cf6de1cfa2add6ab8d280990456cf8923d0752ca9b1c2a76b30fd6be00"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19651015.sst",
+   "sha256": "f08e6cf73ede75caa1368bcb67ae5c219f0214d8d3881b41088740c1b0d059c0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19651115.sst",
+   "sha256": "c63e30d4c38bb0e4ec636ac61870c18bb8acf13c5da4e146329c44c3fb701590"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19651215.sst",
+   "sha256": "8c871a99d29d19ac747bd5011fd9c86e552364499680ce9fbbb3c96d4eebcc08"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19660115.sst",
+   "sha256": "a9b585d9fe28a5bb352f20672d5c443c47cadf61b7546360f208d24cd38ef7e4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19660215.sst",
+   "sha256": "710307a93351675c3c5d8266d7b236374f3d8b9b2f6df10ec674335839789925"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19660315.sst",
+   "sha256": "322fc22f57154e741cf3945228429636deb3fbbfa22213213484090994ff52d6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19660415.sst",
+   "sha256": "8371cfa633f04431415a875baba9a33f7a94dcba0d46e9185df3e8ed109537da"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19660515.sst",
+   "sha256": "81c6c36b99c8ed1a6f3a13890981d9de852f6d28e666dfb82ddc7184a34e18ca"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19660615.sst",
+   "sha256": "0b449196e4d60c7a9381c150d9ab7845fcded90903374dd03b7f8dc94bffa49c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19660715.sst",
+   "sha256": "58541d8e6b563ff3c7889a5095956d87d63a771d1dbfe0816f0ee94cc561b7b9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19660815.sst",
+   "sha256": "35012cf8bf6ef9633497ae2f0e5a5d64c0795d124cb7d1c61b35ca5ca39f9c8d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19660915.sst",
+   "sha256": "c0fdf1d5401b3f91b0c9a969e5ab0d7bcb8484c884a0d5023087a53cd66c5e70"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19661015.sst",
+   "sha256": "76c04cc0a546d27c7e166bbf46036e20c2404376ed8cac9b033990641178f312"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19661115.sst",
+   "sha256": "1323d5cca5b68c6cf53dfbf7bc1270378a294e64f5ed14a17d325740bfa39f6b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19661215.sst",
+   "sha256": "bef00f5ec18e45a9db6b2fead725633d8ccf164055ab9fd42800e38318d1a41a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19670115.sst",
+   "sha256": "4834cb926ac525686ed81a9269370c63f510ca7c0851a886ffc0aa702093661e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19670215.sst",
+   "sha256": "e7d801cf65d3c3437974b8c0db00306311bb0082c364233a16f3dd07c511e82d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19670315.sst",
+   "sha256": "c09fb930bacd1e1aa80057f52855c024a3036195fcef641d124df9654308da63"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19670415.sst",
+   "sha256": "5cf5d67771981131baa69041047ba4213f84ec6d676bad678504f2e1eba7a5b9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19670515.sst",
+   "sha256": "2c3b5da866d3b9c57ac031ea4f777c0d7afb79bfa14e6fa56e851dd2f4b17c70"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19670615.sst",
+   "sha256": "f697286539c0de06b9be9c977126fef0a6090d1aa7ee4045510d00443ab123f6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19670715.sst",
+   "sha256": "c1d32ff3a22cb2408d139a861ed1783f355b0a8ee314fe75d8b4fff5c34153cf"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19670815.sst",
+   "sha256": "991c996ff4a954a8719d47e4ee3ea0346d86f3b98f2c52a04b01a1001a31cfbd"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19670915.sst",
+   "sha256": "b8ac109b7361e52ae44aaf9a3e37ceb5d83909ff0be1dfb214f057aa7d38f6b2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19671015.sst",
+   "sha256": "7e482cb69f90d0ae33b2b2dc9b76b456e592a3f6e21211426e0bc40be18e96df"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19671115.sst",
+   "sha256": "48d11971869bf79f9871b48111473eba68264700992906876ce4747d21d8121e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19671215.sst",
+   "sha256": "eeaa079e67f372c39bf0cb0a092047a9ae5d89d46053899773b27d7896ac958c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19680115.sst",
+   "sha256": "216ada4227a40421689f001a134a0c1dfda8527bdc0f0b648e8e57e020f95b6d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19680215.sst",
+   "sha256": "2547ab62c9d263d26936209d68a17be096b07a1e3e51a8229d6c5365a1ff9b6c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19680315.sst",
+   "sha256": "401bf6c063f15f6f011ffcfc709250f8fec7643b49836aa69d0be0fb9f3f3504"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19680415.sst",
+   "sha256": "01806d40783bb707191a26ead2374187296315b71cf51a3b997997614a5ffab3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19680515.sst",
+   "sha256": "f2b438950accd9499ebc0a0abe5e63334e8fb82aef7d0512505188071d88aa27"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19680615.sst",
+   "sha256": "5164eba90a36c689a30a9394cee8e115236d5f2057cfbfbb1a053f27513ce41b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19680715.sst",
+   "sha256": "23c912df80091ffb945d110034b27917989283cb8f6ca76cda38b7f53baed2cf"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19680815.sst",
+   "sha256": "a7485d9410cec5d794f7fdeffc1c7079658ec35ad8ee374512016f1121b9c4c4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19680915.sst",
+   "sha256": "4373b5ce1d648b056f3cf0f056f633e2c04be8ff2b112252061e06761bdea817"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19681015.sst",
+   "sha256": "c3a7276fe478a2cf6018490b610af86053cedbfabd42c7a65b9482e56b30995c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19681115.sst",
+   "sha256": "fbca1a5928719a75b3db1a1b039dcce92fcc67d34322f1b2ea2ed2a9e1d27878"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19681215.sst",
+   "sha256": "16d2b03c2e6b1b026f1d2119622ced6792ccdcc979ae422ae817a8001c70e320"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19690115.sst",
+   "sha256": "c3300a64bc6286dc02a9f80d39049e3583ca1a0e204417ba207225af12726bda"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19690215.sst",
+   "sha256": "2ab36be1d7657eaf827034776709d38a8f14fc6b0e41a49a27a907a6618d885c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19690315.sst",
+   "sha256": "3e51eb51e8e19cdde74f304a0eb74963fb9a7d21e26fa446570531680242678a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19690415.sst",
+   "sha256": "bad7a7d52fec16d80a7c7b9764b89d47b6a60ab10db1e05a77cf3bf0d2573ee4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19690515.sst",
+   "sha256": "88cda49cb7bc4a61359662485f5c7ca529932be175b481766ff86ff04b0d0d43"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19690615.sst",
+   "sha256": "b721a0dabcec50c453f328573c877a2a90050f1c3c21d8165bc22c592cf9ebf7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19690715.sst",
+   "sha256": "f96d9e501d42aae181c67aea84b57155099a6d86b45dbbee096ca5a511cd1a0d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19690815.sst",
+   "sha256": "d517d0bfc6204a1cb8a76941ee8db805e0d0a293b560d1ead50440fcf339caad"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19690915.sst",
+   "sha256": "de226085ebb982c0157e86ffef8713293ef642d7ff41ac4b3306a552d6a86d41"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19691015.sst",
+   "sha256": "ca300fbd448381195d1340cef98a99242aa94e517a3263e60f27472698ce395f"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19691115.sst",
+   "sha256": "be8227a154804677e29c958a0708c8a332106f990ec6b3cfd88ff2f54ea8a108"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19691215.sst",
+   "sha256": "834c313eb7e67c108c9d3c005c6758c28982a2c56f70b31b4dd8500acacccd24"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19700115.sst",
+   "sha256": "b14b7f7f9b5c90d89c904e42a54f6ed873ae9a50698ce2b06c452f2020baa4a0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19700215.sst",
+   "sha256": "37a4f37a77d92e52910e2d06f596cded084930e4dd69a7c991b882a9fa9e1293"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19700315.sst",
+   "sha256": "80073156b77bb3181da15d734f6de76f4b67b5e2c666f337a5635bb5926712dc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19700415.sst",
+   "sha256": "38231b05696afe811e48130bf0c11855fb1408564ddf2d27db8213a085316d04"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19700515.sst",
+   "sha256": "e6d2217fcfb1d39b504cbd038ec29d3363032faf73f99b2489c1bff363563463"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19700615.sst",
+   "sha256": "22ef1f3e331a18d23b2e44170d9675b5fcaa8f6c98bf1c1558bf7627b961fbc5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19700715.sst",
+   "sha256": "2e77b39275201ff355e82d3c70c247c2cad3ccae5bda4b9f4155490272dd7cf3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19700815.sst",
+   "sha256": "9a88eebeffe2214fdf273e5e77d4b04762fdff1997e64287b8e707b075812bc8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19700915.sst",
+   "sha256": "6f10b724906c1390c7ab352ff397f73ecfbc79c33de67d8e8aec7e5139cc261d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19701015.sst",
+   "sha256": "9e8b88948ef9fd57b6198b55fb10c3cef5b7a046c61e5cddd1b3f7c1ff3544d6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19701115.sst",
+   "sha256": "c4185ef91d2910ee23acac18087f0f02e706faf402d4437ab2045ea32d5637fd"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19701215.sst",
+   "sha256": "4c7f93ee5591b3ba04b8b38b2f1c6fc522f56e10f8dcf5342f67335a07176015"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19710115.sst",
+   "sha256": "db47c2930c53344ba1068429315d84389ff756b64cb534d7f2b83500bb354aec"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19710215.sst",
+   "sha256": "4c8d9a0c24f867bf955e2cc36ba9f023af57c9855b09ce7a361d9487a403fddb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19710315.sst",
+   "sha256": "b3636c1170821b7a6d06d953ef3cd48909f058fe57a45d9e39582fa3c3f32ba2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19710415.sst",
+   "sha256": "41a4cb569f05c1ef2f924ad298474580a469f87e7df8468af7aa0db24460bc72"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19710515.sst",
+   "sha256": "30a62261d3a9b58fefa14b69b2bd4980d176543ba185bc0b0313dcb7f82c13d5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19710615.sst",
+   "sha256": "9b8b15acf02918a433a903a54b0bbbf5978ec76d1789f84fda8f91c16a1501dd"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19710715.sst",
+   "sha256": "e067e6af4ae7b96cadc8d8c89cc49d158542ceac0069a53d740f3038d8db6f49"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19710815.sst",
+   "sha256": "cbf024ecbbdce5eddfc4d7ce2f444f68f9dd63d472ff33d6114b603b9bbef548"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19710915.sst",
+   "sha256": "b722b6ab8ae42b2d18244cc245fdbef1b58331ac9f7f40a23998ba622d9a2cc8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19711015.sst",
+   "sha256": "57cf79abb7210e55cc1e60be1b698f8fcbcb82d1939c0e7103ab1ad4734c9158"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19711115.sst",
+   "sha256": "b8a1cfd5f554e9223202f81d533fe25712a0da112ae882ecf612f980fa3e6d47"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19711215.sst",
+   "sha256": "b4659e8d2fb2b7b3aa2e958d8c555eae6a475c9be36f5e1068a5853cc9a03467"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19720115.sst",
+   "sha256": "9f6c471e541fd305afb10335dee0c31020adca0a467c0ab6ad7d98e8aae28ec3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19720215.sst",
+   "sha256": "24e78450a5f1a4a2766fed251b43d968f81fea47eb3f729ca71fabb41030c2ba"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19720315.sst",
+   "sha256": "1b64749513e314a529eceeb7b294d27ffa5153d89c44332dc83582dbff8ea669"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19720415.sst",
+   "sha256": "2d1d90d063fd16abe886f039ea4f72d3505f5826c116b48457aae15ba9f47b2c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19720515.sst",
+   "sha256": "c6e6cde1b94d671b0c4d40cb0ec3ddf700ab1018addd30ab1b02e845f9dffc29"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19720615.sst",
+   "sha256": "f065e852f20bf1702a46b1f40ffa8b50ff7a3f47c7b4f1b9caa4c5dab2bcfaba"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19720715.sst",
+   "sha256": "1d3fa72ede27769902126c101dd6abba63135bbad7fef2a2b000a7063326d599"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19720815.sst",
+   "sha256": "1548aa21d4b26194d24c01903236c510103c6a201c97fb5aea145088a31acbe9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19720915.sst",
+   "sha256": "92a92f81e2a2fa8afab6c141a098fde52b4055fecb615276b778cbc8ee655a80"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19721015.sst",
+   "sha256": "2dfcdb53f4969bb9ad186c320d612174e8510d346214e97ab3385590b70e85e9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19721115.sst",
+   "sha256": "b9c5959ad7358410f695730fbdccf8ea6e4e8a759ed70f3875cd95a3f39ce312"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19721215.sst",
+   "sha256": "074473415a144cca4d3522b20ee28348c6aea796534e714e29343112221bf1df"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19730115.sst",
+   "sha256": "bb7f98b8db63b1dad34c8f8038b5c40e9a518b59f531397b23fb512183cbde77"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19730215.sst",
+   "sha256": "886927506d4acb27f12797ee1cae8dd2069e5a5b024648c53fae6395631fcceb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19730315.sst",
+   "sha256": "ee7c4eb09b80ced2e30b26cad068e3e3b999ac3e8ecf313763e3f15441d23c33"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19730415.sst",
+   "sha256": "bf921322c5ba01dfbd0580356b8bda93f7deffd3ab001958d9dce76e53bd8508"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19730515.sst",
+   "sha256": "e33dfb37c72e90048b3dd428c1fe07d57e8fd9f993c8543ba4b4dd491c0daa12"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19730615.sst",
+   "sha256": "3bc58a503ed0325d78cee82e0bfbfee2aec0c16896f27bf2ee0f490babdbd66a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19730715.sst",
+   "sha256": "8a8f41692ed0ec813df7b98619fab0131b046819a1f7d5bcf4713d1953b643a1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19730815.sst",
+   "sha256": "0dc3da2077e41190992b1c42484cfee5577d2101b1758a504bd082a0eb41be23"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19730915.sst",
+   "sha256": "ed6180270fd69aa5ee873f4cacad5f3d98c037edb1189d4b5b506a05f5f4dba8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19731015.sst",
+   "sha256": "82c9006197901aba0037a4991b947755af4e06b2985425c349e975cbaa768118"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19731115.sst",
+   "sha256": "b4f2bf634909f9d8c3fcdc7b3dbe87b159ffa796f13e7bc618ab6b36b42210e9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19731215.sst",
+   "sha256": "1c9a1797744af653c43474831374b2d052a517de064ac95164acbaf981375581"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19740115.sst",
+   "sha256": "a4bdb3cfe3d032c40668524130bdc7eda15aebe2eaec93e511d07d1904270a1d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19740215.sst",
+   "sha256": "22707cbecbedc5eab7e1a2ef29b8a5bef87738a99eb847051fdeb2378556ef82"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19740315.sst",
+   "sha256": "ace82abe1b76dcf58f1d5bcea7f75007f2e84b542224188d3ed0f055e2454d75"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19740415.sst",
+   "sha256": "82f67207aa6bf49e916f8afb7d1e2195d93b00035f4a9d6f49777622dea9c0ab"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19740515.sst",
+   "sha256": "9cc1d0d816799b4924776cc389070fbdbe96bbf28bca622a318119d4a8034e28"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19740615.sst",
+   "sha256": "85714a3961a2f933fa9f0fa6bdcb7926419391c1bd77fce4f0270a5a02ce10ca"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19740715.sst",
+   "sha256": "12cecc8db3d43dbc9a5aa739e643f50a4108ed29df4cfaa8d92727211ca14929"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19740815.sst",
+   "sha256": "c92176282c536ce3dfcab49f9416f944e0d96be79c9923cb8304b4282007d647"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19740915.sst",
+   "sha256": "967410a4df1f48747548644602e6befde8c7e88cba876adb9e590164e231734e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19741015.sst",
+   "sha256": "8beb6a81f8473dadc51fa1a00e8243e1088e15a38dbf346b6e082d9912f64d28"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19741115.sst",
+   "sha256": "8c20976351fe418423dd8a306641e50ce028061ce9493dd4dfdf62ec4605ffd8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19741215.sst",
+   "sha256": "a00f1a07d36e423920d35f9d9cc76d2d6929b42f543853accbeb195d1f83d9a0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19750115.sst",
+   "sha256": "d5844dd9ffc20d32f29fa35864d260cd0d880250498bfa0b56b008034e12abc2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19750215.sst",
+   "sha256": "fadedfb710bd447a07c8c081b0ce7eb03598f1c888293d4449908794c5e7a048"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19750315.sst",
+   "sha256": "b0ae68739d347cadc452805e768f5283eb2fc2b15042a260c73820cce8984d90"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19750415.sst",
+   "sha256": "02dee06d33ef761e151f866db48275c8eeb9949be8e24d7178c21703254167a2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19750515.sst",
+   "sha256": "cf935223c46668673a938d993d1c91d04fd092d20139ceeb1c04070027020426"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19750615.sst",
+   "sha256": "11319942912aaaec2e4469d5fcf85a2c99718fa0576244d86c3eb8785411e812"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19750715.sst",
+   "sha256": "e3d88a9b0906a6d8b3a1ba228e90c968eb0f15e09698cc60caec2a104b5cdcae"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19750815.sst",
+   "sha256": "a158610d7938c945ed178ed0cc967dcc4d8d7bc386d37186f35c4795e4c6ff81"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19750915.sst",
+   "sha256": "6393fe7bb4f2183aa2e9780ef197d246df20f15a6d5b7b02d4936f34274c53a8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19751015.sst",
+   "sha256": "22ae7c4a4a78d3ce4e2e082045806e9df7a11656d4b6590ab8ac31c76e1818a6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19751115.sst",
+   "sha256": "4f5186e1539adf52666c1d8c243355cdedea4c1c52fda9fa92cc9230a5e20824"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19751215.sst",
+   "sha256": "ae268471a70012300c3f7adfc02dfd198fd0ea1b4367e833ba4bd38f1b093842"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19760115.sst",
+   "sha256": "d7ff9543de3e24bf226aca86d7a93a7a0ab83234d91a6c5298f9b1c954679250"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19760215.sst",
+   "sha256": "addee4c6058affcffb7953b3efc997919f1ab9ad4ce889de7805344b5c04a06a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19760315.sst",
+   "sha256": "7a2bbd476c39e6ac79db724cad7aa1c382c9ad3f7cc12b176e94b107f681a9f4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19760415.sst",
+   "sha256": "849d5cbecb4ca50eb187aa4cce25675cb916da60ea6e3bfecc19d74ee421c913"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19760515.sst",
+   "sha256": "65f70aeb7659c4acf2452925a6ee042d950677a264d61d78bfe1ca60becedd0a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19760615.sst",
+   "sha256": "809fdab470b477b21eff9efff6590d8cd7ba5572cc974e530daea66ad11bd011"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19760715.sst",
+   "sha256": "bc1445eef0c450b55a4e1c0396bf6b2221e5a773a19cce7b177a2ae174110633"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19760815.sst",
+   "sha256": "e4f724455d55d76d0afe3bd0b9f2f1fce636fffc2f4d68212cbe16fe7fb622e3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19760915.sst",
+   "sha256": "4eda30e2f1062f297d35319d5bd3e64f0b08a4e55a4f8b2518de79c4047dd3e5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19761015.sst",
+   "sha256": "770c763670ee61ceb3239a3b1b7fdf95e2c737fafd1f4f782c53eed2d2bc9d7a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19761115.sst",
+   "sha256": "ccf309f1c3a854665f9207455fd6eee470d28fae106845d05183b1d2dfb3b13c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19761215.sst",
+   "sha256": "4f6aa5e5af765ad19fa5ee57ae9c2dc6f80706585baac41b9d0abfa68d7dc4b7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19770115.sst",
+   "sha256": "03805f0b4c54c0dbd9c872ff77f5e9a7bddc9663db95b2b8b45d76bab4f7c55b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19770215.sst",
+   "sha256": "d867cc1c6d55bd87fd8b8ee344bd70cde08965d71c063d38720031ba8d90cd8d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19770315.sst",
+   "sha256": "ab65ba98294de974d3c1652708859d49820b86ef13482e87370c27f34c3787b1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19770415.sst",
+   "sha256": "b19317aa6a55d9a4127fd4557e0034e12fa17c8259314ada9f01f656381479d7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19770515.sst",
+   "sha256": "d379e05569be14d777df9fe35775bf0305fbada8346d163a3086efdca7ec2a43"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19770615.sst",
+   "sha256": "7ab01764f1d85eda546f9da9074888dc151a025e42a93b31e9a899212503686a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19770715.sst",
+   "sha256": "7837ac3e75e6d1bf36e16a7b1db0fecfa9cd8bb2e6acf1fda2b06cd1925875a6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19770815.sst",
+   "sha256": "c806b960baa428abaf32c37602d3e42c52e3ab89885575e9432a1e519afad0a5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19770915.sst",
+   "sha256": "226b7f17635ae3cae57f8f331e65a4a6d765edbad04e67c0af26a23c0dae3242"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19771015.sst",
+   "sha256": "4cc4f0b5d862607d0268041493ec1573e6b19dcc4b823f69ce9b3f3f0520ea8a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19771115.sst",
+   "sha256": "984220cfeb8e70482a751f442f728171be016296f988e3552729e90919643a63"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19771215.sst",
+   "sha256": "a4298f053387bdc9be8139f0f6c5f9fc191a50ffb4969518f4719134d739d315"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19780115.sst",
+   "sha256": "31da38bae8dadfa7591f02963a2d9468d40d2a2d72233654622638857038685b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19780215.sst",
+   "sha256": "6ef6d140e7217df78c8af1b091638eedf817f38cdbbf0fa8b9411c975405715a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19780315.sst",
+   "sha256": "d1d56a602e9dbee7472d1bec760ed47c5a5986b2c5c834f8ed66a83dfd5510e2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19780415.sst",
+   "sha256": "b59874cce44c9a6e54892c68442e118887eabdf972f1a44d6bbf8db51ea9caf3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19780515.sst",
+   "sha256": "38b815f98eacf1db18e14775aaab68f4161d79ca3f02c3f352408e2e275786a2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19780615.sst",
+   "sha256": "515561f4db97de9b49e57a80001b10434473a63f95b4647c8e6de44b9afb2201"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19780715.sst",
+   "sha256": "514ba695760a95172f9649ee0772fdf706e7452d18b0da7f839f075a0755fdf6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19780815.sst",
+   "sha256": "a75e83b03c41caed63e30432a8f6523f539295d6ce8ad933a173e6e8b03f02cd"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19780915.sst",
+   "sha256": "82220e1514d64da1e35cf6579be0a315ea55ea43d3dfcf71d93b18bcb57bcdfd"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19781015.sst",
+   "sha256": "418b32c7fc7b94ce56f454703e851306e7b05c32af1f551d75a07d6e85ceb836"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19781115.sst",
+   "sha256": "cab940ce479458f268f58f78b0fc105aedeedcf2b3f8dbd882ce26ba2da4e2de"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19781215.sst",
+   "sha256": "44e655f5c9eb1e9b70d55192ef35edc69a3178676fc0c3cfbd952a971b9f6799"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19790115.sst",
+   "sha256": "073abccb6c52a14a96d552864f87e9c080efa8fc7a2e5eef75c77536f2e23edf"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19790215.sst",
+   "sha256": "2ff25b0bb2bfedea1a97d6810895ce9a8ccd653cbb550518789c204ce84a128c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19790315.sst",
+   "sha256": "0d8d710d7806cb4027b033fec5ccc0ffd85b6b7c4938b05fe2ad376ba20c3e68"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19790415.sst",
+   "sha256": "1d7145fef4ff5749bec6019aa50517f6007cdfb762ed1b0811ffcea690fbb848"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19790515.sst",
+   "sha256": "11d4f50ea358655286575a6d832585f726deef70fe3eac9552d9bab0f32bfecd"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19790615.sst",
+   "sha256": "634b362bd8732868f6205218ffaca83595d469dd059a80506a221433dff7439d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19790715.sst",
+   "sha256": "5416a188cad77a5b8188c9ba3ec4c618be586cc7ed87835b37814eeb8d8b3894"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19790815.sst",
+   "sha256": "801d3607d8d25ea141c05704f7693c62388b59da5c9424d07ed5edf6013c6540"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19790915.sst",
+   "sha256": "e42858ebe00e16c53e3e9f2b93b5c6a9137eafd8eb103346876519b821bb935a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19791015.sst",
+   "sha256": "4ad8b4e7bd8d500bc807f52ac5c52cc0feab72318548b9a1eab81618afdfb6d6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19791115.sst",
+   "sha256": "310cd39b1a3a01af8c9cb29c5c679123e5344d3b33f3a4cee1e4bb2c2f17ecb7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19791215.sst",
+   "sha256": "12992a16dcfccc7f277ec8386666dcfdba28df8a7cbc7a6e3f2727b8d1b6906e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19800115.sst",
+   "sha256": "bca31629077fd62c924f41a72654ea29ea9f39b39829bcd92aa8b7a70f7aad86"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19800215.sst",
+   "sha256": "5b09a932c30234da4b2120d0e47d0eab42a75c2230450e3e16df5127b8a2265d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19800315.sst",
+   "sha256": "de7d67835f0c2681e521fd8da1e804953ce903048111147690bf87dd5eb612c0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19800415.sst",
+   "sha256": "25f5d8dc205b162955363720d90bd0730378d53809cd25a1154ec1c63dfcb985"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19800515.sst",
+   "sha256": "ccb2889b63056b3b5eb554f14582edd6df848904b083679a643ba48d5fa2e000"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19800615.sst",
+   "sha256": "12edb01458acde0b8797f3c4ae6637786f3a62eb9a986fa643e98f64e14d787c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19800715.sst",
+   "sha256": "988a3e5ca9591263885aceaadd18f921c9a48f3514e893d99de93298eb4c9c21"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19800815.sst",
+   "sha256": "0fa1e78e5bda8294b540f30e17302261180eed49e3173c4d5c2397f9d60eb4c1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19800915.sst",
+   "sha256": "1315c290fa86806155b20e23f667c99d0d1d246acab2bfa2bba3c75b55c5b212"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19801015.sst",
+   "sha256": "52e08951d82709fb745a23af2421f3d264d464c596cde9ccdbc5a55de9ce3cd2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19801115.sst",
+   "sha256": "765efb4f3eea24ff96915e5307bacb2afa0dd1566617e347f5d7b1c4566c085a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19801215.sst",
+   "sha256": "b42c2da13218956f6945c9c4ce62443c91f3642795898b6a759f2624bd686de0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19810115.sst",
+   "sha256": "c4a56d239b15c6fb31a720ba1fb23345a5fe0606ed54903ace2290985840ede4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19810215.sst",
+   "sha256": "2322652db94997c6d069969266d8ae7bac98aa9d987ca6077e2a1dbb4ae13324"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19810315.sst",
+   "sha256": "d6af0f75e93ff04ebd0b2623a9cf9619fc4a583aa420c61eec818481fd1686b0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19810415.sst",
+   "sha256": "9a1d1d934c657af3b45e5e810ab2d1d24f2f32fc7fcdb8d8071033f2e70df3b7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19810515.sst",
+   "sha256": "16bce2b42fa2c3462efef43be91943e90685a25887e6113b0bb77a25a0a7a45d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19810615.sst",
+   "sha256": "98d12ac49899cd8198f7c6c733b6d318d1824a9cfd895cd7342c580619a0b2fc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19810715.sst",
+   "sha256": "f2113eb51ee659435edaf295f423eee89080027bdf5500541299a44dc8333933"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19810815.sst",
+   "sha256": "4a762fef4e7fb38835eac11256c164bf6dd16e5bda61cab690f99f09cdbc6986"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19810915.sst",
+   "sha256": "ed7def4be9aa02b4b9c485c52f15ed44f31e6f1a2c8500c5131d1afc86fb80ce"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19811015.sst",
+   "sha256": "f3e7f92d6dfe8022939158f1cce4ef4dfb7cd45bfd0782708a3ae5a7a81fb90b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19811115.sst",
+   "sha256": "444d9176214c84fc436eb6b6bd2bfa7a2e1ee2237659d6a5a221bc9bb796e6f5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19811215.sst",
+   "sha256": "e2d36f590c6f8d0fda2eaec485b545692df06dd440c16423cb4a9c6a21c9a305"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19820115.sst",
+   "sha256": "770514580bac1c7ef37b37bb90de4b6752c126601cfac97ee224c44a9dcb25a9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19820215.sst",
+   "sha256": "874dc14af941c2cc6f032376af1d458907ad22f1f99e675e0d7f2f689efc87d0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19820315.sst",
+   "sha256": "0be15a51acb081479b9072f15f686aa9540cbbd860ced7964318883df8ee5baa"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19820415.sst",
+   "sha256": "83bed7e37d936e27af6500f70d7121887b15205fb176a74227f8c3a7d19fa15e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19820515.sst",
+   "sha256": "0259987a074df5c98f817e4c668799131dd5e80eff9f0c003158f45c3139b323"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19820615.sst",
+   "sha256": "2bfc0f21a4d6c1d206f27174af148f8024266b6f1c711a689c748e8de97866fc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19820715.sst",
+   "sha256": "0c9be95e7aa06aea0c328745be49357e2b89f5c1b9dbbf2db841a714376eb161"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19820815.sst",
+   "sha256": "e6043bf826c41d36d3b841bbf29870113057717424ad52ca8901d0fe4334f58c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19820915.sst",
+   "sha256": "eaf484b14495b880d0acce079b0c79e16487b376c160c6a03f19bdffbbbf89f4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19821015.sst",
+   "sha256": "f29d4e805d392fd183dda3868e2ac2aced18a2bbd09aeb43593fe91c9a0c49af"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19821115.sst",
+   "sha256": "6e6d6fe4fab6c336c0c9c7443057a3b88afa655ac75555cb1d5e8af2635b8f53"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19821215.sst",
+   "sha256": "b386951d910b2fef0407376fab2fe2d471932154fb9e1946839bdeb15967881c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19830115.sst",
+   "sha256": "dd85ece75f032023b1164c92b43bfbac0303b07d2494bb60f7438cffb9c1c6f0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19830215.sst",
+   "sha256": "e11e0871c969e32cac95e4168452da9f8a6282c08f25959ad0a0b783bf890987"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19830315.sst",
+   "sha256": "3404220e477df99bc55d530b79fbae1ca257b365479ccbba3a21dd13c78dd1ca"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19830415.sst",
+   "sha256": "4808e4941989073838e90212fbdf75101b359b165490790a19fc95fef54e4c4b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19830515.sst",
+   "sha256": "a716e9768e1b099b9dd8442901d0f9a8db5ae657a187c6482693996bd446e064"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19830615.sst",
+   "sha256": "cd571cd3b6046f39ac7960cafc625ef887cbd0c9a9c090648d0fddc7cc8f46b6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19830715.sst",
+   "sha256": "40d24f3505d82c196affefa34ad1f3dd6d7c32fb0101c933ef0cb4a89163a4d6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19830815.sst",
+   "sha256": "17913e7b3740bc518c3101a5f7325d1c32c99ad2e1244574d4153579b8965bed"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19830915.sst",
+   "sha256": "42353d45659d9be77c71041ba5709055aa1299d163d9995881b5e380a94d7c5d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19831015.sst",
+   "sha256": "856ceb76d3588fc62ab5043d09b1de0cbf71541a9de66e358c4bb01a072cd8cd"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19831115.sst",
+   "sha256": "081058795a97285f2b168c8d574401520533124e6f424fa9d46f5aa8495db573"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19831215.sst",
+   "sha256": "8ec5c3129178182fc7e2f0c9049aa6b9a702b639db92466df33b48ab14c8fb7d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19840115.sst",
+   "sha256": "a3b8620ad6d1245a66426872e5aad8495176bb6c70b31568345e7a7c81041287"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19840215.sst",
+   "sha256": "2d940e370a3a6b87b94a9d9c339f60132801c234d9c9c22376b8fa85bc7d7102"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19840315.sst",
+   "sha256": "17fc9e19de6a45bc2719b833ff9e86c5e1b111fbf1e6d5c910607e340bd360d7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19840415.sst",
+   "sha256": "0da7077c1e503f723dcd53b8783a00b4afbe73bfd1b3bd5015aaf7aeaac36928"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19840515.sst",
+   "sha256": "ab64603e809cae784e679dc35463cefdce1175f2fcdef8963c8d0128a8b0ee7c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19840615.sst",
+   "sha256": "fbba39e62051ecdaba204ef3d688e50b69e7eb0cff1436c5ca10c847002f7209"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19840715.sst",
+   "sha256": "fd102e2c8cd9fb1b5fc8e4e0a85427f7a37710cddf2b5d0c12c500b4184d6419"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19840815.sst",
+   "sha256": "229a5f8b3b5527b15c89466c62ea26cd538500a76902cfc407af8f7b90b8bef1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19840915.sst",
+   "sha256": "dbf2a66841c2d8e0a772bcfeb5b32ec9377664e50443423ab28c967ad3a421d3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19841015.sst",
+   "sha256": "f249c3a2e5436a8d30cd7e15fa3e2e1be3e818d14261370a82c6479b94ffb2b6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19841115.sst",
+   "sha256": "832a8cfd789a8b54bb9b60767998462991573cbf56cbf9aeaae499d7153c44ad"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19841215.sst",
+   "sha256": "2570cc6b35c20663ed930e22753790f7c101e6f47b1a15ca5648285ea7d905e9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19850115.sst",
+   "sha256": "2a6fef46b3889b77d53a5272c500621f4a18be5c94c36a78fe7cc1c89d3d1b8c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19850215.sst",
+   "sha256": "26c80ff3203ebb6f0713f55b7833ad6cc31de90b08cc7cd586b685451309aefd"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19850315.sst",
+   "sha256": "e17caeca8fc8c4006514c9afdf5ecb35547e055d23c81bb6acdc297799af39a4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19850415.sst",
+   "sha256": "2c798e5a1de6a337ba9f06ec651a40b82563a6814d09c508b4ff8c285094d97d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19850515.sst",
+   "sha256": "4a5ab8ea7478f1f1477baf2a91491a4904b84a6807cd6cc296193a4f19a17a12"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19850615.sst",
+   "sha256": "162ae1675908c3396a746303449903da7280aa1629b6ba3d1fdcf64be5bc2e39"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19850715.sst",
+   "sha256": "a8f595edc2acf30a56808a4b724213c1a15ae3cce50fd915669250bf3827a64b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19850815.sst",
+   "sha256": "46c43f45b0d61cbc6d1fd347eaab8be1b530adf4684b399023c829d90c5f2117"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19850915.sst",
+   "sha256": "fb26d1453f59d91e5441c0d5d5f91489013fc0ef65b6e47a7466fbc4c6c29d7b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19851015.sst",
+   "sha256": "030c922d010a399927d52cd78b6e50ef9fcbb4370a76fc8702eee4756b0f2278"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19851115.sst",
+   "sha256": "d042de2d34b7865d30032dfeed3c413641df7336de46db5ba519b617607f0bb5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19851215.sst",
+   "sha256": "521b9366af56405cbae16ddb62344f4f8a542279804a4cd15f0fe087705ae1ab"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19860115.sst",
+   "sha256": "8e17ed973798dfdcb4f8a43b0a8b17332919718868091d3051e2867f619fac24"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19860215.sst",
+   "sha256": "a594be3b0cc70ab60fd175d935b199dc7d23467d069174ccf322e5c39f7f531c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19860315.sst",
+   "sha256": "543a43b9cde03acf4f4f1cd0153f8add6b802c3909cb59929d0f140d4d342e85"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19860415.sst",
+   "sha256": "6643f5d1bcca73fb3e644bb025c4acac1b9ee185b40ec6b5cc4cf7a3dc49d6c8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19860515.sst",
+   "sha256": "78515848970af1e0dfb300383440830654b9c21d7762e425e4857b4a35f690ec"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19860615.sst",
+   "sha256": "fb1e14bd92201c5b46678a6ed9e55ff9e897380b3d6a7f1beee24865636ce962"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19860715.sst",
+   "sha256": "a42c5a38736788a681aa07b3e4e3c5ca719606b3f3e153627f4f0f0bde3dc484"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19860815.sst",
+   "sha256": "e15c6a28e6635d188cee53f89cd7f38142d73985a5b1c19a0176672191002a26"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19860915.sst",
+   "sha256": "d4aa6b65bb99dfd79c799bfd668b9079a365db61fb933b0de1101e125ced6ac5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19861015.sst",
+   "sha256": "508c9b7f1343044db3bacad26568d3e2ce04f3eeab1f52d782033b86c6e50d94"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19861115.sst",
+   "sha256": "f284fce42e11899fc12ad7e993a108728278ba13eb369798dff0bc9e0eafae0d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19861215.sst",
+   "sha256": "8a2b165849b0d71f7a8ad1de3d29649c57e2bfe1c237644b5b535229f564950a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19870115.sst",
+   "sha256": "850d7abb568dd90be4207e92ebd22c30987502cf51c61bc5b54e094e00f8c970"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19870215.sst",
+   "sha256": "983ae52385049f3fcb4e33fb1fa75de228193f0210e3c887a01ea3ed14750b47"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19870315.sst",
+   "sha256": "27b9aaee4fbcc9434979792d8fc3e3807040c0b8a5b7b7ee3e79db0ede12d0b6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19870415.sst",
+   "sha256": "cc85be3deb15439f611da798460935a520608359b4626bec72d50774498f3570"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19870515.sst",
+   "sha256": "77b48c0a2c39e08b5b513eeac19f7a9db887807816d9027cfb32202df8253b83"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19870615.sst",
+   "sha256": "5a04ef58ce329061d9a09cb472c15747791c55c8780db9f1df643a4b026b593f"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19870715.sst",
+   "sha256": "e4053ffda52d4022bd7aa59843a6f9b84505bdb8d910c6eb293ad137bcf3c079"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19870815.sst",
+   "sha256": "0cf25de839ab0aa8a2a6e30d5b7e7489c385b361c31c501980d707f92b677f86"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19870915.sst",
+   "sha256": "9a39edf0f903618571dc4344b180b3cdc7c609015954d4c45ae85bc2b7606047"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19871015.sst",
+   "sha256": "1f7c8028a26d91c424cf723a9a7b5196b37a1b3bec3302ed07c6785738dac040"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19871115.sst",
+   "sha256": "3b22a9796b4bddd652c86fc3d1d5a3e20edfd3b550bd62bb5292fa784ac7692d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19871215.sst",
+   "sha256": "8ec78b88a72947a57fd27533cebb9c873e30d33e2316c28965b67db93d197fb6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19880115.sst",
+   "sha256": "4411cad8cf1dcea28daafbc1fd7e1c18690ab708a3375c9903f58d98cf1d493b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19880215.sst",
+   "sha256": "046142a4bd197d2829d4439e4cf5a13ff5153e78e149e78ea44aad1305015096"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19880315.sst",
+   "sha256": "a6289dac20ae2c2910207016232980a22720c50f05ec3a2684dee60ac09725b2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19880415.sst",
+   "sha256": "cadf839752cef630bbd9bd3133dd78f4dca0127d5e879a2792108aff349b0060"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19880515.sst",
+   "sha256": "9c20381f3b02d0f518c2b13c247331481c85739bee241a4d21496f7d9e145059"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19880615.sst",
+   "sha256": "8c05e6be6b43879b03d1a4bad3c0aa49b4e8776b7008f078aac170cd57952b20"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19880715.sst",
+   "sha256": "ef8e726826c67ecab03a8cadad25b97fdfc421ae4225216e4c9ed131cc541e63"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19880815.sst",
+   "sha256": "5fa2f30bf1f348c649996c00732bcd196371900ae849f232db0f342fbe2ebe4a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19880915.sst",
+   "sha256": "181dd2aec273cc41458a3be46da9e4bac6ae56d010364b8fdb353ff70c49fe79"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19881015.sst",
+   "sha256": "0ce6faa25e012cb4d5a697aa4335b780abb9d142d157ae310e6dd7c9c7322cf3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19881115.sst",
+   "sha256": "428a80172c933486ee630bfc70552337accb2b290a4abcf36b127d2a0f603602"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19881215.sst",
+   "sha256": "ca35c7490d890df4df2f0912730c7e69c46dab8e3e9396fbc1660717e7df7d2e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19890115.sst",
+   "sha256": "9573e437a52c17c200e75cfbf65cd7f5ec51f3541f0386082b11010c8ae9e178"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19890215.sst",
+   "sha256": "984a7202ba7a3d4e8defd8dc3b6db6086a2ab276dbca0589b4056e2e18d84cca"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19890315.sst",
+   "sha256": "b16c3d317ef1f4faa8cf52a6abb5a2f67beaba864bc0994ca8ae22732ef0e55a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19890415.sst",
+   "sha256": "f2da85dc9767162216230fc11bed061690101eac7be27eaf79448125e0976909"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19890515.sst",
+   "sha256": "8a7b482aaf4864b6b91f5fd7b8d373877f061fffdc761c4bc5995d6ce2051f31"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19890615.sst",
+   "sha256": "21b93d10d5a5a15a4974572e43ecc8738c9556c97e137430b4b91ad50b7d840e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19890715.sst",
+   "sha256": "d6f13183b3a2594368b650d08fb03bed256dc9e44b9366c8344f91b205e88cfe"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19890815.sst",
+   "sha256": "10bd8e30b89b78ad819dcbd10cf64fba54babd753a88bfb6135b846e7e93e821"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19890915.sst",
+   "sha256": "8bdc143acaba28188bc7d96affc0ee605552c8ef34435948acbf8172eb2e8d75"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19891015.sst",
+   "sha256": "717e9a2c7730474d2b8bbd1934a2ffece5967adaea43b4ca8003c0868f13b6b2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19891115.sst",
+   "sha256": "47dfda2a5b6fee66e55f629f2331943c72a5358442c0d047a1573bcc9de82168"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19891215.sst",
+   "sha256": "a263705071a055a68f04d28bf9c3d175ce45954fe6f4da6f91615011cb9b9fb2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19900115.sst",
+   "sha256": "1f2d5a1cd38bc77c385dfb53acaf74b7d835a14f324de61817012e1138eb38b0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19900215.sst",
+   "sha256": "da371a197bd70d9119216d4f55c00a936f9322407a94c2b5c251b80e0b0ec4cc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19900315.sst",
+   "sha256": "f791a3d4b346a7b6a71b0d81883c696234d9e596107dff22a36571fee11c30c5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19900415.sst",
+   "sha256": "9fd2d305f1873b412dbf3dd2f451cd06c07bd950250d89fc98cd0f2610aa85c4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19900515.sst",
+   "sha256": "41ff74e666401ea18700ece2104921e57c2961b11a9d4e75ab96d01886e469ad"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19900615.sst",
+   "sha256": "1be84aa7fe701d4000cec6b4048d4dfcac9b800d2487a81ceee84040485dd926"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19900715.sst",
+   "sha256": "29563e2eff12487653c9ea645395419e54fcf53fb15e8139b23e733579be10d7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19900815.sst",
+   "sha256": "2f7b370bb9e3c2aecfe4ed4300c809edcfee6bb3ca79797c146808aa132f8067"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19900915.sst",
+   "sha256": "13d9e7a4a129b86f9e1f4edf3e9bd94ed9d87c203c684a2a38f8e741bfcfd14b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19901015.sst",
+   "sha256": "e91409026ff8b9465b9ce9b06b55bf0a002c5fdf685dc1246f526da3c9adf368"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19901115.sst",
+   "sha256": "ee5bcad945a1b2363538efdeca5d043396ffae8f0954ed5eeab23cfc30108efc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19901215.sst",
+   "sha256": "0829acb335efac6183b690f87085cc19749d628d33332bf5b0179f9e15c917fa"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19910115.sst",
+   "sha256": "51e0b2278960f6efee688347f0cfdcd2dec846c17ebf13f02d6f88344d565831"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19910215.sst",
+   "sha256": "a3711c877f980674ffa018f1115b744a9e48b890c530e3679d39c06342804bb2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19910315.sst",
+   "sha256": "0ca5fc3a13f4beb78d24d7aeba0c40fd359d2d3e43214da1ebe55ec1bfbf8cad"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19910415.sst",
+   "sha256": "2ab5978580d99d171ddb7ffe7d74d951364a5f6dbde19b4364a2eb3c66d8c216"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19910515.sst",
+   "sha256": "1cf646157d862a521028194f4d8e1f22298728e0be1e70939e630af79b377c24"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19910615.sst",
+   "sha256": "ae3f8e3d6f31204649e0e6ee7c90114115b8e01c1c80b67536454f1f2e08cef8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19910715.sst",
+   "sha256": "39d7d16567f3c69977720cc273a8e3fdcd53ece557745cca2ab7ea7c1bef22d0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19910815.sst",
+   "sha256": "7ccbc20bbc95b1d3e0e1dd0f2a727aa420a67a2ecc04d0f6e94f137b20c450f7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19910915.sst",
+   "sha256": "cc2b9fddba32772db3580c052e555134fc08faec3e425b705742cd1a2708cd72"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19911015.sst",
+   "sha256": "73660cfe611dbfbefb5da9e55e2afe6c5aba9b516e627d4b045c0c960117857a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19911115.sst",
+   "sha256": "b87d67add00dd7ae7a3d1948e6496a622d0b3ba478964f4cb287a8ac540848e2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19911215.sst",
+   "sha256": "25fc94f41efcab3a092861df3832297e2857b8266fda3ff8ecb2fe310952c537"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19920115.sst",
+   "sha256": "a88d7d8c87fba4e3404cf093bf7bbbc23177e55a47c848778df15a3ac4a31bd3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19920215.sst",
+   "sha256": "c69430a7a2175fd967b758e291fc8bd90128036a040e55153c6c00b36760e938"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19920315.sst",
+   "sha256": "42b830524baf9dce815868fc68c0f306e6bf8e6c9ceb5604c03b398d8e13cd2b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19920415.sst",
+   "sha256": "0ac874e7d7eab23783c12cb59ccf502166a78771ed988055e657b6c7abdd0a75"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19920515.sst",
+   "sha256": "ccf6bdd3ef9e75ceca69902cd7e0e4e342102635acf6fe12b90e27eb469c6a15"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19920615.sst",
+   "sha256": "257a028bb4f2a9aa5714702c37aa4515bfcfac989d5ce6279e296b1ac1ad1d77"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19920715.sst",
+   "sha256": "ed15e2b7e422c02a7576e8fe68aba5fcf9c3588700a2ab17b1367e0f07dd4025"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19920815.sst",
+   "sha256": "66f1c7a6a294a14ebeefac35d92ad279fd246019c9291d6797c26351a5f57e09"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19920915.sst",
+   "sha256": "d71572afba4e63926cb2cfc781f266b22f0b583977f641536af4e23d94c535eb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19921015.sst",
+   "sha256": "0b1dfbcc9216cad8b0f1e7e1011d10e3291db8444e7b03500015a3ae1055c21d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19921115.sst",
+   "sha256": "94244d16ccded105659e9aee9add1de982eef369c703ff6194720f0afa902bb3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19921215.sst",
+   "sha256": "60db7f8ae032da2be9e2dd375a93519d8781c5de7fb11f483581e6808ed6b7b5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19930115.sst",
+   "sha256": "c402f730af4b541e0d16c1a4701eee39b372b06e0a17e8fde35570ddd0fb4209"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19930215.sst",
+   "sha256": "d3e3153206aee7e525c373cb1ee521fcbba67b75cac7e37cef266dbb1e766d44"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19930315.sst",
+   "sha256": "7815693ff7084ff38810ee741dbc3d528ae95ea8d06878db079a15d05d1b92de"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19930415.sst",
+   "sha256": "fe6a92fde7f39c7bfdc56ea9dbd179338e0f254ada5b59e27cbe88d2609541c6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19930515.sst",
+   "sha256": "aae6b9a43d1fa7af44494b0b0fe6e652853ef5344d5e346c3cda141b1fd707bc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19930615.sst",
+   "sha256": "f148bc3b8c27c67ca4ad55f25302cfce884a032371d2865a04c9ca24dd730df4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19930715.sst",
+   "sha256": "83442560d56b6e1b1fd2891a67a94672ce96e55ad0aa345986342d3edade94b6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19930815.sst",
+   "sha256": "1e2495906145050d292d23c763979eaaa7f64701fe7b2228defc39b6a54c7e0f"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19930915.sst",
+   "sha256": "f7961e3c921967deed1773191751f07f152f18f71a5c4e90adf4d77ed1a6a650"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19931015.sst",
+   "sha256": "0fe87fff422b37d2b6d67649cfae7b273f03c016c560765b93ccc4277531edc5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19931115.sst",
+   "sha256": "bce3f36c4da89c73856d1be6339f2597b9ddab7b020e0ed6add5383c2cb49e3e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19931215.sst",
+   "sha256": "f415e4ad14c2b74cc20b1f8f886f384e835040026d8dbc5493d48b7f0e4efcee"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19940115.sst",
+   "sha256": "a5cc5fbe3318cef0652298eebe17fe836a5d550c2e36d550510a277a25d1b158"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19940215.sst",
+   "sha256": "d3d364ed0f5b6b543e7c0aadd69cbe3f42617122092d8b51490e1cfae6d6a061"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19940315.sst",
+   "sha256": "002c104bd2c8cee6004bce55a2e3e07210017c06ac68f65db53795118a758813"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19940415.sst",
+   "sha256": "a3e9c09bc2592b7ce3c81aada68041cdb01eb66595e1b788c3b6a8317f8804d4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19940515.sst",
+   "sha256": "9478e0c957ceef91dc0d75ed86d47b6dbee8e7532810e5b3d3b42a7a19ca99f5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19940615.sst",
+   "sha256": "942aec9232a4ab5609584e0f7c813da8ce96e8a2d982bc5b28cbb898efb6b308"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19940715.sst",
+   "sha256": "eb7fc28ad7bc98bc7bd5da41e981a281740d51579cde8fea83f091aab4888be4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19940815.sst",
+   "sha256": "1a5e173de75fa6d97ef329c11f6cd38373b9d6eb6fedebd0d5caaf3cadf5e313"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19940915.sst",
+   "sha256": "f95c5c9863d711a52d2ef73ad5d98de215fc9b28c85b133fab0245f022db95e8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19941015.sst",
+   "sha256": "20bc72bd9c11889f61f5d11d44225a9ca0ac169ad7df57d80bc8e51b0a859849"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19941115.sst",
+   "sha256": "81e5d9d4979cf34beb192251bb545afa8edeb19e77dfa2bd863ae7bcf5655377"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19941215.sst",
+   "sha256": "9027be423d4599f1c1b807994abdf6d677c96c4f1f2fbc1f55f26e99bb718e6c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19950115.sst",
+   "sha256": "af431ddc5cdcc50db863ff8e2d518c6f03ae14e6e905ca7126643f24694764a4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19950215.sst",
+   "sha256": "2b914aebb2267a25581fc0836d465cf540490a48db5db35e878dfa2e5aba930e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19950315.sst",
+   "sha256": "35f223ae3f7d3d89d54d2b982c08261fc2fe49843bbab74adae289159ab7ee2d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19950415.sst",
+   "sha256": "1d5cf07b18c47c47cbc61748423892a79a41d1d3e87438777d5a2efe3720c445"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19950515.sst",
+   "sha256": "f68eb338e0b7c356c125672776a01416054d28c0c96f0562bb22b19547e2bd9c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19950615.sst",
+   "sha256": "f0b5767b5e7bd76feea80154f74e466f24bfd823fad6e6563f25006d4f79cc22"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19950715.sst",
+   "sha256": "6c6fb0977adfa7bbebedd9b50d0cf2e72855bb1c3b2df4b067cfa372f9b76cc8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19950815.sst",
+   "sha256": "911bbee903746a5730288ae0dba9c9754df91c07022db53c6fb9e93ec1bc92a3"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19950915.sst",
+   "sha256": "3b9759e317d6e56b179bc5685d60c9446af8c32fb915a0b3b3829f53fce48ba5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19951015.sst",
+   "sha256": "840a67f2d6ea9781aed949508856e7c9608b9b6a276c816972ca5cdb3f46a74a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19951115.sst",
+   "sha256": "a2bbc3eb03dedc84e9adb9d58aa799447ddebe1ec3a02ca48c891f747af4f63b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19951215.sst",
+   "sha256": "13b4f0687ea6fab2b6f3c3b7b00892f57b5a39a10bc95a452062b9d51943b47c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19960115.sst",
+   "sha256": "9dacc5d3287a2ff80c75218224b57757811a253622d64e7c188772e7786cba22"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19960215.sst",
+   "sha256": "0135e4ebe79875591aa7e6398700f6d26c02ab9aae4854584b40a299755ddcd1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19960315.sst",
+   "sha256": "b94606eba14d4365d3e324ca4869550d428252fd79a28c4c390f6fd0fb394b2d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19960415.sst",
+   "sha256": "57e482c7ce0677d7211d5e00ef3a5113fa2fa6a0d1c03b843e1ff2426221fc50"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19960515.sst",
+   "sha256": "2c9add701e112ac8887a08c42bfe2a334be1139a412b0e1b4da0a7971fef9fb9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19960615.sst",
+   "sha256": "6ca25a31c1e19d50f38163abb6ccbc45f569833b860213cf3b76a2baca01a63c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19960715.sst",
+   "sha256": "83d8efd28a9bc2e12f746919b0b2aeb3bc08c9c031c315cdb174fc3463b95e23"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19960815.sst",
+   "sha256": "79f0a92e84ba23a63818da7232d1e7c6a40cf07e6d903b4d535928b9acc8ff0e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19960915.sst",
+   "sha256": "490a95f38ac66a97a67b8430e6bb811a475fae33358fd43ee42d17b45e11b7ec"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19961015.sst",
+   "sha256": "455ca9e60744be9c321afacefbf15d1e26f5ffa4786a817a574df9a078da46e5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19961115.sst",
+   "sha256": "1235f7b07f5643bbd0ebee1d23dd302362dce813b7979c7da5f0c5e552d6bef8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19961215.sst",
+   "sha256": "00c747482db1659180a8c05a84a8bc1ee8a6b1572fd4a335522802ee4d4c9cf0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19970115.sst",
+   "sha256": "df407afee6c4061c595d3ee3223e0499a9b30943bd9fd7c08e7cb9ac4bd3a707"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19970215.sst",
+   "sha256": "20120c88bd80f2451e1b44ceac5bb77a2594c4e9ddf47a5b1ad09aada4b4a811"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19970315.sst",
+   "sha256": "a6985c81adaf419c076cbbc5574dfcbd384c890f4b6431d89506bdeec1795c00"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19970415.sst",
+   "sha256": "20ed55f0b60c5ccd3b67591e9d74af1b2fca1853c9a3ed77da5e2d49f75b5937"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19970515.sst",
+   "sha256": "c0acb33cf9f0d46ebc534efeda8f385d41881506649f3af7b38a13f3a60aef15"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19970615.sst",
+   "sha256": "7fac6703ab8d094fea117bfd5f79ff95b99446525741c1dc9f2b030893c1d149"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19970715.sst",
+   "sha256": "7659fc77e283a0b1e1cdaa15400694ffc7787142841fca9b9d21cf34e1c28004"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19970815.sst",
+   "sha256": "fb3309509720f1aa8772c23724ccb6857d6d2b5b27d56b4d7f7271b3de342d44"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19970915.sst",
+   "sha256": "28188e06c5551442c7040a44a90a163ce756371cdff7a845b6fa0282526eff28"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19971015.sst",
+   "sha256": "94569f85c66782100088812e994198863e304ad1eee7099e3a7ac60349be6de0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19971115.sst",
+   "sha256": "e95e8628e8ce819b93a5392d1d6623d03b96968466848614df9c45d0e532167b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19971215.sst",
+   "sha256": "d23698b50200dc2e99003748827364f75c6329b771a49c688528d855a43580b0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19980115.sst",
+   "sha256": "e7ef29fc7745b9634f5c7ee816f1b798a10a4411fed218ccdc06df433c124e3a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19980215.sst",
+   "sha256": "3db36a14984c949095a9fd913364f2a3efcd40587aac3c098ce9d4d272e9da20"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19980315.sst",
+   "sha256": "6c824865d478347eb189c64cc1d7b5c3be5eb0f674c949f9104805e2761ad682"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19980415.sst",
+   "sha256": "2309ca347a564aa70e8df1ab5500655779a116b0572d3e86908fa276e856df98"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19980515.sst",
+   "sha256": "70ee304fae2721da186ec46f635e0ee926e93084a8de02b467435fca630d7946"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19980615.sst",
+   "sha256": "db7ec6fdd1d096eec6b8a3bf14f0434421e4fb91769485fe1321535d779d864f"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19980715.sst",
+   "sha256": "c3749e75885be25614c1c044a835bc956007df052f03a10f1d7b4c2fad8a749b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19980815.sst",
+   "sha256": "23bc7848689615dd35f4f7cc87bec7637c6224959aaaaa4ea4f42eb2f5d52d91"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19980915.sst",
+   "sha256": "f38ad9f3053f65fb3c3fba6758b5fcd43338d7c042072b161255e7488ccd3f0d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19981015.sst",
+   "sha256": "5ab1631e6c44cbc35e09ba0884389110a801bb733deb22a9947e8f124701b4fb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19981115.sst",
+   "sha256": "60b829e0ca3a439babbc17cd7dcb3dee0f3a39f04afc2bfd19068ddfc2645d54"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19981215.sst",
+   "sha256": "5ea869c6e82ebc75d1b302dba9f68dad300a06157ece5429730607c857e118a1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19990115.sst",
+   "sha256": "9f1e1636225eab34aed380096ca9a567e1660af9aaa1d9d7ac40f457623366c2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19990215.sst",
+   "sha256": "5d75e31b3f132a7e52465bc262a4501c8af751ee209b5aee89079ade7e4e726a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19990315.sst",
+   "sha256": "490814cc14d49abb3c96ee5dd8f6651774ff6b173b6af1901ba0fd58a9174f2e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19990415.sst",
+   "sha256": "db11b25791ab7e7e0e62945fc531e7abf1c4268d0e96965234119098552e0d70"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19990515.sst",
+   "sha256": "d721f2a24bf6dff27db353ff12944daa386aa82afb73366b2d7eec9b6a26dfe0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19990615.sst",
+   "sha256": "d15440a3a0bdcc3ea7947c70f807365267364f8b251970a15b9aff47f209fe10"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19990715.sst",
+   "sha256": "922e3d3d4d47cde562023c89126132b677a7d531545bdc2de68b332710fd6833"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19990815.sst",
+   "sha256": "c2b7200795061e845ed4d415b27ded3f683bfdff5ec23c578aeb64e34efbc645"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19990915.sst",
+   "sha256": "4f0b7e96ad7dcbc0d3673c0117f26b0531cee315205ba116903db9a069252bd6"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19991015.sst",
+   "sha256": "f32016ce5b2f3461070f0f98e6b7034301a0725bdfc87e3dac971620b54d35b8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19991115.sst",
+   "sha256": "055686d2faee2061c64bca736bafdf5cc19b729f36a8a06f1e17432951ab3a26"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/19991215.sst",
+   "sha256": "8ba9b836ccd353a6fd82bc02cc6c5fed8a24ae99f40268fcdaa78d8f660ceb25"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20000115.sst",
+   "sha256": "936fb01a1805a7d8be7a425455bff83fe889f29568717d02e96dc1906ddebfca"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20000215.sst",
+   "sha256": "39e7a64434fec1dd5704d26615d5f0ac8260c49eca83d92b4e677ba3a7c1c3d7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20000315.sst",
+   "sha256": "1aa1f8fdcfd7b090ee5be4a33190fd7eeb77444a39ffadcc2385b78d7e85eba5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20000415.sst",
+   "sha256": "ac62f3831e2771324d8d129480019530a2c85e66a5028c8a60b7cad327660fd4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20000515.sst",
+   "sha256": "5bfaca0bc0ccfd5075a5d53eaaf392f003ab2b1af6a391f3bc35f5c4f276fd6b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20000615.sst",
+   "sha256": "9ae55c1a4423cc51f24d5bfe0afad7ecc67596c82e805ffec2395688c6ab3623"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20000715.sst",
+   "sha256": "004d0dda28df9722bcb8e40064aa426775b23ee33f41e9672313e0212969e414"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20000815.sst",
+   "sha256": "4bdce3f53dd8b49453fc1ab160b78bb640ed341be1596dff5323304416cef921"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20000915.sst",
+   "sha256": "e98e47bb5e81c6b9437062c16fb4ed6dd0eb4cf15e3579fe0213ed2338e0d009"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20001015.sst",
+   "sha256": "75062cf74f65dd8128d2357dba0c9429458ff2a9b829132865433760f84e7cde"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20001115.sst",
+   "sha256": "c9c7c57b6a773ccd90abebece05072422b336f47204b08a21eaf5cd7ec4aa09e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20001215.sst",
+   "sha256": "6f2d4e8d2bb89ee136c6a261cd1badeae34dbcbb3aac6a532e97f51765086c54"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20010115.sst",
+   "sha256": "f7eca7d1f8ed97cc26a1f9d8d8ca179c70f1be2635d9dcd0a8f4694d3fe61317"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20010215.sst",
+   "sha256": "43a78edeb40d7f22c37af01ac388fce61d0735f8961a130cf25c47c606b95ce5"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20010315.sst",
+   "sha256": "79b95aad3f12ac332ca71a3b4de1e52ca04acc27e52b6da6683746d7bdc0eacd"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20010415.sst",
+   "sha256": "17ec95697081a8beda51128abe9f75e907222ab2114d95396e5b9088135cc8a9"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20010515.sst",
+   "sha256": "bbdc4c5b34ec263f826e1726b18516f270b46ba06cde29ef205cb279dab400df"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20010615.sst",
+   "sha256": "ac6afd28185fc8687bb73fe694d5a87963484cc488b6fa90e849a5f5f76110b8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20010715.sst",
+   "sha256": "cc6696225f98b192481830227fe9ed7569a0353bac9d97be49f0f7d8dcb78c48"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20010815.sst",
+   "sha256": "2715660341ca7440e018a1ad5a213da913692fca3ec11ca6befa4b6800918096"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20010915.sst",
+   "sha256": "0fa5557fbd1523e8ae75e3b58a126dc7aa8bf9d04e45d35116241bea3ccbeaaa"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20011015.sst",
+   "sha256": "4938042421a74b4fee380c96c9ccf24a7b84086df35f701bb7ea4681cd7248dc"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/SST_Reynolds/20011115.sst",
+   "sha256": "b0bdcd6e6a5b332957d7ac7899ad33564a7a405cc18e069403fb3403c595b79b"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/00000000.sst",
+   "sha256": "a090dd049d170759acec15047627d3ea490d7726af3b1a24acc8f94413f6f682"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00000115.alb",
+   "sha256": "a91ea07d8c8230ab16d572014fa30bc0fe9131805dc5e19350f3ef7390d24d28"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00000215.alb",
+   "sha256": "ec75c82ec69dd0710803ec51cc9bf3a30ec9b8dc693ac66ae82c3909ed37fd02"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00000315.alb",
+   "sha256": "446a64bf1b4d5ed7735d2de843b51c0cbea9efa9b561fe681f8aad31c20b0440"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00000415.alb",
+   "sha256": "54fa4da3c17af90ed536bd21dc0de2022915b4203be74410f9c7ad5387f85350"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00000515.alb",
+   "sha256": "6ee76d9f531e8224d104ea9d038ab42786532f6d505ab403dc0ad1199f1584eb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00000615.alb",
+   "sha256": "932bb62ce4a75f316d09fec4eba2ca21bb0f8cfc4402e2592edd40a6959e3f0c"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00000715.alb",
+   "sha256": "aa710defc8f63f8deba1368b9a8af93d91213364e09369c0e16b2a44a0455c5e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00000815.alb",
+   "sha256": "67016db2a36b6cc59f895f47bb4aa8deed783696e08e99080de318654a8b3be1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00000915.alb",
+   "sha256": "aad76a1ff00741889bcf6118e1e690828cb39b3101dc3d42c2e5be970c18b278"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00001015.alb",
+   "sha256": "bedf6b1e7e35bb9b4e6cceb3b3cc884188467621d1ecab3c32cb3245b6f782ce"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00001115.alb",
+   "sha256": "9b42dc7a2c076afe9ecf00543db60e0d2d2dc0f2c9fd2ecb2d3a9d54516e82b7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00001215.alb",
+   "sha256": "16955a3b8b47ff74a8a855c76c84bed01a77a008af9165b2e388f00f87ed7015"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ALBD_Darnell/00001315.alb",
+   "sha256": "c655598a0660c5041c6482447312c8cc54e4a8fb2a08d3bccaf82f60017e8c7e"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/STYPE",
+   "sha256": "41c51268172589d90923b1c8ea31baff6da406a444ebdf685d75bd9a197850a4"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/TOP",
+   "sha256": "cc9a62780410336088f6ad326289c941cbd8827b9596eee506fcea73c142ffd1"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00000115.cld",
+   "sha256": "da6e3d6d8d78147201253d3be1d189d153e8febef9727a0851bb2b7e3a480587"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00000215.cld",
+   "sha256": "b0d2f53d5a084c994af5f53943e182c093766e6ebef8477753271a8e7d62d1cb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00000315.cld",
+   "sha256": "9d3994721d70bf754a16584c3200afb82153278f6280cb31685c37b28372618a"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00000415.cld",
+   "sha256": "368740af173c3c400751dbdf2c81c2869a5f13bb7b29cd67374ae6d5a43a1494"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00000515.cld",
+   "sha256": "c108f74cdaa6956366fc5db25f811cbd873342c116692104ebbd6224929bb2d8"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00000615.cld",
+   "sha256": "27d4bcb8751dda03d02562909512fdca652f3047c4e576bb37f255bf9354886d"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00000715.cld",
+   "sha256": "3169ba180a50c8ed1f424c7d9790ee9bf1ec1f1ccf2bdff09e1f8ea8cb711ce2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00000815.cld",
+   "sha256": "af635c31009d3d0370907b18c2ff4e3e142883bb4d74234cf32d36fd36af2c24"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00000915.cld",
+   "sha256": "9324ec61eafb70754b7a10a5aa5b25d3420458ac41a16e5b1085e704b8311411"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00001015.cld",
+   "sha256": "c8217ac8d5bf03715a9c5b8587ef8d2c860b05fcbfaae3277e428274bdfd4fe7"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00001115.cld",
+   "sha256": "c2a335e849a299aa4ebf1841b95cf323e36b5cf189ae4e0dd61e52bea55ff8eb"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP/00001215.cld",
+   "sha256": "025fab2abe5fcb71b7bcb080a271eb5275fe334e0a61a1771b44937e1a6a7c42"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00000115.cld",
+   "sha256": "18778c4402bd82e606cf5de42c3a494de21c702ae7a33d7803ed7ee8a93a51ac"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00000215.cld",
+   "sha256": "d17c15529a2764f4ad63486dfd4a3f03132d9682d0b2f5b899305e6240c037ca"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00000315.cld",
+   "sha256": "918cb29cd42a709c05b45eafde4b0a1de4e583ca7db9754f5017c5ffa1117b68"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00000415.cld",
+   "sha256": "35cbe2c96fa8630ef6639564054322ce75c016eb4c41bc48fe5bb77e460de933"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00000515.cld",
+   "sha256": "c54f0542df4f84dccd24bc633d59ea9c2827b1023d79e4dd91f075e93ad44242"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00000615.cld",
+   "sha256": "29a7fe6f8f5d94979a328142be8a97bff5fa62368bd87089bb1431c5e7a0ea43"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00000715.cld",
+   "sha256": "b21dd98119737231306160a88a8bcb8b16874baa822fac5cc637a0a8002925a2"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00000815.cld",
+   "sha256": "7b31f2704535fd45ed47ceff9f151a9351455c9a24e589f1f74499db73b523f0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00000915.cld",
+   "sha256": "493bce7bda05cd393e0184a58c92a1b14ef1a70a5d6afb54fd79dc32d6af9122"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00001015.cld",
+   "sha256": "06e1fa979e850c58f12d6c830617872acc5e19f1883e71c12349e521de6183b0"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00001115.cld",
+   "sha256": "ce282549972b28a30648b9a660b2fc86c5ea9d54967f8d377473cfe7477f4a27"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/CLOUD_ISCCP7/00001215.cld",
+   "sha256": "2b257af85688dd3e25a64b12532f893d5e76bc5f90648696edfe26adaa921e79"
+  },
+  {
+   "file": "/root/work/qtcm-master/test/bnddir/r64x42/ensopac.mask",
+   "sha256": "ce790273afed4ddb1f6eaf2c39cefd03a79bc18678c8e1502f3a06960faca720"
+  }
+ ],
+ "products": [
+  {
+   "file": "albedo_darnell.nc",
+   "sha256": "0857391071139e6702933228eea6d445187d8416cb29ddc6bc8e0cc5768b2aa7"
+  },
+  {
+   "file": "cloud_isccp.nc",
+   "sha256": "ebc081863a2f16f077fe093ddd89c8f77520adeb67161d20e3063fb1b54a4362"
+  },
+  {
+   "file": "cloud_isccp7.nc",
+   "sha256": "c4a6380fdb4b76b4c876a4777ad52ff87bed1e738b5f3525a5e81f418ce302ee"
+  },
+  {
+   "file": "masks.nc",
+   "sha256": "26dc3b10b8ecb387d6d0ae6c5d0b31087f202454598e68ebb12b47ffacc56756"
+  },
+  {
+   "file": "sst_perpetual.nc",
+   "sha256": "cda8e186baaa8c912011e11eb3de6f22c9fdbaffeeac4c8faab02ad481a89fbe"
+  },
+  {
+   "file": "sst_reynolds_1949_2001.nc",
+   "sha256": "cb6d35251b41162cc0aa722922d5cc5bbb23457326975b2d4303506819a3f7dc"
+  },
+  {
+   "file": "sst_reynolds_clim.nc",
+   "sha256": "1330e55d5130bc4c311af73388789db738c472c5a0de206d98fd25e129e2e8c2"
+  },
+  {
+   "file": "surface.nc",
+   "sha256": "1bbdb9a5ee63b932be3aa7f61ec84ad6d1e6568819e26533d82babc3ab5eaf10"
+  }
+ ]
+}

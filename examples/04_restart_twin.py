@@ -15,8 +15,7 @@ import numpy as np
 from qtcm1.config import RunConfig
 from qtcm1.driver import ControlRun
 
-DATA = os.path.expanduser(os.environ.get('QTCM1_BNDDATA',
-                                         '~/qtcm1_data/r64x42'))
+DATA = os.environ.get('QTCM1_BNDDATA')   # None -> packaged data/r64x42
 cfg = RunConfig(data_path=DATA)
 
 # -- 1. bit-exact restart ------------------------------------------------

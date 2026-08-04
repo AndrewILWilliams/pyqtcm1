@@ -27,11 +27,21 @@ import numpy as np
 BUILDS = {'f64': np.float64, 'f32': np.float32}
 
 
+#: the boundary-data registry shipped with the repository (data/r64x42)
+PACKAGED_DATA = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), '..', '..', 'data', 'r64x42'))
+
+
 @dataclasses.dataclass
 class RunConfig:
-    """Declarative description of a QTCM1 run."""
+    """Declarative description of a QTCM1 run.
 
-    data_path: str                        #: netCDF boundary registry
+    ``data_path`` defaults to the registry shipped in the repository
+    (``data/r64x42``), so a checkout is fully self-contained; pass a
+    path only for other grids or regenerated data.
+    """
+
+    data_path: str | None = None          #: netCDF boundary registry
     build: str = 'f64'                    #: 'f64' (recommended) | 'f32'
     year0: int = 1
     month0: int = 1
@@ -46,6 +56,9 @@ class RunConfig:
     def __post_init__(self):
         if self.build not in BUILDS:
             raise ValueError(f'build must be one of {sorted(BUILDS)}')
+        if self.data_path is None:
+            self.data_path = PACKAGED_DATA
+        self.data_path = os.path.expanduser(self.data_path)
 
     @property
     def init_dtype(self):
