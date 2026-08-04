@@ -18,7 +18,7 @@ check).
 The top-of-ABL wind uses the mode-1 projection at z = ziml,
 V1b = V1interpol(ziml) from the V1(z) table (-0.2282 at 500 m).
 
-Fluxes (``Sflux``): bulk formulas NZ (5.16)-(5.17) with CV = CDN*|V_s|;
+Fluxes (``Sflux``): bulk formulas NZ (5.16)-(5.17) with ``CV = CDN*|V_s|``;
 evaporation uses saturation humidity at Ts through the model's hsat table;
 ocean sensible heat flux is floored at -5 W/m2. Stress: taux/tauy from
 CV averaged to the staggered points times the T-point surface wind

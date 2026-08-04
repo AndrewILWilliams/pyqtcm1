@@ -20,7 +20,7 @@ from .constants import REARTH, OMEGA
 
 
 class Grid:
-    """QTCM1 horizontal grid (default r64x42: 5.625 x 3.75 deg, |lat|<78.75).
+    """QTCM1 horizontal grid (default r64x42: 5.625 x 3.75 deg, abs(lat) < 78.75).
 
     Attributes mirror ``Module Grid``; see the Fortran name in each comment.
     """
