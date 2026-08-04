@@ -63,7 +63,7 @@ class ControlRun:
     def __init__(self, data_path: str | None = None, year0: int = 1,
                  month0: int = 1, day0: int = 1, sst_mode: str = 'seasonal',
                  params=None, init_dtype=np.float64,
-                 config: RunConfig | None = None):
+                 config: RunConfig | None = None, surface=None):
         if config is None:
             config = RunConfig(
                 data_path=data_path,
@@ -75,7 +75,16 @@ class ControlRun:
         year0, month0, day0 = config.year0, config.month0, config.day0
         sst_mode, params = config.sst_mode, (config.params or None)
         init_dtype = config.init_dtype
-        self.bd = BoundaryData(data_path)
+        # custom surface: in-memory argument wins over the config path
+        surface = surface if surface is not None else config.surface
+        if surface is not None and sst_mode in ('mixed_layer', 'blend'):
+            raise ValueError(
+                'slab-ocean modes need a Q-flux diagnosed for the custom '
+                'geography: run a fixed-SST control on the new surface, '
+                'diagnose with tools/make_qflux.py, and point data_path at '
+                'a registry containing that qflux.nc')
+        self.bd = BoundaryData(data_path, surface=surface,
+                               albedo_mode=config.albedo_mode)
         self.calendar = ModelCalendar(year0=year0, month0=month0, day0=day0)
         self.sst_mode = sst_mode
         self.ocean = None
@@ -96,14 +105,20 @@ class ControlRun:
             mo1 = 12 if m1 == 0 else (1 if m1 == 13 else m1)
             self.ocean.Tnow = self.bd.sst_clim[mo1 - 1].copy()
         stype = self.bd.stype.astype(np.float64)
+        # TOPO: bndinit threshold (top below 0.1, i.e. 1 km, is zeroed)
+        topo_top = None
+        if config.topo:
+            topo_top = np.where(self.bd.top < 0.1, 0.0, self.bd.top)
         self.model = Model(stype, bndinit_cdn(stype), params=params,
-                           init_dtype=init_dtype)
+                           init_dtype=init_dtype, topo_top=topo_top)
         self.state = self.model.cold_start()      # carries gradphis_virgin
         self.dayofmodel = 0
         self._getbnd_virgin = True
         # configurable output (xarray): see qtcm1.io.output
         import json
         prov = provenance(config)
+        if self.bd.surface_sha256 is not None:
+            prov['surface_sha256'] = self.bd.surface_sha256
         attrs = {k: (v if isinstance(v, str) else json.dumps(v))
                  for k, v in prov.items()}
         nastep = int(round(86400.0 / self.model.params['dt']))

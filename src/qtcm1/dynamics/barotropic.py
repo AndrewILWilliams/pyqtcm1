@@ -49,9 +49,14 @@ _RHOAIR_PS = 1.2          # air density used in dphiint [kg m-3]
 
 @njit(cache=True)
 def _bartr_rhs_k(vort0, v0, tauy, taux, advv0, advu0, dfsv0, dfsu0,
-                 dxvi, dyvi, cosu, fu, dyi, gpti, dtm, h0, h1):
+                 dxvi, dyvi, cosu, fu, dyi, gpti, dtm, h0, h1,
+                 use_topo, div0, fv):
     """RHS curl stencils + AB3 vorticity update (pre-filter);
-    per-element op order matches the vectorized expressions exactly."""
+    per-element op order matches the vectorized expressions exactly.
+
+    ``use_topo`` adds the TOPO vortex-stretching term ``-fv*div0`` as the
+    *leading* summand, mirroring the Fortran expression order under
+    ``#ifdef TOPO`` (qtcm.F90 rhsvort0)."""
     ny, nx = vort0.shape
     rhs = np.empty((ny - 1, nx), dtype=vort0.dtype)
     vort_new = vort0.copy()
@@ -70,7 +75,11 @@ def _bartr_rhs_k(vort0, v0, tauy, taux, advv0, advu0, dfsv0, dfsu0,
             curl_dfs = ((dfsv0[r + 1, ie] - dfsv0[r + 1, i]) * dxvi[r + 1]
                         - (dfsu0[r + 1, i] * cosu[r + 1]
                            - dfsu0[r, i] * cosu[r]) * dyvi[r + 1])
-            rh = curl_tau + beta + curl_adv + curl_dfs
+            if use_topo:
+                rh = (-fv[r + 1] * div0[r, i] + curl_tau + beta
+                      + curl_adv + curl_dfs)
+            else:
+                rh = curl_tau + beta + curl_adv + curl_dfs
             rhs[r, i] = rh
             vort_new[r, i] = vort0[r, i] + dtm * (
                 _ADAMS1 * rh + _ADAMS2 * h0[r, i] + _ADAMS3 * h1[r, i])
@@ -143,9 +152,46 @@ def savebartr(u0, v0) -> dict:
     return dict(u0sav=u0.copy(), v0sav=v0[1:].copy())
 
 
+def topo_div0(u1, v1, u0, v0, top, v1st, grid) -> np.ndarray:
+    """Divergence from topographic lifting (the ``TOPO`` block in ``bartr``).
+
+    Terrain-following surface winds (``v0 + V1st*v1``, with ``V1st`` the
+    V1z-table value at the local surface height, precomputed per point)
+    dotted with the topography gradient, centered at (i+1/2, j+1/2):
+
+    .. math::
+
+       \\mathrm{div0} = \\nabla \\cdot
+           \\big(\\mathbf{v}_s\\, \\mathrm{TOP}\\big)\\big|_{lifting}
+       \\approx \\mathbf{v}_s \\cdot \\nabla\\,\\mathrm{TOP},
+
+    with TOP in height/10 km units, so div0 is the lifting w spread over
+    the 10-km column depth [s-1]. ``u1``/``v1`` are the *post-barcl*
+    baroclinic winds (the Fortran updates them in place before ``bartr``);
+    ``u0``/``v0`` the pre-step barotropic winds.
+
+    Returns (ny, nx): rows 0..ny-2 are Fortran v rows 1..ny-1; the last
+    row is zero (the Fortran array row ny is never written).
+    """
+    g = grid
+    ny = g.ny
+    topE = _roll_e(top)
+    vs = v1st[:-1]                              # V1st at (i, j), j=1..ny-1
+    term_u = ((u0[:-1] + vs * u1[:-1]) * (topE[:-1] - top[:-1])
+              + (u0[1:] + vs * u1[1:]) * (topE[1:] - top[1:])
+              ) * 0.5 * g.dxvi[1:ny, None]
+    v0_in, v1_in = v0[1:ny], v1[1:ny]           # v rows j=1..ny-1
+    term_v = ((v0_in + vs * v1_in) * (top[1:] - top[:-1])
+              + (_roll_e(v0_in) + vs * _roll_e(v1_in))
+              * (topE[1:] - topE[:-1])) * 0.5 * g.dyi
+    out = np.zeros_like(top)
+    out[: ny - 1] = term_u + term_v
+    return out
+
+
 def bartr(vort0, u0bar, v0, rhs_hist, rhsbar_hist, *, taux, tauy,
           advu0, advv0, dfsu0, dfsv0, grid, polar_filter, poisson,
-          dt, mt0=1) -> dict:
+          dt, mt0=1, div0=None) -> dict:
     """One barotropic step (port of ``bartr``).
 
     Layout: ``vort0`` is (ny, nx) with active v rows 1..ny-1 stored in rows
@@ -160,8 +206,11 @@ def bartr(vort0, u0bar, v0, rhs_hist, rhsbar_hist, *, taux, tauy,
     g = grid
     ny = g.ny
     rows = slice(1, ny)                        # v rows j=1..ny-1
+    use_topo = div0 is not None
 
     if _NUMBA:
+        d0 = (np.zeros_like(vort0) if div0 is None
+              else np.asarray(div0))
         rhs, vort_new = _bartr_rhs_k(
             np.ascontiguousarray(vort0), np.ascontiguousarray(v0),
             np.ascontiguousarray(tauy[:-1]), np.ascontiguousarray(taux),
@@ -171,7 +220,9 @@ def bartr(vort0, u0bar, v0, rhs_hist, rhsbar_hist, *, taux, tauy,
             np.ascontiguousarray(g.cosu), np.ascontiguousarray(g.fu),
             float(g.dyi), float(GPTI), float(dt * mt0),
             np.ascontiguousarray(rhs_hist[0]),
-            np.ascontiguousarray(rhs_hist[1]))
+            np.ascontiguousarray(rhs_hist[1]),
+            use_topo, np.ascontiguousarray(d0),
+            np.ascontiguousarray(g.fv))
     else:
         # -- RHS of the vorticity equation on v rows 1..ny-1 ------------
         tau_v = tauy[:-1]                      # tauy(i,j), j=1..ny-1
@@ -191,7 +242,11 @@ def bartr(vort0, u0bar, v0, rhs_hist, rhsbar_hist, *, taux, tauy,
                     - (dfsu0[1:] * g.cosu[1:, None]
                        - dfsu0[:-1] * g.cosu[:-1, None])
                     * g.dyvi[rows, None])
-        rhs = curl_tau + beta + curl_adv + curl_dfs    # (ny-1, nx)
+        if use_topo:                           # leading term, Fortran order
+            rhs = (-(g.fv[rows, None] * np.asarray(div0)[: ny - 1])
+                   + curl_tau + beta + curl_adv + curl_dfs)
+        else:
+            rhs = curl_tau + beta + curl_adv + curl_dfs    # (ny-1, nx)
         vort_new = vort0.copy()
         vort_new[: ny - 1] = vort0[: ny - 1] + dt * mt0 * (
             _ADAMS1 * rhs + _ADAMS2 * rhs_hist[0] + _ADAMS3 * rhs_hist[1])

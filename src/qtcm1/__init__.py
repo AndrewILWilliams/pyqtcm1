@@ -14,11 +14,11 @@ try:
 except ImportError:      # minimal installs without the plotting extra
     pass
 
-from . import constants
+from . import constants, surface
 from .basis import load_basis
 from .calendar import CalendarState, ModelCalendar, time_interp
 from .grid import Grid
 
 __version__ = '0.0.1'
-__all__ = ['constants', 'load_basis', 'CalendarState', 'ModelCalendar',
-           'time_interp', 'Grid']
+__all__ = ['constants', 'surface', 'load_basis', 'CalendarState',
+           'ModelCalendar', 'time_interp', 'Grid']

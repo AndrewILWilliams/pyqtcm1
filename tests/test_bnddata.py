@@ -6,6 +6,8 @@ location). Tests are skipped when the registry is absent.
 
 import os
 
+from qtcm1.config import PACKAGED_DATA
+
 import numpy as np
 import pytest
 
@@ -13,7 +15,7 @@ from qtcm1.calendar import ModelCalendar
 from qtcm1.io.bnddata import BoundaryData
 
 DATA = os.environ.get('QTCM1_DATA',
-                      os.path.expanduser('~/work/data/qtcm1_bnd_r64x42'))
+                      os.environ.get('QTCM1_BNDDATA', PACKAGED_DATA))
 
 pytestmark = pytest.mark.skipif(
     not os.path.exists(os.path.join(DATA, 'sst_reynolds_clim.nc')),

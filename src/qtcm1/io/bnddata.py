@@ -44,9 +44,11 @@ class BoundaryData:
         month lengths).
     """
 
-    def __init__(self, path: str, calendar: ModelCalendar | None = None):
+    def __init__(self, path: str, calendar: ModelCalendar | None = None,
+                 surface=None, albedo_mode: str = 'auto'):
         self.path = path
         self.calendar = calendar or ModelCalendar()
+        self.albedo_mode = albedo_mode
         # Interpolation anchors are julian(yyyy mm 15), i.e. cumulative
         # month lengths + 15 -- NOT calendar.F90's ``midmonth`` table.
         # The Fortran carries both conventions and they disagree for
@@ -68,6 +70,35 @@ class BoundaryData:
         self.top = _load('surface.nc', 'top')
         self.lat = _load('surface.nc', 'lat')
         self.lon = _load('surface.nc', 'lon')
+
+        # optional custom surface (qtcm1.surface): replaces stype/top and
+        # switches albedo handling for the changed points
+        self.stype_ref = self.stype
+        self.surface_sha256 = None
+        self._changed = None
+        self._alb_static = None
+        if surface is not None:
+            from .. import surface as _surf
+            stype_new, top_new = _surf.coerce(surface)
+            _surf.validate(stype_new, top_new, self.stype.shape)
+            self.surface_sha256 = _surf.sha256(stype_new, top_new)
+            self._changed = stype_new != self.stype_ref
+            new_ocean = (stype_new == 0) & (self.stype_ref != 0)
+            if new_ocean.any():
+                import warnings
+                warnings.warn(
+                    f'{int(new_ocean.sum())} ocean points created where the '
+                    'registry has land: prescribed SST there is the '
+                    "dataset's under-land fill, not observations",
+                    stacklevel=3)
+            self.stype = stype_new
+            self.top = top_new
+            # static per-type albedo, diagnosed from the packaged annual
+            # albedo over the *original* mask (used at changed points)
+            bytype = np.array([
+                float(self.albedo_annual[self.stype_ref == t].mean())
+                for t in range(4)])
+            self._alb_static = bytype[self.stype]
 
         # dated SST series indexed by (year, month)
         fn = os.path.join(path, 'sst_reynolds_1949_2001.nc')
@@ -155,5 +186,17 @@ class BoundaryData:
         raise ValueError(f'unknown SSTmode: {mode!r}')
 
     def albedo(self, dayofyear: int) -> np.ndarray:
-        """Surface albedo [-] for the day (getbnd/bndry1; ndays=1)."""
-        return self._interp_monthly(self.albedo_clim, dayofyear, 0.5)
+        """Surface albedo [-] for the day (getbnd/bndry1; ndays=1).
+
+        With a custom surface, points whose ``stype`` changed use the
+        static per-type albedo (mode ``'auto'``, default); mode
+        ``'by_stype'`` uses it everywhere; ``'darnell'`` keeps the
+        Earth-locked climatology everywhere (usually wrong over moved
+        coastlines -- explicit opt-in only).
+        """
+        clim = self._interp_monthly(self.albedo_clim, dayofyear, 0.5)
+        if self._alb_static is None or self.albedo_mode == 'darnell':
+            return clim
+        if self.albedo_mode == 'by_stype':
+            return self._alb_static.copy()
+        return np.where(self._changed, self._alb_static, clim)

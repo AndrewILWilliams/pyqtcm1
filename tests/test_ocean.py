@@ -11,6 +11,7 @@ import os
 import numpy as np
 import pytest
 
+from qtcm1.config import PACKAGED_DATA
 from qtcm1.physics.ocean import CMX, MixedLayerOcean, QFlux
 
 ANCHORS = np.array([-16, 15, 46, 74, 105, 135, 166, 196, 227, 258, 288,
@@ -83,7 +84,7 @@ def test_mxstep_land_untouched_and_first_day_zero_fluxes():
 
 
 _DATA = os.path.expanduser(os.environ.get(
-    'QTCM1_BNDDATA', '~/work/data/qtcm1_bnd_r64x42'))
+    'QTCM1_BNDDATA', PACKAGED_DATA))
 
 
 @pytest.mark.skipif(

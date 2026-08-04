@@ -9,6 +9,8 @@ trajectory exist (tools/gen_trajectory.py --warmup 0).
 """
 
 import os
+
+from qtcm1.config import PACKAGED_DATA
 import sys
 
 import numpy as np
@@ -17,7 +19,7 @@ import pytest
 sys.path.insert(0, os.path.dirname(__file__))
 
 _DATA = os.path.expanduser(os.environ.get(
-    'QTCM1_BNDDATA', '~/work/data/qtcm1_bnd_r64x42'))
+    'QTCM1_BNDDATA', PACKAGED_DATA))
 _CTRL = os.path.expanduser('~/work/trajectory_r8_cold/control.npz')
 
 pytestmark = pytest.mark.skipif(

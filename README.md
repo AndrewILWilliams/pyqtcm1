@@ -29,9 +29,11 @@ the original at three tiers:
 Beyond parity, the port adds bit-exact restarts, declarative run
 configuration with provenance stamping (`build='f64'` recommended /
 `'f32'` heritage — the two Fortran precision builds are measurably
-different models), and optional Numba kernels that are provably
-bit-identical to the NumPy reference path (~6× the Fortran's runtime,
-from 9× unoptimized).
+different models), user-configurable geography (`qtcm1.surface`: paint
+continents, swap masks, aquaplanets — the docs show a rectangular
+Pacific continent reorganizing the ITCZ), and optional Numba kernels
+that are provably bit-identical to the NumPy reference path (~6× the
+Fortran's runtime, from 9× unoptimized).
 
 Conventions: arrays are C-ordered `(lat, lon)` = Fortran `(ny, nx)`
 transposed; scientific field names keep the paper notation (`u1, T1, q1`, …);
@@ -39,7 +41,9 @@ every ported function's docstring names its Fortran origin and the Neelin &
 Zeng (2000) equations it implements. Boundary inputs are netCDF only,
 shipped in `data/r64x42` (the repo is self-contained; `tools/convert_bnddata.py` regenerates it from the original ASCII `bnddir`).
 
-Not yet ported from the original option set: topography (`TOPO`) and the
-ISCCP cloud option. The mixed-layer/slab ocean *is* ported with
-formula-level validation (bit-level goldens vs a `-DMXL_OCEAN` Fortran
-build are planned) — see the roadmap in the docs.
+Not yet ported from the original option set: the ISCCP cloud option and
+`SPONGES`. The mixed-layer/slab ocean and topography (`TOPO`,
+`RunConfig(topo=True)`) *are* ported — the slab formula-validated, TOPO
+pinned bitwise against its Fortran expressions compiled by gfortran;
+bit-level full-model goldens vs per-option Fortran rebuilds are planned
+for both — see the roadmap in the docs.

@@ -25,6 +25,9 @@ Model core
 .. automodule:: qtcm1.basis
    :members:
 
+.. automodule:: qtcm1.surface
+   :members:
+
 Physics
 -------
 

@@ -21,9 +21,10 @@ from dataclasses import dataclass, field, replace
 
 import numpy as np
 
+from .constants import V1Z_TABLE
 from .dynamics.advection import advctTq, advctuv
 from .dynamics.baroclinic import barcl
-from .dynamics.barotropic import bartr, gradphis, savebartr
+from .dynamics.barotropic import bartr, gradphis, savebartr, topo_div0
 from .dynamics.diffusion import dffus
 from .dynamics.elliptic import PoissonDirichlet
 from .dynamics.filters import PolarFilter
@@ -64,6 +65,10 @@ class ModelState:
     #: block only sets constants), so a cold-started run keeps dphisdx/y = 0
     #: through the first barotropic group. True only on cold-start states.
     gradphis_virgin: bool = False
+    #: TOPO option: topographic-lifting divergence from the *previous*
+    #: barotropic step (module storage in the Fortran; advctuv reads the
+    #: lagged value, bartr recomputes it). None when TOPO is off.
+    div0: np.ndarray | None = None
 
 
 def _q32(a):
@@ -79,14 +84,16 @@ def _quantize_state(s: ModelState) -> ModelState:
         rhsbar_hist=[float(np.float32(r)) for r in s.rhsbar_hist],
         Ts=_q32(s.Ts), WD=_q32(s.WD), us=_q32(s.us), vs=_q32(s.vs),
         dphisdx=_q32(s.dphisdx), dphisdy=_q32(s.dphisdy),
-        psi0=None if s.psi0 is None else _q32(s.psi0))
+        psi0=None if s.psi0 is None else _q32(s.psi0),
+        div0=None if s.div0 is None else _q32(s.div0))
 
 
 class Model:
     """QTCM1 stepping engine (standard configuration)."""
 
     def __init__(self, stype, cdn, grid: Grid | None = None, params=None,
-                 quantize32: bool = False, init_dtype=np.float64):
+                 quantize32: bool = False, init_dtype=np.float64,
+                 topo_top=None):
         #: quantize32 emulates the Fortran's float32 state storage: the
         #: state is rounded to float32 after every step (arithmetic stays
         #: float64). Used for Tier-2 trajectory comparisons against the
@@ -108,6 +115,26 @@ class Model:
         self.poisson = PoissonDirichlet(self.grid)
         self.v1b = v1interpol(self.params['ziml'])
         self.fu = np.asarray(self.grid.fu, dtype=np.float64)
+        #: TOPO option: thresholded topography (height/10 km) or None.
+        #: V1st is the V1z-table value at the local surface height,
+        #: interpolated exactly like the Fortran (we = TOP*nz + 1, linear
+        #: between table rows kw and kw+1); it is static, so precomputed.
+        self.topo_top = None
+        self._v1st = None
+        if topo_top is not None:
+            top = np.asarray(topo_top, dtype=np.float64)
+            nz = V1Z_TABLE.shape[0]
+            we = top * nz + 1.0
+            kw = we.astype(np.int64)               # Fortran INT truncation
+            if kw.max() + 1 > nz:
+                raise ValueError(
+                    f'topography {top.max():.3f} (height/10km) exceeds the '
+                    f'V1z table range (the Fortran build reads out of '
+                    f'bounds here; refusing)')
+            frac = we - kw
+            v1z = V1Z_TABLE[:, 1]
+            self._v1st = (1.0 - frac) * v1z[kw - 1] + frac * v1z[kw]
+            self.topo_top = top
 
     # ------------------------------------------------------------------
     def cold_start(self) -> ModelState:
@@ -124,7 +151,8 @@ class Model:
             Ts=np.full((g.ny, g.nx), 295.0),
             WD=0.7 * WD0[self.stype.astype(int)],
             us=z(), vs=z(), dphisdx=z(), dphisdy=zv(),
-            gradphis_virgin=True)
+            gradphis_virgin=True,
+            div0=z() if self.topo_top is not None else None)
 
     def apply_boundary(self, state: ModelState, sst,
                        albedo) -> tuple[ModelState, np.ndarray]:
@@ -163,7 +191,8 @@ class Model:
                       fx['CV'], dt)
 
         # -- tendencies -------------------------------------------------
-        adv = advctuv(s.u1, s.v1, s.u0, s.v0, self.grid)
+        # TOPO: advctuv reads the lagged div0 (previous barotropic step)
+        adv = advctuv(s.u1, s.v1, s.u0, s.v0, self.grid, div0=s.div0)
         tq = advctTq(s.T1, s.q1, s.u1, s.v1, s.u0, s.v0, self.grid)
         df = dffus(s.u1, s.v1, s.u0, s.v0, s.T1, s.q1, self.grid,
                    viscxu1=p['viscxu1'], viscyu1=p['viscyu1'],
@@ -194,16 +223,26 @@ class Model:
                      Runf=land['Runf'], wet=land['wet'])
         if it % p['mt0'] == 0:
             sav = savebartr(s.u0, s.v0)
+            # TOPO: div0 from *post-barcl* baroclinic winds (the Fortran
+            # updates u1/v1 in place before bartr) and pre-step u0/v0;
+            # used by this bartr and by the next steps' advctuv.
+            d0 = None
+            if self.topo_top is not None:
+                d0 = topo_div0(bc['u1'], bc['v1'], s.u0, s.v0,
+                               self.topo_top, self._v1st, self.grid)
             bt = bartr(s.vort0, s.u0bar, s.v0, s.rhs_hist, s.rhsbar_hist,
                        taux=fx['taux'], tauy=fx['tauy'],
                        advu0=adv['advu0'], advv0=adv['advv0'],
                        dfsu0=df['dfsu0'], dfsv0=df['dfsv0'],
                        grid=self.grid, polar_filter=self.pfilter,
-                       poisson=self.poisson, dt=dt, mt0=p['mt0'])
+                       poisson=self.poisson, dt=dt, mt0=p['mt0'],
+                       div0=d0)
             new = replace(new, u0=bt['u0'], v0=bt['v0'], vort0=bt['vort0'],
                           u0bar=bt['u0bar'], psi0=bt['psi0'],
                           rhs_hist=bt['rhs_hist'],
                           rhsbar_hist=bt['rhsbar_hist'])
+            if d0 is not None:
+                new = replace(new, div0=d0)
             if s.gradphis_virgin:                  # Fortran first-call return
                 new = replace(new, gradphis_virgin=False)
             else:

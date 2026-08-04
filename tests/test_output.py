@@ -5,11 +5,11 @@ import os
 import numpy as np
 import pytest
 
-from qtcm1.config import RunConfig
+from qtcm1.config import PACKAGED_DATA, RunConfig
 from qtcm1.driver import ControlRun
 
 _DATA = os.path.expanduser(os.environ.get(
-    'QTCM1_BNDDATA', '~/work/data/qtcm1_bnd_r64x42'))
+    'QTCM1_BNDDATA', PACKAGED_DATA))
 
 pytestmark = pytest.mark.skipif(not os.path.isdir(_DATA),
                                 reason='boundary registry not found')

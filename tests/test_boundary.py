@@ -14,13 +14,15 @@ julian(yyyy mm 15) = cumulative month lengths + 15, NOT calendar.F90's
 
 import os
 
+from qtcm1.config import PACKAGED_DATA
+
 import numpy as np
 import pytest
 
 from qtcm1.io.bnddata import BoundaryData
 
 _DATA = os.path.expanduser(os.environ.get(
-    'QTCM1_BNDDATA', '~/work/data/qtcm1_bnd_r64x42'))
+    'QTCM1_BNDDATA', PACKAGED_DATA))
 _CTRL = os.path.expanduser('~/work/trajectory_r8/control.npz')
 
 pytestmark = pytest.mark.skipif(

@@ -41,6 +41,7 @@ def save_restart(path: str, state: ModelState, *, dayofmodel: int = 0,
     payload['rhsbar_hist'] = np.array(state.rhsbar_hist, dtype=np.float64)
     payload['u0bar'] = np.float64(state.u0bar)
     payload['psi0'] = (np.zeros(0) if state.psi0 is None else state.psi0)
+    payload['div0'] = (np.zeros(0) if state.div0 is None else state.div0)
     payload['flags'] = np.array([int(state.gradphis_virgin),
                                  int(getbnd_virgin), int(dayofmodel)],
                                 dtype=np.int64)
@@ -58,6 +59,7 @@ def load_restart(path: str):
     extra = {k[len('extra/'):]: z[k] for k in z.files
              if k.startswith('extra/')}
     psi0 = z['psi0']
+    div0 = z['div0'] if 'div0' in z.files else np.zeros(0)  # pre-TOPO files
     state = ModelState(
         u1=z['u1'], v1=z['v1'], T1=z['T1'], q1=z['q1'],
         u0=z['u0'], v0=z['v0'], vort0=z['vort0'],
@@ -67,6 +69,7 @@ def load_restart(path: str):
         Ts=z['Ts'], WD=z['WD'], us=z['us'], vs=z['vs'],
         dphisdx=z['dphisdx'], dphisdy=z['dphisdy'],
         psi0=None if psi0.size == 0 else psi0,
-        gradphis_virgin=bool(z['flags'][0]))
+        gradphis_virgin=bool(z['flags'][0]),
+        div0=None if div0.size == 0 else div0)
     header = json.loads(bytes(z['header']).decode() or '{}')
     return state, int(z['flags'][2]), bool(z['flags'][1]), header, extra

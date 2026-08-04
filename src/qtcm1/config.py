@@ -52,13 +52,30 @@ class RunConfig:
     #: 'kind': 'mean'|'inst'}}; None = the standard monthly-mean archive
     #: (qtcm1.io.output.DEFAULT_OUTPUT). See the docs "Model output" page.
     output: dict | None = None
+    #: path to a custom surface netCDF (stype/top; see qtcm1.surface).
+    #: None = the registry's surface.nc. In-memory surfaces go through
+    #: ControlRun(surface=...) instead (not serializable here).
+    surface: str | None = None
+    #: albedo handling with a custom surface: 'auto' (Darnell climatology
+    #: where stype is unchanged, static per-type values where it changed),
+    #: 'by_stype' (static everywhere), 'darnell' (climatology everywhere).
+    albedo_mode: str = 'auto'
+    #: topographic lifting (the Fortran ``TOPO`` compile option): div0
+    #: from terrain-following winds and -f*div0 vortex stretching in the
+    #: barotropic vorticity equation.
+    topo: bool = False
 
     def __post_init__(self):
         if self.build not in BUILDS:
             raise ValueError(f'build must be one of {sorted(BUILDS)}')
+        if self.albedo_mode not in ('auto', 'by_stype', 'darnell'):
+            raise ValueError("albedo_mode must be 'auto', 'by_stype' or "
+                             "'darnell'")
         if self.data_path is None:
             self.data_path = PACKAGED_DATA
         self.data_path = os.path.expanduser(self.data_path)
+        if self.surface is not None:
+            self.surface = os.path.expanduser(self.surface)
 
     @property
     def init_dtype(self):
