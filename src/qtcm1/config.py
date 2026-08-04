@@ -38,6 +38,10 @@ class RunConfig:
     day0: int = 1
     sst_mode: str = 'seasonal'
     params: dict = dataclasses.field(default_factory=dict)  #: DEFAULT_PARAMS overrides
+    #: output request: {var: {'freq': 'step'|'<n>h'|'daily'|'monthly',
+    #: 'kind': 'mean'|'inst'}}; None = the standard monthly-mean archive
+    #: (qtcm1.io.output.DEFAULT_OUTPUT). See the docs "Model output" page.
+    output: dict | None = None
 
     def __post_init__(self):
         if self.build not in BUILDS:

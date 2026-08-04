@@ -31,6 +31,7 @@ import numpy as np
 from .calendar import ModelCalendar
 from .config import RunConfig, provenance
 from .io.bnddata import BoundaryData
+from .io.output import DEFAULT_OUTPUT, OutputManager
 from .io.restart import load_restart, save_restart
 from .model import Model
 from .physics.land import Z0
@@ -100,6 +101,15 @@ class ControlRun:
         self.state = self.model.cold_start()      # carries gradphis_virgin
         self.dayofmodel = 0
         self._getbnd_virgin = True
+        # configurable output (xarray): see qtcm1.io.output
+        import json
+        prov = provenance(config)
+        attrs = {k: (v if isinstance(v, str) else json.dumps(v))
+                 for k, v in prov.items()}
+        nastep = int(round(86400.0 / self.model.params['dt']))
+        self.output = OutputManager(config.output or DEFAULT_OUTPUT,
+                                    self.bd.lat, self.bd.lon, nastep,
+                                    attrs=attrs)
         # monthly accumulators
         self._acc = None
         self._acc_n = 0
@@ -152,9 +162,19 @@ class ControlRun:
             self.state, diags = self.model.step(self.state, alb, doy, it)
             if self.ocean is not None:           # cplmean accumulation
                 self.ocean.accumulate(diags)
+            self.output.record(self.state, diags, date, it)
             self._accumulate(self.state, diags,
                              (date.yearofmodel, date.monthofyear))
         return date
+
+    # ------------------------------------------------------------------
+    def to_datasets(self) -> dict:
+        """Requested output so far as {frequency: xarray.Dataset}."""
+        return self.output.to_datasets()
+
+    def save_output(self, prefix: str) -> list:
+        """Write one netCDF per requested frequency; returns the paths."""
+        return self.output.to_netcdf(prefix)
 
     def run_years(self, nyears: int, progress=None):
         ndays = nyears * self.calendar.days_per_year
