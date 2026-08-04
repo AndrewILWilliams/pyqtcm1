@@ -31,6 +31,7 @@ reproduced verbatim.
 .. toctree::
    :maxdepth: 1
 
+   equations
    convection
    cloudsrad
    surface
