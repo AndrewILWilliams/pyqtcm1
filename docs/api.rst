@@ -22,6 +22,9 @@ Model core
 .. automodule:: qtcm1.calendar
    :members:
 
+.. automodule:: qtcm1.basis
+   :members:
+
 Physics
 -------
 

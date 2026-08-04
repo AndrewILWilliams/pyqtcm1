@@ -39,5 +39,7 @@ every ported function's docstring names its Fortran origin and the Neelin &
 Zeng (2000) equations it implements. Boundary inputs are netCDF only,
 shipped in `data/r64x42` (the repo is self-contained; `tools/convert_bnddata.py` regenerates it from the original ASCII `bnddir`).
 
-Not yet ported from the original option set: the mixed-layer/slab ocean,
-topography, and the ISCCP cloud option — see the roadmap in the docs.
+Not yet ported from the original option set: topography (`TOPO`) and the
+ISCCP cloud option. The mixed-layer/slab ocean *is* ported with
+formula-level validation (bit-level goldens vs a `-DMXL_OCEAN` Fortran
+build are planned) — see the roadmap in the docs.

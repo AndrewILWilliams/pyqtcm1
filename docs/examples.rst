@@ -71,6 +71,28 @@ drift ~0.1 K over 90 days when branched from a spun-up state).
 .. literalinclude:: ../examples/05_slab_co2.py
    :language: python
 
+Vertical structure: zonal-mean winds on pressure levels
+-------------------------------------------------------
+
+The prognostic winds are *mode amplitudes* — barotropic ``u0`` plus
+baroclinic ``u1`` — and full profiles are Galerkin reconstructions
+:math:`u(p) = u_0 + V_1(p)\,u_1` (NZ 3.10). :func:`qtcm1.load_basis`
+returns the vertical basis functions (:math:`a_1`, :math:`a_1^+`,
+:math:`V_1`, and the closure-table profiles) as an xarray Dataset built
+from the ``qtcmpar.F90`` tables, so the section below is one broadcast:
+
+.. literalinclude:: ../examples/06_zonal_mean_winds.py
+   :language: python
+
+.. image:: _static/zonal_mean_winds.png
+   :alt: Zonal-mean zonal wind reconstruction: westerly jets near 200 hPa
+         at +-35 degrees, equatorial easterlies, sign reversal near 500 hPa.
+
+One caveat carried in the Dataset attributes: the moisture basis
+:math:`b_1(p)` is not tabulated in v2.3 (only its projections enter the
+discrete equations), so temperature and wind profiles reconstruct but
+moisture profiles do not.
+
 Roadmap
 -------
 
