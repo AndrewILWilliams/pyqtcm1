@@ -29,6 +29,7 @@ to the NumPy reference path.
    :maxdepth: 2
 
    quickstart
+   output
    examples
    validation
    api
