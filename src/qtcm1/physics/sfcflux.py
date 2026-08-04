@@ -8,9 +8,9 @@ layer momentum balance at every T point with a 2-D Newton iteration,
 warm-started from the *previous call's* solution (the Fortran keeps
 ``us, vs, VVs`` across calls and notes this makes QTCM not strictly
 restartable). The wind speed entering the drag is
-|V_s| = sqrt(VVsmin^2 + us^2 + vs^2), so the persistent state is fully
+``|V_s| = sqrt(VVsmin^2 + us^2 + vs^2)``, so the persistent state is fully
 recoverable from (us, vs). Iteration acceptance replicates the Fortran
-loop exactly: a point must satisfy |f|+|g| < 1e-9 at one of the first nine
+loop exactly: a point must satisfy ``|f|+|g| < 1e-9`` at one of the first nine
 residual checks, otherwise it reverts to its start-of-call winds (the
 Fortran's ``iterate > 9`` branch also catches convergence at the 10th
 check).

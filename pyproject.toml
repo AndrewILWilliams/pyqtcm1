@@ -9,7 +9,7 @@ description = "Pure-Python reimplementation of the Neelin-Zeng Quasi-Equilibrium
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "LGPL-2.1-or-later" }
-dependencies = ["numpy>=1.26", "netCDF4>=1.6"]
+dependencies = ["numpy>=1.26", "netCDF4>=1.6", "xarray>=2024.1"]
 
 [project.optional-dependencies]
 numba = ["numba>=0.59"]
