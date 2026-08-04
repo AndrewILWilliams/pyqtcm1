@@ -15,6 +15,10 @@ means with provenance, a restart file for later branching.
 .. literalinclude:: ../examples/01_control_run.py
    :language: python
 
+.. image:: _static/control_precip_janjul.png
+   :alt: January and July precipitation climatology of the control run:
+         ITCZ/SPCZ and monsoon structures follow the seasons.
+
 SST-anomaly experiment (El Niño-like patch)
 -------------------------------------------
 
@@ -25,6 +29,11 @@ This is the pattern for pacemaker runs, warming patches, uniform
 
 .. literalinclude:: ../examples/02_sst_anomaly.py
    :language: python
+
+.. image:: _static/sst_anomaly_response.png
+   :alt: Precipitation response to the equatorial warm patch - enhanced
+         rainfall over the anomaly with a Gill-type flanking pattern;
+         anomaly SST contours overlaid.
 
 Idealized greenhouse forcing (CO2-like), fixed SST
 --------------------------------------------------
@@ -38,6 +47,10 @@ response with an interactive ocean, see the slab example below.
 .. literalinclude:: ../examples/03_radiative_forcing.py
    :language: python
 
+.. image:: _static/radiative_forcing_fast_response.png
+   :alt: Fast response to +4 W/m2 at fixed SST - land surfaces warm while
+         the prescribed ocean cannot, and precipitation shifts follow.
+
 Restarts and last-bit twins
 ---------------------------
 
@@ -46,6 +59,11 @@ behavior measured with a one-ulp initial perturbation.
 
 .. literalinclude:: ../examples/04_restart_twin.py
    :language: python
+
+.. image:: _static/twin_divergence.png
+   :alt: RMS T1 divergence of a one-ulp twin stays at round-off scale
+         over 30 days, growing only a few-fold - no chaotic e-folding
+         in the damped fixed-SST model.
 
 Heritage vs recommended build
 -----------------------------
@@ -70,6 +88,10 @@ drift ~0.1 K over 90 days when branched from a spun-up state).
 
 .. literalinclude:: ../examples/05_slab_co2.py
    :language: python
+
+.. image:: _static/slab_co2_response.png
+   :alt: Slab-ocean response to +4 W/m2 - now the SST warms too, unlike
+         the fixed-SST fast response; precipitation change below.
 
 Vertical structure: zonal-mean winds on pressure levels
 -------------------------------------------------------
@@ -158,6 +180,18 @@ surface height from the ``V1z`` table), feeds a vortex-stretching term
 "improves northern hemisphere rainfall and flow pattern significantly".
 ``top`` edits via :mod:`qtcm1.surface` become dynamically active with
 the flag on.
+
+.. literalinclude:: ../examples/09_topography.py
+   :language: python
+
+.. image:: _static/topo_precip_effect.png
+   :alt: Annual-mean precipitation difference, TOPO on minus off, with
+         topography contours - the response clusters around the Tibetan
+         Plateau, the Rockies and the Andes.
+
+One year is illustrative rather than climatological — the point of the
+figure is *where* the option acts (around the major orography), not the
+converged amplitude.
 
 Validation status, stated precisely: the div0 stencil and vorticity
 term are pinned bitwise against the actual Fortran expressions compiled

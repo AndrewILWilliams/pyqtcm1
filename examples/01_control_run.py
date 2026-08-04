@@ -27,3 +27,24 @@ for year, month, mean in run.monthly[-12:]:
     pm = (prec[tropics] * w[tropics, None]).sum() / (w[tropics].sum()
                                                      * prec.shape[1])
     print(f'{year:04d}-{month:02d}  tropical Prec = {pm:5.2f} mm/day')
+
+# -- figure: January / July precipitation, final year (NZ Fig. 2 view) ---
+import matplotlib.pyplot as plt                          # noqa: E402
+
+lon = run.bd.lon
+land = run.model.stype > 0
+months = {m: mean for _, m, mean in run.monthly[-12:]}
+fig, axes = plt.subplots(2, 1, figsize=(8.6, 7.2), sharex=True)
+for ax, m, name in [(axes[0], 1, 'January'), (axes[1], 7, 'July')]:
+    prec = months[m]['Qc'] * 86400.0 / 2.43e6
+    cf = ax.contourf(lon, lat, prec, levels=np.arange(0, 17, 1),
+                     cmap='viridis', extend='max')
+    ax.contour(lon, lat, land.astype(float), levels=[0.5],
+               colors='w', linewidths=0.9)
+    ax.set_title(f'{name}-mean precipitation, year 3')
+    ax.set_ylabel('latitude [degrees north]')
+    fig.colorbar(cf, ax=ax, label='precipitation [mm day$^{-1}$]')
+axes[1].set_xlabel('longitude [degrees east]')
+fig.tight_layout()
+fig.savefig('control_precip_janjul.png', dpi=150)
+print('wrote control_precip_janjul.png')

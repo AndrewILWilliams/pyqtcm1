@@ -51,3 +51,24 @@ dprec = (qc_nino - qc_ctrl) * 86400.0 / 2.43e6            # mm/day
 box = (np.abs(lat) <= 5)[:, None] & ((lon >= 180) & (lon <= 260))[None, :]
 print(f'Nino-region precipitation response: {dprec[box].mean():+.2f} mm/day')
 print(f'global-mean response:               {dprec.mean():+.3f} mm/day')
+
+# -- figure: precipitation response with the SST anomaly overlaid --------
+import matplotlib.pyplot as plt                          # noqa: E402
+
+land = _bd.stype > 0
+lim = float(np.abs(dprec).max())
+fig, ax = plt.subplots(figsize=(8.6, 4.0))
+cf = ax.contourf(lon, lat, dprec, levels=np.linspace(-lim, lim, 17),
+                 cmap='RdBu_r')
+cs = ax.contour(lon, lat, anom, levels=[0.5, 1.0, 1.5],
+                colors='k', linewidths=0.8)
+ax.clabel(cs, fmt='%.1f K', fontsize=7)
+ax.contour(lon, lat, land.astype(float), levels=[0.5],
+           colors='0.35', linewidths=0.7)
+ax.set_title('year-2 precipitation response to the warm patch')
+ax.set_xlabel('longitude [degrees east]')
+ax.set_ylabel('latitude [degrees north]')
+fig.colorbar(cf, ax=ax, label=r'$\Delta$ precipitation [mm day$^{-1}$]')
+fig.tight_layout()
+fig.savefig('sst_anomaly_response.png', dpi=150)
+print('wrote sst_anomaly_response.png')
