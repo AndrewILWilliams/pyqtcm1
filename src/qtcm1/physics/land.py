@@ -23,6 +23,15 @@ import numpy as np
 
 from ..constants import HLATENT
 
+try:                                       # optional speedup; bit-identical
+    from numba import njit
+    _NUMBA = True
+except ImportError:                        # pragma: no cover
+    _NUMBA = False
+
+    def njit(*a, **k):
+        return a[0] if a and callable(a[0]) else (lambda f: f)
+
 #: per-type parameters, index 0..3 = ocean, forest, grass, desert (BATS/SIB2)
 RSMIN = np.array([0.0, 150.0, 200.0, 200.0])   #: min stomatal resistance
 ALBDVEG = np.array([0.07, 0.12, 0.19, 0.30])   #: vegetation albedo
@@ -38,6 +47,54 @@ _TINY = 1.0e-10
 _SOILC = 4.18e3 * 1.0e3 * 0.1    # soil heat capacity [J K-1 m-2]
 
 
+@njit(cache=True)
+def _sland1_k(Ts, WD, iS, Qc, Evap, FTs, FSWds, FSWus, FLWds, FLWus, CV,
+              wet, wet4, w42, w3, xla, rsmin, dt, denom, hr0):
+    """Loop form of sland1 (bit-identical op order). The wet powers
+    (wet**4, (wet**4)**2, wet**3) come precomputed from numpy because
+    numba's pow never bit-matches numpy's pow ufunc."""
+    ny, nx = Ts.shape
+    Ts_o = Ts.copy()
+    WD_o = WD.copy()
+    Ev_o = Evap.copy()
+    Evapi_o = np.zeros_like(Ts)
+    wet_o = np.zeros_like(Ts)
+    Runs_o = np.zeros_like(Ts)
+    Runf_o = np.zeros_like(Ts)
+    for p in range(ny):
+        for i in range(nx):
+            ist = iS[p, i]
+            if ist == 0:
+                continue
+            Rsnet = FSWds[p, i] - FSWus[p, i] + FLWds[p, i] - FLWus[p, i]
+            x = Rsnet - FTs[p, i]
+            Evapi0 = x if x > _TINY else _TINY
+            tau_0 = _WIMAX * xla[ist] / Evapi0 * HLATENT
+            Fitc = (_TAU_R + 0.8 * tau_0) * Qc[p, i] / denom
+            a = Evapi0 * Fitc
+            b = 0.5 * Qc[p, i]
+            Evapi = a if a < b else b
+            w = wet[p, i]
+            wra = np.sqrt(np.sqrt(w)) / CV[p, i]
+            eta = wra / (rsmin[ist] + wra)
+            ET = eta * Evap[p, i]
+            Evap_land = ET + Evapi
+            Runs = (Qc[p, i] - Evapi) * wet4[p, i]
+            Rung = hr0 * w42[p, i] * w3[p, i]
+            Runf = Runs + Rung
+            FWnet = (Qc[p, i] - Evap_land - Runf) / HLATENT
+            wd = WD[p, i] + dt * FWnet
+            WD_o[p, i] = wd if wd > 0.0 else 0.0
+            Fsnet = Rsnet - Evap_land - FTs[p, i]
+            Ts_o[p, i] = Ts[p, i] + dt * Fsnet / _SOILC
+            Ev_o[p, i] = Evap_land
+            Evapi_o[p, i] = Evapi
+            wet_o[p, i] = w
+            Runs_o[p, i] = Runs
+            Runf_o[p, i] = Runf
+    return Ts_o, WD_o, Ev_o, Evapi_o, wet_o, Runs_o, Runf_o
+
+
 def sland1(Ts, WD, stype, Qc, Evap, FTs, FSWds, FSWus, FLWds, FLWus, CV,
            dt) -> dict:
     """Land-surface update (port of ``sland1``).
@@ -49,6 +106,21 @@ def sland1(Ts, WD, stype, Qc, Evap, FTs, FSWds, FSWus, FLWds, FLWus, CV,
     """
     iS = stype.astype(int)
     land = iS != 0
+    if _NUMBA:
+        wet = np.where(land, WD / np.where(land, WD0[iS], 1.0), 0.0)
+        wet4 = wet ** 4                        # numpy pow (see kernel note)
+        Ts_o, WD_o, Ev_o, Evapi_o, wet_o, Runs_o, Runf_o = _sland1_k(
+            np.ascontiguousarray(Ts), np.ascontiguousarray(WD),
+            np.ascontiguousarray(iS), np.ascontiguousarray(Qc),
+            np.ascontiguousarray(Evap), np.ascontiguousarray(FTs),
+            np.ascontiguousarray(FSWds), np.ascontiguousarray(FSWus),
+            np.ascontiguousarray(FLWds), np.ascontiguousarray(FLWus),
+            np.ascontiguousarray(CV), np.ascontiguousarray(wet),
+            np.ascontiguousarray(wet4), np.ascontiguousarray(wet4 ** 2),
+            np.ascontiguousarray(wet ** 3), XLA, RSMIN, float(dt),
+            float(HLATENT * _RINTS * _TAU_R), float(HLATENT * _RUNG0))
+        return dict(Ts=Ts_o, WD=WD_o, Evap=Ev_o, Evapi=Evapi_o,
+                    wet=wet_o, Runs=Runs_o, Runf=Runf_o)
     with np.errstate(divide='ignore', invalid='ignore'):
         Rsnet = FSWds - FSWus + FLWds - FLWus
         Evapi0 = np.maximum(_TINY, Rsnet - FTs)

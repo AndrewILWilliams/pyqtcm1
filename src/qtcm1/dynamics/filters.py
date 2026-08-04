@@ -66,14 +66,31 @@ class PolarFilter:
         fac = (ft(reduction) * np.sqrt(coslat, dtype=ft)[:, None]
                / np.sin(ft(m[None, :] * pi / ft(nx)), dtype=ft))
         self.factors = np.minimum(fac.astype(np.float64), 1.0)
+        #: south+north factor rows stacked, for the batched one-FFT path
+        self._fstack = np.concatenate([self.factors[: self.js],
+                                       self.factors[self.jn0:]])
 
     def __call__(self, field: np.ndarray) -> np.ndarray:
         """Filter high zonal wavenumbers on the polar rows of ``field``.
 
-        ``field`` is (ny, nx) on T rows; returns a filtered copy.
+        ``field`` is (ny, nx) on T rows; returns a filtered copy. The two
+        polar row blocks go through ONE rfft/irfft pair; pocketfft
+        transforms rows independently, so this is bit-identical to
+        filtering the blocks separately (verified by the r8 audit).
         """
         out = np.array(field, dtype=np.float64, copy=True)
-        for rows in (slice(0, self.js), slice(self.jn0, None)):
+        js, jn0 = self.js, self.jn0
+        if js == 0:
+            return out
+        if field.shape[0] == self.factors.shape[0]:      # standard extent
+            rows = np.concatenate([out[:js], out[jn0:]], axis=0)
+            c = np.fft.rfft(rows, axis=1)
+            c[:, 1:] *= self._fstack
+            back = np.fft.irfft(c, n=out.shape[1], axis=1)
+            out[:js] = back[:js]
+            out[jn0:] = back[js:]
+            return out
+        for rows in (slice(0, js), slice(jn0, None)):    # generic fallback
             if out[rows].shape[0] == 0:
                 continue
             c = np.fft.rfft(out[rows], axis=1)

@@ -33,9 +33,100 @@ import numpy as np
 from ..constants import A1PHAT, GPTI, RAIR
 from .advection import _roll_e, _roll_w
 
+try:                                       # optional speedup; bit-identical
+    from numba import njit
+    _NUMBA = True
+except ImportError:                        # pragma: no cover
+    _NUMBA = False
+
+    def njit(*a, **k):
+        return a[0] if a and callable(a[0]) else (lambda f: f)
+
 _ADAMS1, _ADAMS2, _ADAMS3 = 23.0 / 12.0, -16.0 / 12.0, 5.0 / 12.0
 _PREF = 101325.0          # reference surface pressure [Pa]
 _RHOAIR_PS = 1.2          # air density used in dphiint [kg m-3]
+
+
+@njit(cache=True)
+def _bartr_rhs_k(vort0, v0, tauy, taux, advv0, advu0, dfsv0, dfsu0,
+                 dxvi, dyvi, cosu, fu, dyi, gpti, dtm, h0, h1):
+    """RHS curl stencils + AB3 vorticity update (pre-filter);
+    per-element op order matches the vectorized expressions exactly."""
+    ny, nx = vort0.shape
+    rhs = np.empty((ny - 1, nx), dtype=vort0.dtype)
+    vort_new = vort0.copy()
+    for r in range(ny - 1):                # v rows j = r+1
+        for i in range(nx):
+            ie = (i + 1) % nx
+            curl_tau = -gpti * (
+                (tauy[r, ie] - tauy[r, i]) * dxvi[r + 1]
+                - (taux[r + 1, i] * cosu[r + 1] - taux[r, i] * cosu[r])
+                * dyvi[r + 1])
+            beta = (-(fu[r + 1] - fu[r]) * dyi * 0.5
+                    * (v0[r + 1, i] + v0[r + 1, ie]))
+            curl_adv = ((advv0[r + 1, ie] - advv0[r + 1, i]) * dxvi[r + 1]
+                        - (advu0[r + 1, i] * cosu[r + 1]
+                           - advu0[r, i] * cosu[r]) * dyvi[r + 1])
+            curl_dfs = ((dfsv0[r + 1, ie] - dfsv0[r + 1, i]) * dxvi[r + 1]
+                        - (dfsu0[r + 1, i] * cosu[r + 1]
+                           - dfsu0[r, i] * cosu[r]) * dyvi[r + 1])
+            rh = curl_tau + beta + curl_adv + curl_dfs
+            rhs[r, i] = rh
+            vort_new[r, i] = vort0[r, i] + dtm * (
+                _ADAMS1 * rh + _ADAMS2 * h0[r, i] + _ADAMS3 * h1[r, i])
+    return rhs, vort_new
+
+
+@njit(cache=True)
+def _gradphis_k(u0, v0, u0sav, v0sav, T1, taux, tauy, advu0, advv0,
+                dfsu0, dfsv0, fu, fv, radxi, radyi, dti, gpti):
+    """dphisdx / dphisdy stencils (walls handled by the caller)."""
+    ny, nx = u0.shape
+    dphisdx = np.empty_like(u0)
+    dphisdy = np.zeros((ny + 1, nx), dtype=u0.dtype)
+    for p in range(ny):
+        for i in range(nx):
+            ie = (i + 1) % nx
+            vatu = 0.25 * (v0[p + 1, i] + v0[p + 1, ie]
+                           + v0[p, i] + v0[p, ie])
+            dphisdx[p, i] = (-(u0[p, i] - u0sav[p, i]) * dti
+                             + advu0[p, i] + dfsu0[p, i]
+                             + fu[p] * vatu - gpti * taux[p, i]
+                             - (T1[p, ie] - T1[p, i]) * radxi[p])
+    for k in range(ny - 1):                # v rows j = k+1
+        for i in range(nx):
+            ie = (i + 1) % nx
+            if k == 0:
+                uatv = 0.5 * (u0[0, i] + u0[0, ie])
+            else:
+                uatv = 0.25 * (u0[k, i] + u0[k, ie]
+                               + u0[k - 1, i] + u0[k - 1, ie])
+            dphisdy[k + 1, i] = (-(v0[k + 1, i] - v0sav[k, i]) * dti
+                                 + advv0[k + 1, i] + dfsv0[k + 1, i]
+                                 - fv[k + 1] * uatv - gpti * tauy[k, i]
+                                 - (T1[k + 1, i] - T1[k, i]) * radyi)
+    return dphisdx, dphisdy
+
+
+@njit(cache=True)
+def _dphiint_k(phix, phiy_v, dxuh, dyh, r0, ny):
+    """Line integration of the gradient (sequential, matches cumsum)."""
+    nx = phix.shape[1]
+    ps = np.zeros((ny, nx), dtype=phix.dtype)
+    run = 0.0
+    incr0 = (phix[r0, 0] + phix[r0, nx - 1]) * dxuh[r0]
+    for i in range(nx):
+        iw = (i - 1) % nx
+        incr = (phix[r0, i] + phix[r0, iw]) * dxuh[r0]
+        run = run + incr
+        ps[r0, i] = run - incr0
+    for r in range(r0 + 1, ny):
+        for i in range(nx):
+            ps[r, i] = ps[r - 1, i] + (phiy_v[r, i] + phiy_v[r - 1, i]) * dyh
+    for r in range(r0 - 1, -1, -1):
+        for i in range(nx):
+            ps[r, i] = ps[r + 1, i] - (phiy_v[r, i] + phiy_v[r + 1, i]) * dyh
+    return ps
 
 
 def hbar(a, wgh) -> float:
@@ -70,28 +161,40 @@ def bartr(vort0, u0bar, v0, rhs_hist, rhsbar_hist, *, taux, tauy,
     ny = g.ny
     rows = slice(1, ny)                        # v rows j=1..ny-1
 
-    # -- RHS of the vorticity equation on v rows 1..ny-1 ----------------
-    tau_v = tauy[:-1]                          # tauy(i,j), j=1..ny-1
-    curl_tau = -GPTI * (
-        (_roll_e(tau_v) - tau_v) * g.dxvi[rows, None]
-        - (taux[1:] * g.cosu[1:, None] - taux[:-1] * g.cosu[:-1, None])
-        * g.dyvi[rows, None])
-    beta = (-(g.fu[1:] - g.fu[:-1])[:, None] * g.dyi
-            * 0.5 * (v0[rows] + _roll_e(v0[rows])))
-    adv_v = advv0[rows]
-    curl_adv = ((_roll_e(adv_v) - adv_v) * g.dxvi[rows, None]
-                - (advu0[1:] * g.cosu[1:, None]
-                   - advu0[:-1] * g.cosu[:-1, None]) * g.dyvi[rows, None])
-    dfs_v = dfsv0[rows]
-    curl_dfs = ((_roll_e(dfs_v) - dfs_v) * g.dxvi[rows, None]
-                - (dfsu0[1:] * g.cosu[1:, None]
-                   - dfsu0[:-1] * g.cosu[:-1, None]) * g.dyvi[rows, None])
-    rhs = curl_tau + beta + curl_adv + curl_dfs        # (ny-1, nx)
-
-    # -- AB3 updates -----------------------------------------------------
-    vort_new = vort0.copy()
-    vort_new[: ny - 1] = vort0[: ny - 1] + dt * mt0 * (
-        _ADAMS1 * rhs + _ADAMS2 * rhs_hist[0] + _ADAMS3 * rhs_hist[1])
+    if _NUMBA:
+        rhs, vort_new = _bartr_rhs_k(
+            np.ascontiguousarray(vort0), np.ascontiguousarray(v0),
+            np.ascontiguousarray(tauy[:-1]), np.ascontiguousarray(taux),
+            np.ascontiguousarray(advv0), np.ascontiguousarray(advu0),
+            np.ascontiguousarray(dfsv0), np.ascontiguousarray(dfsu0),
+            np.ascontiguousarray(g.dxvi), np.ascontiguousarray(g.dyvi),
+            np.ascontiguousarray(g.cosu), np.ascontiguousarray(g.fu),
+            float(g.dyi), float(GPTI), float(dt * mt0),
+            np.ascontiguousarray(rhs_hist[0]),
+            np.ascontiguousarray(rhs_hist[1]))
+    else:
+        # -- RHS of the vorticity equation on v rows 1..ny-1 ------------
+        tau_v = tauy[:-1]                      # tauy(i,j), j=1..ny-1
+        curl_tau = -GPTI * (
+            (_roll_e(tau_v) - tau_v) * g.dxvi[rows, None]
+            - (taux[1:] * g.cosu[1:, None] - taux[:-1] * g.cosu[:-1, None])
+            * g.dyvi[rows, None])
+        beta = (-(g.fu[1:] - g.fu[:-1])[:, None] * g.dyi
+                * 0.5 * (v0[rows] + _roll_e(v0[rows])))
+        adv_v = advv0[rows]
+        curl_adv = ((_roll_e(adv_v) - adv_v) * g.dxvi[rows, None]
+                    - (advu0[1:] * g.cosu[1:, None]
+                       - advu0[:-1] * g.cosu[:-1, None])
+                    * g.dyvi[rows, None])
+        dfs_v = dfsv0[rows]
+        curl_dfs = ((_roll_e(dfs_v) - dfs_v) * g.dxvi[rows, None]
+                    - (dfsu0[1:] * g.cosu[1:, None]
+                       - dfsu0[:-1] * g.cosu[:-1, None])
+                    * g.dyvi[rows, None])
+        rhs = curl_tau + beta + curl_adv + curl_dfs    # (ny-1, nx)
+        vort_new = vort0.copy()
+        vort_new[: ny - 1] = vort0[: ny - 1] + dt * mt0 * (
+            _ADAMS1 * rhs + _ADAMS2 * rhs_hist[0] + _ADAMS3 * rhs_hist[1])
     vort_new = polar_filter(vort_new)
 
     rhsbar = (-GPTI * hbar(taux, g.cosu) + hbar(advu0, g.cosu)
@@ -125,26 +228,37 @@ def gradphis(u0, v0, u0sav, v0sav, T1, *, taux, tauy, advu0, advv0,
     g = grid
     ny = g.ny
     dti = 1.0 / (dt * mt0)
-    radxi = (RAIR * A1PHAT / g.dx / g.cosu)[:, None]
+    radxi_1d = RAIR * A1PHAT / g.dx / g.cosu
     radyi = RAIR * A1PHAT / g.dy
 
-    # zonal gradient on u/T rows: Coriolis uses the (i, i+1) v average
-    vatu = 0.25 * (v0[1:] + _roll_e(v0[1:]) + v0[:-1] + _roll_e(v0[:-1]))
-    dphisdx = (-(u0 - u0sav) * dti + advu0 + dfsu0
-               + g.fu[:, None] * vatu - GPTI * taux
-               - (_roll_e(T1) - T1) * radxi)
-
-    # meridional gradient on v rows 1..ny-1
-    v0_in = v0[1:ny]
-    v0sav_in = v0sav[: ny - 1]                 # v0sav row 0 = v row 1
-    uatv = np.empty_like(v0_in)
-    uatv[0] = 0.5 * (u0[0] + np.roll(u0[0], -1))   # row j=1: only u row 1
-    uatv[1:] = 0.25 * (u0[1:ny - 1] + _roll_e(u0[1:ny - 1])
-                       + u0[: ny - 2] + _roll_e(u0[: ny - 2]))
-    dphisdy = np.zeros_like(v0)
-    dphisdy[1:ny] = (-(v0_in - v0sav_in) * dti + advv0[1:ny] + dfsv0[1:ny]
-                     - g.fv[1:ny, None] * uatv - GPTI * tauy[:-1]
-                     - (T1[1:] - T1[:-1]) * radyi)
+    if _NUMBA:
+        dphisdx, dphisdy = _gradphis_k(
+            np.ascontiguousarray(u0), np.ascontiguousarray(v0),
+            np.ascontiguousarray(u0sav), np.ascontiguousarray(v0sav),
+            np.ascontiguousarray(T1), np.ascontiguousarray(taux),
+            np.ascontiguousarray(tauy), np.ascontiguousarray(advu0),
+            np.ascontiguousarray(advv0), np.ascontiguousarray(dfsu0),
+            np.ascontiguousarray(dfsv0), np.ascontiguousarray(g.fu),
+            np.ascontiguousarray(g.fv), np.ascontiguousarray(radxi_1d),
+            float(radyi), float(dti), float(GPTI))
+    else:
+        radxi = radxi_1d[:, None]
+        # zonal gradient on u/T rows: Coriolis uses the (i, i+1) v average
+        vatu = 0.25 * (v0[1:] + _roll_e(v0[1:]) + v0[:-1] + _roll_e(v0[:-1]))
+        dphisdx = (-(u0 - u0sav) * dti + advu0 + dfsu0
+                   + g.fu[:, None] * vatu - GPTI * taux
+                   - (_roll_e(T1) - T1) * radxi)
+        # meridional gradient on v rows 1..ny-1
+        v0_in = v0[1:ny]
+        v0sav_in = v0sav[: ny - 1]             # v0sav row 0 = v row 1
+        uatv = np.empty_like(v0_in)
+        uatv[0] = 0.5 * (u0[0] + np.roll(u0[0], -1))   # row 1: only u row 1
+        uatv[1:] = 0.25 * (u0[1:ny - 1] + _roll_e(u0[1:ny - 1])
+                           + u0[: ny - 2] + _roll_e(u0[: ny - 2]))
+        dphisdy = np.zeros_like(v0)
+        dphisdy[1:ny] = (-(v0_in - v0sav_in) * dti + advv0[1:ny]
+                         + dfsv0[1:ny] - g.fv[1:ny, None] * uatv
+                         - GPTI * tauy[:-1] - (T1[1:] - T1[:-1]) * radyi)
     dphisdy[0] = 2.0 * dphisdy[1] - dphisdy[2]
     dphisdy[ny] = 2.0 * dphisdy[ny - 1] - dphisdy[ny - 2]
 
@@ -165,6 +279,12 @@ def dphiint(phix, phiy_v, grid) -> np.ndarray:
     r0 = nyh - 1
     dxuh = 0.5 * g.cosu * g.dx
     dyh = 0.5 * g.dy
+
+    if _NUMBA:
+        ps = _dphiint_k(np.ascontiguousarray(phix),
+                        np.ascontiguousarray(phiy_v),
+                        np.ascontiguousarray(dxuh), float(dyh), r0, ny)
+        return _RHOAIR_PS * (ps - ps.mean()) + _PREF
 
     ps = np.zeros((ny, nx))
     # along the reference row: cumulative trapezoid in x, ps(0, r0) = 0
